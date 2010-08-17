@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.EventSourcing.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messages", "Foundry.Messages\Foundry.Messages.csproj", "{F626EF48-EE2C-4971-A879-22F93F63970A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Website", "Foundry.Website\Foundry.Website.csproj", "{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Application", "Foundry.Application\Foundry.Application.csproj", "{547B4148-F89C-484F-AE98-8C11C316C05A}"
 EndProject
