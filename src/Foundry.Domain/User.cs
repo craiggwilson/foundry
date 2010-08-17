@@ -13,10 +13,15 @@ namespace Foundry.Domain
         public Email _email;
         public List<Guid> _codeRepositories;
 
-        public User(Username username, string displayName, Email email)
-            : base(Guid.NewGuid())
+        private User(Guid id)
+            : base(id)
         {
             WireUpEventHandlers();
+        }
+
+        public User(Username username, string displayName, Email email)
+            : this(Guid.NewGuid())
+        {
             Raise(new CreatedEvent { SourceId = Id, Username = username, DisplayName = displayName, Email = email });
         }
 

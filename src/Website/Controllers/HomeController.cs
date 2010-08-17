@@ -10,8 +10,11 @@ namespace Foundry.Website.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private IRepository _repository;
+
+        public HomeController(IRepository repository)
         {
+            _repository = repository;
         }
 
         public ActionResult Index()

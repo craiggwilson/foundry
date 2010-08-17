@@ -14,10 +14,15 @@ namespace Foundry.Domain
         private string _name;
         private string _type;
 
-        public CodeRepository(string name, string type, Uri location)
-            : base(Guid.NewGuid())
+        private CodeRepository(Guid id)
+            : base(id)
         {
             WireUpEventHandlers();
+        }
+
+        public CodeRepository(string name, string type, Uri location)
+            : this(Guid.NewGuid())
+        {
             Raise(new CreatedEvent { SourceId = Id, Name = name, Type = type, Location = location });
         }
 

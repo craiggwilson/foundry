@@ -15,10 +15,11 @@ namespace Foundry.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new AutofacEventHandlerFactory(c)).As<IEventHandlerFactory>();
-            builder.Register(c => new Repository(c.Resolve<IUnitOfWork>())).As<IRepository>();
-            builder.Register(c => new UnitOfWork(c.Resolve<IEventStore>(), c.Resolve<IAggregateBuilder>(), c.Resolve<IEventHandlerFactory>())).As<IUnitOfWork>();
             builder.Register(c => new MsSqlEventStore("", new BinaryFormatter())).As<IEventStore>();
+            builder.Register(c => new AggregateBuilder()).As<IAggregateBuilder>();
+            builder.Register(c => new AutofacEventHandlerFactory(c)).As<IEventHandlerFactory>();
+            builder.Register(c => new UnitOfWork(c.Resolve<IEventStore>(), c.Resolve<IAggregateBuilder>(), c.Resolve<IEventHandlerFactory>())).As<IUnitOfWork>();
+            builder.Register(c => new Repository(c.Resolve<IUnitOfWork>())).As<IRepository>();
         }
     }
 }
