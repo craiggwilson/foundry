@@ -1,0 +1,3 @@
+[submodule "libs/sikai"]
+	path = libs/sikai
+	url = git://github.com/craiggwilson/sikai.git
