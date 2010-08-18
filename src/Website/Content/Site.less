@@ -1,0 +1,95 @@
+/**************************************/
+/* Global */
+/**************************************/
+
+@background_color: #fff;
+@menu_color: #C6DCF3;
+@link_color: #00f;
+@text_color: #000;
+@font_size: .8em;
+
+body
+{
+    background-color: @background_color;
+    color: @text_color;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size: @font_size;
+    margin: 0;
+    padding: 0;
+}
+
+h1
+{
+    font-size: @font_size + .2;
+}
+
+img
+{
+    border: 0;
+}
+
+a
+{
+	color: @link_color;
+}
+
+a:visited
+{
+	color: @link_color;
+}
+
+span.user
+{
+    font-weight: bold;
+}
+
+/**************************************/
+/* Application */
+/**************************************/
+
+#accountMenuContainer
+{
+	ul 
+	{
+		list-style: none;
+		margin: 0;
+		padding: .5em;
+		text-align: right;
+		border-bottom: 1px (@background_color - #222) solid;
+
+		li
+		{
+			display: inline;
+		}
+	}
+}
+
+#menuContainer
+{
+	ul
+	{
+		list-style: none;
+		margin: 0;
+		padding: .5em;
+		text-align: left;
+		border: 2px (@menu_color - #111) solid;
+		background-color: @menu_color;
+
+		li 
+		{
+			display: inline;
+			a
+			{
+				color: @link_color;
+				font-weight: bold;
+				font-size: @font_size + .1em;
+			}
+
+			a:visited
+			{
+				color: @link_color;
+			}
+
+		}
+	}
+}

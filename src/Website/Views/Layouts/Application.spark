@@ -1,11 +1,36 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><use content="title">Source Admin</use></title>
-    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+    <title><use content="title">Foundry</use></title>
+    <link rel="stylesheet" href="~/Content/Site.less" type="text/css" />
     <use content="head"/>
   </head>
   <body>
-    <use content="view"/>
+    <div id="page">
+        <div id="header">
+            <div id="accountMenuContainer">
+                <ul id="accountMenu">
+                    <li><logon /></li>
+                    <li>${Html.ActionLink("Help", "Index", "Help")}</li>
+                </ul>
+            </div>
+            <div id="banner">
+                <h1>Foundry</h1>
+            </div>
+            <div id="menuContainer">
+                <ul id="menu">
+                    <li>${Html.ActionLink("Dashboard", "Index", "Dashboard")}</li>
+                    <use content="menu" />
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <use content="view"/>
+            <div id="footer">
+                <use content="footer" />
+            </div>
+        </div>	
+    </div>
   </body>
 </html>

@@ -8,11 +8,11 @@ using Sikai.EventSourcing.Domain;
 
 namespace Foundry.Website.Controllers
 {
-    public class HomeController : Controller
+    public class DashboardController : Controller
     {
         private IRepository _repository;
 
-        public HomeController(IRepository repository)
+        public DashboardController(IRepository repository)
         {
             _repository = repository;
         }

@@ -42,6 +42,9 @@
     <Reference Include="Autofac.Integration.Web.Mvc">
       <HintPath>..\..\libs\Autofac\Autofac.Integration.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\..\libs\dotless\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Spark">
       <HintPath>..\..\libs\Spark\Spark.dll</HintPath>
@@ -80,7 +83,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -89,8 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <None Include="Views\Home\Index.spark" />
+    <None Include="Content\Site.less" />
+    <None Include="Views\Dashboard\Index.spark" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -99,6 +102,7 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Shared\_logon.spark" />
     <None Include="Views\Shared\_global.spark" />
   </ItemGroup>
   <ItemGroup>

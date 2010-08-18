@@ -1,0 +1,12 @@
+﻿<if condition="Request.IsAuthenticated">
+  <li>
+    <span class="user">
+      Welcome ${Context.User.Identity.Name}!
+    </span>
+    [${Html.ActionLink("logoff", "Logoff", "Account")}]
+  </li>
+  <li>${Html.ActionLink("Profile", "Profile", "Account")}</li>
+</if>
+<else>
+  <li>${Html.ActionLink("Login", "Login", "Account")}</li>
+</else>
