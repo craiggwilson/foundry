@@ -8,10 +8,10 @@ namespace Foundry.Domain
 {
     public class User : AggregateRootBase
     {
-        public Username _username;
-        public string _displayName;
-        public Email _email;
-        public List<Guid> _codeRepositories;
+        private Username _username;
+        private string _displayName;
+        private Email _email;
+        private List<Guid> _codeRepositories;
 
         private User(Guid id)
             : base(id)
