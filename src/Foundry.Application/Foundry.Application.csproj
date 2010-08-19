@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\AggregateBuilder.cs" />
     <Compile Include="Infrastructure\AutofacEventHandlerFactory.cs" />
+    <Compile Include="Infrastructure\IBus.cs" />
     <Compile Include="Infrastructure\InfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\UserCreatedEventHandler.cs" />
@@ -65,10 +66,6 @@
     <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
       <Name>Foundry.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
-      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
-      <Name>Foundry.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

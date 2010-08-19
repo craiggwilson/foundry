@@ -126,10 +126,6 @@
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
       <Name>Foundry.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
-      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
-      <Name>Foundry.Messages</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -150,7 +146,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
+          <NTLMAuthentication>True</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>

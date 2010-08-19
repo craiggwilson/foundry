@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Foundry.Messages
+namespace Foundry.Messaging.Messages
 {
     public class CreateUserMessage
     {

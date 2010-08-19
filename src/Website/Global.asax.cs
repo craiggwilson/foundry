@@ -51,6 +51,9 @@ namespace Foundry.Website
             RegisterRoutes(RouteTable.Routes);
         }
 
-        
+        protected void Authenticate_Request()
+        {
+
+        }
     }
 }
