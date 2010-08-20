@@ -10,7 +10,7 @@
         <div id="header">
             <div id="accountMenuContainer">
                 <ul id="accountMenu">
-                    <li><logon /></li>
+                    <li><Logon /></li>
                     <li>${Html.ActionLink("Help", "Index", "Help")}</li>
                 </ul>
             </div>
@@ -19,8 +19,10 @@
             </div>
             <div id="menuContainer">
                 <ul id="menu">
-                    <li>${Html.ActionLink("Dashboard", "Index", "Dashboard")}</li>
-                    <use content="menu" />
+                    <use content="menu">
+                        <li>${Html.ActionLink("Dashboard", "Index", "Dashboard")}</li>
+                        <use content="menuext" />
+                    </use>
                 </ul>
             </div>
         </div>

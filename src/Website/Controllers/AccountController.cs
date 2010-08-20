@@ -11,7 +11,7 @@ using Foundry.Website.Models;
 
 namespace Foundry.Website.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : FoundryController
     {
         private readonly IBus _bus;
         private readonly IUserReport _userReport;
@@ -36,9 +36,9 @@ namespace Foundry.Website.Controllers
             var user = _userReport.FindUser(model.Username);
             if (user == null || !user.IsValidPassword(model.Password))
             {
-                ModelState.AddModelError("_FORM", "The username or password provided is incorrect.");
                 _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] });
-                return View(model);
+                return View(model)
+                    .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
             if (model.RememberMe)

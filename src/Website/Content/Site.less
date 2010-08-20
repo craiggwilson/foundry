@@ -6,6 +6,7 @@
 @menu_color: #C6DCF3;
 @link_color: #00f;
 @text_color: #000;
+@error_color: #ff0000;
 @font_size: .8em;
 
 body
@@ -41,6 +42,17 @@ a:visited
 span.user
 {
     font-weight: bold;
+}
+
+.validation-summary-errors
+{
+	background-color: @error_color + #eee;
+	color: @error_color;
+}
+
+.field-validation-error
+{
+	color: @error_color;
 }
 
 /**************************************/

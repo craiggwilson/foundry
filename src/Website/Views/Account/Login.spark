@@ -1,19 +1,21 @@
 ﻿<viewdata model="Foundry.Website.Models.LoginViewModel" />
 
-${Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.")}
-<% using(Html.BeginForm("Login", "Account")) { %>
-<fieldset>
-		<div>
+<content:menu />
+
+<% using(Html.BeginForm()) { %>
+  <fieldset>
+    <div>
       ${Html.LabelFor(x => x.Username)}
-			${Html.TextBoxFor(x => x.Username)}
-			${Html.ValidationMessageFor(x => x.Username)}
-		</div>
-		<div>
+      ${Html.TextBoxFor(x => x.Username)}
+      ${Html.ValidationMessageFor(x => x.Username, "*")}
+    </div>
+    <div>
       ${Html.LabelFor(x => x.Password)}
       ${Html.PasswordFor(x => x.Password)}
-      ${Html.ValidationMessageFor(x => x.Password)}
+      ${Html.ValidationMessageFor(x => x.Password, "*")}
     </div>
 
     <input type="submit" value="Login" />
-	</fieldset>
+  </fieldset>
 <% } %>
+  

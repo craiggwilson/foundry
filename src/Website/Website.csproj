@@ -85,11 +85,15 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\FoundryController.cs" />
+    <Compile Include="Extensions\RedirectExtensions.cs" />
+    <Compile Include="Extensions\ViewMessageExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Views\Account\Login.spark" />
     <None Include="Views\Layouts\Application.spark" />
@@ -105,7 +109,8 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Shared\_logon.spark" />
+    <None Include="Views\Shared\_ViewMessage.spark" />
+    <None Include="Views\Shared\_Logon.spark" />
     <None Include="Views\Shared\_global.spark" />
   </ItemGroup>
   <ItemGroup>
