@@ -14,9 +14,9 @@ namespace Foundry.Website.Controllers
     public class AccountController : FoundryController
     {
         private readonly IBus _bus;
-        private readonly IUserReport _userReport;
+        private readonly IUserReportManager _userReport;
 
-        public AccountController(IUserReport userReport, IBus bus)
+        public AccountController(IUserReportManager userReport, IBus bus)
         {
             _userReport = userReport;
             _bus = bus;
@@ -68,7 +68,7 @@ namespace Foundry.Website.Controllers
                 return View(model);
             }
 
-            var hashedPassword = Foundry.Reporting.User.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password);
+            var hashedPassword = UserReport.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password);
 
             _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, PasswordFormat = Foundry.Messaging.Messages.PasswordFormat.Plain, Username = model.Username });
 

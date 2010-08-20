@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.Core", "..\libs\sikai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.EventSourcing", "..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj", "{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.EventSourcing.Infrastructure.MsSql", "..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.MsSql\Sikai.EventSourcing.Infrastructure.MsSql.csproj", "{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Application", "Foundry.Application\Foundry.Application.csproj", "{547B4148-F89C-484F-AE98-8C11C316C05A}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messaging", "Foundry.Messaging\Foundry.Messaging.csproj", "{F626EF48-EE2C-4971-A879-22F93F63970A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Reporting", "Foundry.Reporting\Foundry.Reporting.csproj", "{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.EventSourcing.Infrastructure.Sqlite", "..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.Sqlite\Sikai.EventSourcing.Infrastructure.Sqlite.csproj", "{F1FDA40E-6485-463A-AA55-2DBD279CABF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,16 +59,6 @@ Global
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}.Release|x86.ActiveCfg = Release|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C76A2433-6FA0-459D-B7B4-ECCD40D075F4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -109,6 +99,16 @@ Global
 		{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}.Release|Mixed Platforms.Build.0 = Release|x86
 		{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}.Release|x86.ActiveCfg = Release|x86
 		{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}.Release|x86.Build.0 = Release|x86
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +116,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4384E569-0F95-4D28-A360-E6814BE3299C} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
-		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
+		{F1FDA40E-6485-463A-AA55-2DBD279CABF5} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 	EndGlobalSection
 EndGlobal

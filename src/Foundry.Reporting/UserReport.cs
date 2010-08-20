@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.Reporting
 {
-    public class User
+    public class UserReport
     {
         private string _hashedPassword;
         private string _salt;

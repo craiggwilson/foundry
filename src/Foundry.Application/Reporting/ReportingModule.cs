@@ -15,7 +15,7 @@ namespace Foundry.Reporting
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new UserReport()).As<IUserReport>().HttpRequestScoped();
+            builder.Register(c => new UserReportManager()).As<IUserReportManager>().HttpRequestScoped();
         }
     }
 }

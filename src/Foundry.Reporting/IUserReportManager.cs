@@ -5,11 +5,8 @@ using System.Text;
 
 namespace Foundry.Reporting
 {
-    public class UserReport : IUserReport
+    public interface IUserReportManager
     {
-        public User FindUser(string username)
-        {
-            return null;
-        }
+        UserReport FindUser(string username);
     }
 }
