@@ -7,12 +7,12 @@
     <div>
       ${Html.LabelFor(x => x.Username)}
       ${Html.TextBoxFor(x => x.Username)}
-      ${Html.ValidationMessageFor(x => x.Username, "*")}
+      ${Html.ValidationMessageFor(x => x.Username)}
     </div>
     <div>
       ${Html.LabelFor(x => x.Password)}
       ${Html.PasswordFor(x => x.Password)}
-      ${Html.ValidationMessageFor(x => x.Password, "*")}
+      ${Html.ValidationMessageFor(x => x.Password)}
     </div>
 
     <input type="submit" value="Login" />

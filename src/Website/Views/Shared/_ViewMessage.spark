@@ -1,3 +1,7 @@
-﻿<div id="message">
-  <p>Hola</p>
-</div>
+﻿<viewdata Message="Foundry.Website.Models.ViewMessageModel" />
+
+<test if="Message != null">
+  <div id="message" class="${Message.MessageType}">
+    <p>${Message.Text}</p>
+  </div>
+</test>

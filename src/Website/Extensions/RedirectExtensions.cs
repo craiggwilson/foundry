@@ -22,11 +22,5 @@ namespace Foundry.Website
             from.TempData[FoundryController.VIEW_MESSAGE_KEY] = new ViewMessageModel(text, type);
             return result;
         }
-
-        public static ViewResult WithMessage(this ViewResult result, Controller from, string text, ViewMessageType type)
-        {
-            from.TempData[FoundryController.VIEW_MESSAGE_KEY] = new ViewMessageModel(text, type);
-            return result;
-        }
     }
 }

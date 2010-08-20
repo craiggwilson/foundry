@@ -7,6 +7,7 @@
 @link_color: #00f;
 @text_color: #000;
 @error_color: #ff0000;
+@message_color: #C9C919;
 @font_size: .8em;
 
 body
@@ -15,7 +16,7 @@ body
     color: @text_color;
     font-family: Verdana, Arial, Helvetica, Sans-Serif;
     font-size: @font_size;
-    margin: 0;
+    margin: 0 10px 0 10px;
     padding: 0;
 }
 
@@ -44,12 +45,6 @@ span.user
     font-weight: bold;
 }
 
-.validation-summary-errors
-{
-	background-color: @error_color + #eee;
-	color: @error_color;
-}
-
 .field-validation-error
 {
 	color: @error_color;
@@ -58,6 +53,17 @@ span.user
 /**************************************/
 /* Application */
 /**************************************/
+
+#message
+{
+    background-color: @message_color + #bbb;
+    color: @message_color;
+    .Error
+    {
+        background-color: @error_color + #eee;
+        color: @error_color;
+    }
+}
 
 #accountMenuContainer
 {
