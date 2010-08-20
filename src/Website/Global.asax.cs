@@ -50,10 +50,5 @@ namespace Foundry.Website
             ViewEngines.Engines.Add(new SparkViewFactory());
             RegisterRoutes(RouteTable.Routes);
         }
-
-        protected void Authenticate_Request()
-        {
-
-        }
     }
 }

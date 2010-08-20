@@ -34,6 +34,12 @@
     <Reference Include="Autofac">
       <HintPath>..\..\libs\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Web">
+      <HintPath>..\..\libs\Autofac\Autofac.Integration.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Web.Mvc">
+      <HintPath>..\..\libs\Autofac\Autofac.Integration.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,8 +51,8 @@
   <ItemGroup>
     <Compile Include="Infrastructure\AggregateBuilder.cs" />
     <Compile Include="Infrastructure\AutofacEventHandlerFactory.cs" />
-    <Compile Include="Infrastructure\IBus.cs" />
     <Compile Include="Infrastructure\InfrastructureModule.cs" />
+    <Compile Include="Infrastructure\InProcessBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\UserCreatedEventHandler.cs" />
   </ItemGroup>
@@ -66,6 +72,14 @@
     <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
       <Name>Foundry.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Messaging\Foundry.Messaging.csproj">
+      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
+      <Name>Foundry.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Reporting\Foundry.Reporting.csproj">
+      <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
+      <Name>Foundry.Reporting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

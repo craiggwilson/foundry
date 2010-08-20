@@ -9,9 +9,9 @@ using Foundry.Domain;
 
 namespace Foundry.Reporting
 {
-    public class UserCreatedEventHandler : IEventHandler<User.CreatedEvent>
+    public class UserCreatedEventHandler : IEventHandler<Domain.User.CreatedEvent>
     {
-        public void Handle(User.CreatedEvent @event)
+        public void Handle(Domain.User.CreatedEvent @event)
         {
 
         }

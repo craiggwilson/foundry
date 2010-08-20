@@ -83,10 +83,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Views\Layouts\Application.spark" />
   </ItemGroup>
@@ -98,7 +100,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,14 @@
     <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
       <Name>Foundry.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Messaging\Foundry.Messaging.csproj">
+      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
+      <Name>Foundry.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Reporting\Foundry.Reporting.csproj">
+      <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
+      <Name>Foundry.Reporting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
