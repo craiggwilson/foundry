@@ -5,12 +5,14 @@ using System.Web;
 
 namespace Foundry.Website.Models
 {
-    public class UserModel
+    public class CreateUserViewModel
     {
+        public string Email { get; set; }
+
         public string Username { get; set; }
 
         public string Password { get; set; }
 
-        public bool RememberMe { get; set; }
+        public string DisplayName { get; set; }
     }
 }

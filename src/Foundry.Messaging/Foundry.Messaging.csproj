@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IBus.cs" />
     <Compile Include="IMessageHandler.cs" />
+    <Compile Include="Messages\PasswordFormat.cs" />
     <Compile Include="Messages\UserLoggedInMessage.cs" />
     <Compile Include="Messages\UserAuthenticationFailedMessage.cs" />
     <Compile Include="Messages\CreateUserMessage.cs" />

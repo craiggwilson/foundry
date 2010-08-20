@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+﻿using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
-using Spark.Web.Mvc;
-using Sikai.EventSourcing.Infrastructure;
 using Foundry.Infrastructure;
+using Foundry.Reporting;
+using Spark.Web.Mvc;
+using Spark;
 
 namespace Foundry.Website
 {
@@ -41,13 +38,15 @@ namespace Foundry.Website
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
             builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<ReportingModule>();
 
             _containerProvider = new ContainerProvider(builder.Build());
 
             ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(ContainerProvider));
 
-            AreaRegistration.RegisterAllAreas();
             ViewEngines.Engines.Add(new SparkViewFactory());
+
+            AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
         }
     }

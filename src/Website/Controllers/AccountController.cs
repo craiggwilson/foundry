@@ -29,16 +29,19 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UserModel userModel)
+        public ActionResult Login(LoginViewModel model)
         {
-            var user = _userReport.FindUser(userModel.Username);
-            if (user == null || !user.IsValidPassword(userModel.Password))
+            if (!ModelState.IsValid)
+                return View(model);
+            var user = _userReport.FindUser(model.Username);
+            if (user == null || !user.IsValidPassword(model.Password))
             {
+                ModelState.AddModelError("_FORM", "The username or password provided is incorrect.");
                 _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] });
-                return View();
+                return View(model);
             }
 
-            if (userModel.RememberMe)
+            if (model.RememberMe)
             {
                 //TODO: do something here
             }
@@ -47,8 +50,29 @@ namespace Foundry.Website.Controllers
 
             _bus.Send(new UserLoggedInMessage { UserId = user.Id });
 
-            return RedirectToRoute(new { controller = "Dashboard" });
+            return RedirectToRoute("Default");
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateUserViewModel model)
+        {
+            var user = _userReport.FindUser(model.Username);
+            if (user != null)
+            {
+                return View(model);
+            }
+
+            var hashedPassword = Foundry.Reporting.User.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password);
+
+            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, PasswordFormat = Foundry.Messaging.Messages.PasswordFormat.Plain, Username = model.Username });
+
+            return View("Registered");
+        }
     }
 }
