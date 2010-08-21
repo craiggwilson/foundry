@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-
-using Autofac;
-using Sikai;
-
-using Foundry.Messaging;
 using System.Threading.Tasks;
+using Autofac;
+using Foundry.Messaging;
+using Sikai;
 
 namespace Foundry.Infrastructure
 {

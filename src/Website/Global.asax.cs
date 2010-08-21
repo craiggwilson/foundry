@@ -6,9 +6,7 @@ using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Web.Mvc;
 using Foundry.Infrastructure;
-using Foundry.Reporting;
 using Spark.Web.Mvc;
-using Spark;
 
 namespace Foundry.Website
 {
@@ -34,11 +32,12 @@ namespace Foundry.Website
 
         protected void Application_Start()
         {
+            System.AppDomain.CurrentDomain.SetData("SQLServerCompactEditionUnderWebHosting", true);
+
             var builder = new ContainerBuilder();
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
             builder.RegisterModule<InfrastructureModule>();
-            builder.RegisterModule<ReportingModule>();
 
             _containerProvider = new ContainerProvider(builder.Build());
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 
 using Foundry.Messaging;
@@ -14,11 +11,11 @@ namespace Foundry.Website.Controllers
     public class AccountController : FoundryController
     {
         private readonly IBus _bus;
-        private readonly IUserReportManager _userReport;
+        private readonly IReportingRepository<UserReport> _userReportRepository;
 
-        public AccountController(IUserReportManager userReport, IBus bus)
+        public AccountController(IReportingRepository<UserReport> userReportRepository, IBus bus)
         {
-            _userReport = userReport;
+            _userReportRepository = userReportRepository;
             _bus = bus;
         }
 
@@ -33,7 +30,7 @@ namespace Foundry.Website.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-            var user = _userReport.FindUser(model.Username);
+            var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
             if (user == null || !user.IsValidPassword(model.Password))
             {
                 _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] });
@@ -62,7 +59,7 @@ namespace Foundry.Website.Controllers
         [HttpPost]
         public ActionResult Create(CreateUserViewModel model)
         {
-            var user = _userReport.FindUser(model.Username);
+            var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
             if (user != null)
             {
                 return View(model);
