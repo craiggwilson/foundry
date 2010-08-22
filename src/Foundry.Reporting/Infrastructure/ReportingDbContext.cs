@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Foundry.Reporting;
 
-namespace Foundry.Infrastructure
+namespace Foundry.Reporting.Infrastructure
 {
     public class ReportingDbContext : DbContext
     {

@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Foundry.Messages")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Guidestone Financial Resources")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Foundry.Messages")]
-[assembly: AssemblyCopyright("Copyright © Guidestone Financial Resources 2010")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

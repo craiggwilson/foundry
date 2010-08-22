@@ -2,7 +2,7 @@
 using Autofac;
 using Sikai.EventSourcing.Infrastructure;
 
-namespace Foundry.Infrastructure
+namespace Foundry.Domain.Infrastructure
 {
     public class AutofacEventHandlerFactory : IEventHandlerFactory
     {

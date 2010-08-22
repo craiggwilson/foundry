@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 
 using Foundry.Messaging;
-using Foundry.Messaging.Messages;
 using Foundry.Reporting;
 using Foundry.Website.Models;
+using Foundry.Messaging.Infrastructure;
 
 namespace Foundry.Website.Controllers
 {
@@ -67,7 +67,7 @@ namespace Foundry.Website.Controllers
 
             var hashedPassword = UserReport.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password);
 
-            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, PasswordFormat = Foundry.Messaging.Messages.PasswordFormat.Plain, Username = model.Username });
+            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, PasswordFormat = Foundry.Messaging.PasswordFormat.Plain, Username = model.Username });
 
             return View("Registered");
         }

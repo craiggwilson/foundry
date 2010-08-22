@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using Foundry.Reporting;
 
-namespace Foundry.Infrastructure
+namespace Foundry.Reporting.Infrastructure
 {
     public class EfReportingRepository<T> : IReportingRepository<T>, IQueryable<T> where T : class
     {

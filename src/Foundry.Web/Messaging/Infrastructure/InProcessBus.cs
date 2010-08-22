@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Foundry.Messaging;
 using Sikai;
 
-namespace Foundry.Infrastructure
+namespace Foundry.Messaging.Infrastructure
 {
     public class InProcessBus : IBus
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 using Sikai.EventSourcing.Domain;
 using Sikai.EventSourcing.Infrastructure;
 
-namespace Foundry.Infrastructure
+namespace Foundry.Domain.Infrastructure
 {
     public class AggregateBuilder : IAggregateBuilder
     {

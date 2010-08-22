@@ -1,5 +1,5 @@
 ﻿
-namespace Foundry.Messaging
+namespace Foundry.Messaging.Infrastructure
 {
     public interface IBus
     {

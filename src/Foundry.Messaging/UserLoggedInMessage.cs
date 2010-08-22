@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Foundry.Messaging.Messages
+namespace Foundry.Messaging
 {
     public class UserLoggedInMessage
     {
