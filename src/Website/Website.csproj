@@ -91,16 +91,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CreateUserViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Content\Account\Register.less" />
+    <None Include="Content\Account\Login.less" />
+    <None Include="Content\Common.less" />
+    <None Include="Views\Account\Register.spark" />
     <None Include="Views\Account\Login.spark" />
     <None Include="Views\Layouts\Application.spark" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <None Include="Content\Site.less" />
+    <None Include="Content\Application.less" />
     <None Include="Views\Dashboard\Index.spark" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Foundry.Website.Models
+namespace Foundry.Website.Models.Account
 {
     public class LoginViewModel
     {

@@ -17,9 +17,14 @@ namespace Foundry.Reporting
             return true;
         }
 
-        public static string HashPassword(PasswordFormat passwordFormat, string plainTextPassword)
+        public static string HashPassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
         {
             return plainTextPassword;
+        }
+
+        public static string CreateSalt()
+        {
+            return "salt";
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿<viewdata model="Foundry.Website.Models.LoginViewModel" />
+﻿<viewdata model="Foundry.Website.Models.Account.LoginViewModel" />
+
+<content:head>
+  <link rel="stylesheet" href="~/Content/Account/Login.less" type="text/css" />
+</content:head>
 
 <content:menu />
 
@@ -18,4 +22,3 @@
     <input type="submit" value="Login" />
   </fieldset>
 <% } %>
-  

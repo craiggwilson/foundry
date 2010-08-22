@@ -1,14 +1,8 @@
+@import "Common";
+
 /**************************************/
 /* Global */
 /**************************************/
-
-@background_color: #fff;
-@menu_color: #C6DCF3;
-@link_color: #00f;
-@text_color: #000;
-@error_color: #ff0000;
-@message_color: #C9C919;
-@font_size: .8em;
 
 body
 {
@@ -50,22 +44,51 @@ span.user
 	color: @error_color;
 }
 
+fieldset
+{
+    .rounded;
+    
+    label
+    {
+        float: left;
+        width: 25%;
+        margin-right: .5em;
+        padding-top: .2em;
+        text-align: right;
+        font-weight: bold;
+    }
+    
+    input
+    {
+        width: 100px;
+    }
+}
+
 /**************************************/
 /* Application */
 /**************************************/
 
 #message
 {
+    .rounded;
+    
+    text-align: center;
+    
     background-color: @message_color + #bbb;
     color: @message_color;
-    .Error
-    {
-        background-color: @error_color + #eee;
-        color: @error_color;
-    }
+    
+    padding-top: .1em;
+    padding-bottom: .1em;
+    margin-bottom: 10px;
 }
 
-#accountMenuContainer
+#message.Error
+{
+    background-color: @error_color + #eee;
+    color: @error_color;
+}
+
+#applicationMenuContainer
 {
 	ul 
 	{

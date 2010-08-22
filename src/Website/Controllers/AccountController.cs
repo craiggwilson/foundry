@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Foundry.Messaging;
 using Foundry.Reporting;
 using Foundry.Website.Models;
+using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
 
 namespace Foundry.Website.Controllers
@@ -51,23 +52,25 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(CreateUserViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
             if (user != null)
             {
-                return View(model);
+                return View(model)
+                    .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-            var hashedPassword = UserReport.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password);
+            var salt = UserReport.CreateSalt();
+            var hashedPassword = UserReport.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password, salt);
 
-            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, PasswordFormat = Foundry.Messaging.PasswordFormat.Plain, Username = model.Username });
+            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, Salt = salt, PasswordFormat = Foundry.Messaging.PasswordFormat.Plain, Username = model.Username });
 
             return View("Registered");
         }
