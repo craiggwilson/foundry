@@ -12,11 +12,11 @@ namespace Foundry.Reporting
 
         public string DisplayName { get; set; }
 
-        internal PasswordFormat PasswordFormat { get; set; }
+        public int PasswordFormat { get; set; }
 
-        internal string Password { get; set; }
+        public string Password { get; set; }
 
-        internal string Salt { get; set; }
+        public string Salt { get; set; }
 
         public bool IsValidPassword(string plainTextPassword)
         {
@@ -27,11 +27,11 @@ namespace Foundry.Reporting
         public void SetPassword(string plainTextPassword)
         {
             Salt = GenerateSalt();
-            PasswordFormat = Reporting.PasswordFormat.Plain;
+            PasswordFormat = 0;
             Password = GeneratePassword(PasswordFormat, plainTextPassword, Salt);
         }
 
-        private static string GeneratePassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
+        private static string GeneratePassword(int passwordFormat, string plainTextPassword, string salt)
         {
             return plainTextPassword;
         }

@@ -6,6 +6,7 @@ using Foundry.Reporting;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
+using System.Web.Security;
 
 namespace Foundry.Website.Controllers
 {
@@ -31,24 +32,20 @@ namespace Foundry.Website.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
+
             var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
             if (user == null || !user.IsValidPassword(model.Password))
             {
-                _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] });
+                WithTransaction(() => _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] }));
+
                 return View(model)
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            if (model.RememberMe)
-            {
-                //TODO: do something here
-            }
+            WithTransaction(() => _bus.Send(new UserLoggedInMessage { UserId = user.Id }));
 
-            //TODO: set forms auth token here...
-
-            _bus.Send(new UserLoggedInMessage { UserId = user.Id });
-
-            return RedirectToRoute("Default");
+            return new FormsAuthenticationResult(model.Username, model.RememberMe)
+                .WithMessage(this, string.Format("Welcome back, {0}", user.DisplayName), ViewMessageType.Info);
         }
 
         [HttpGet]
@@ -70,9 +67,9 @@ namespace Foundry.Website.Controllers
                     .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = model.Password, Username = model.Username });
+            WithTransaction(() => _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = model.Password, Username = model.Username }));
 
-            return View("Registered");
+            return RedirectToRoute("Default");
         }
     }
 }

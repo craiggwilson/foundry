@@ -21,7 +21,9 @@ namespace Foundry.Messaging.Infrastructure
         public void Send<TMessage>(TMessage message)
         {
             var handlers = _context.Resolve<IEnumerable<IMessageHandler<TMessage>>>();
-            Task.Factory.StartNew(() => handlers.ForEach(h => h.Handle(message)));
+
+            //in a normal bus, this would happen asyncrhonously
+            handlers.ForEach(h => h.Handle(message));
         }
 
         public TReply SendAndWaitForReply<TMessage, TReply>(TMessage message)

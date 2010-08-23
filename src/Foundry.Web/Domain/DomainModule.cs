@@ -22,7 +22,7 @@ namespace Foundry.Domain
                 SchemaGenerator.EnsureSchemaExists(conn);
             }
 
-            builder.Register(c => new SqliteEventStore(new SQLiteConnection(connString), new BinaryFormatter())).As<IEventStore>();
+            builder.Register(c => new SqliteEventStore(new SQLiteConnection(connString), new XmlFormatter())).As<IEventStore>();
             builder.Register(c => new AggregateBuilder()).As<IAggregateBuilder>();
             builder.Register(c => new AutofacEventHandlerFactory(c)).As<IEventHandlerFactory>();
             builder.Register(c => new Repository(c.Resolve<IUnitOfWork>())).As<IRepository>();

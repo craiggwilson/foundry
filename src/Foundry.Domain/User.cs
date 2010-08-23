@@ -53,6 +53,7 @@ namespace Foundry.Domain
             _password = @event.Password;        
         }
 
+        [Serializable]
         public class AddCodeRepositoryEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }
@@ -60,6 +61,7 @@ namespace Foundry.Domain
             public Guid CodeRepositoryId { get; set; }
         }
 
+        [Serializable]
         public class CreatedEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }
@@ -73,6 +75,7 @@ namespace Foundry.Domain
             public Email Email { get; set; }
         }
 
+        [Serializable]
         public class RemoveCodeRepositoryEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }

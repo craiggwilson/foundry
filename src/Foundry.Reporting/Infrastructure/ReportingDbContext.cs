@@ -3,7 +3,7 @@ using Foundry.Reporting;
 
 namespace Foundry.Reporting.Infrastructure
 {
-    public class ReportingDbContext : DbContext
+    public class ReportingDbContext : DbContext, IReportingUnitOfWork
     {
         public ReportingDbContext()
             : base("Reporting")
@@ -16,6 +16,11 @@ namespace Foundry.Reporting.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.RegisterSet<UserReport>();
+        }
+
+        public void Commit()
+        {
+            this.SaveChanges();
         }
     }
 }

@@ -1,8 +1,15 @@
 ﻿
+using System;
 namespace Foundry.Domain
 {
+    [Serializable]
     public class Email
     {
-        public string Address { get; set; }
+        public string Address { get; private set; }
+
+        public Email(string address)
+        {
+            Address = address;
+        }
     }
 }

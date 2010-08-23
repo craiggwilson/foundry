@@ -55,7 +55,7 @@
     <Compile Include="Infrastructure\ReportingDbContext.cs" />
     <Compile Include="Infrastructure\EfReportingRepository.cs" />
     <Compile Include="IReportingRepository.cs" />
-    <Compile Include="PasswordFormat.cs" />
+    <Compile Include="IReportingUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReport.cs" />
   </ItemGroup>

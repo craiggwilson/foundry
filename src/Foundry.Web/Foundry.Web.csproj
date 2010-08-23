@@ -58,8 +58,6 @@
   <ItemGroup>
     <Compile Include="Domain\Infrastructure\AutofacEventHandlerFactory.cs" />
     <Compile Include="Domain\DomainModule.cs" />
-    <Compile Include="Messaging\Infrastructure\IBus.cs" />
-    <Compile Include="Messaging\Infrastructure\IMessageHandler.cs" />
     <Compile Include="Messaging\Infrastructure\InProcessBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messaging\MessagingModule.cs" />

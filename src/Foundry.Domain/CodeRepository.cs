@@ -66,6 +66,7 @@ namespace Foundry.Domain
             _location = @event.Location;
         }
 
+        [Serializable]
         public class CreatedEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }
@@ -77,11 +78,13 @@ namespace Foundry.Domain
             public Uri Location { get; set; }
         }
 
+        [Serializable]
         public class DeletedEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }
         }
 
+        [Serializable]
         public class MovedEvent : IDomainEvent
         {
             public Guid SourceId { get; set; }

@@ -86,8 +86,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FoundryController.cs" />
-    <Compile Include="Extensions\ViewExtensions.cs" />
-    <Compile Include="Extensions\RedirectExtensions.cs" />
+    <Compile Include="Extensions\FormsAuthenticationResult.cs" />
+    <Compile Include="Extensions\ViewMessagesExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

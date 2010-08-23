@@ -23,9 +23,11 @@ namespace Foundry.Reporting.DomainEventHandlers
                 Email = @event.Email.Address,
                 DisplayName = @event.DisplayName,
                 Password = @event.Password.Value,
-                PasswordFormat = (PasswordFormat)@event.Password.Format,
+                PasswordFormat = (int)@event.Password.Format,
                 Salt = @event.Password.Salt
             };
+
+            _repository.Add(user);
         }
     }
 }

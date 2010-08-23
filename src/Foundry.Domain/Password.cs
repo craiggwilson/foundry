@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Foundry.Domain
 {
+    [Serializable]
     public class Password
     {
         public string Value { get; private set; }
@@ -13,11 +14,22 @@ namespace Foundry.Domain
 
         public string Salt { get; private set; }
 
-        public Password(string value, PasswordFormat format, string salt)
+        public Password(string value)
         {
-            Value = value;
-            Format = format;
-            Salt = salt;
+            Format = PasswordFormat.Plain;
+            Salt = GenerateSalt();
+            Value = GeneratePassword(Format, value, Salt);
         }
+
+        private static string GeneratePassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
+        {
+            return plainTextPassword;
+        }
+
+        private static string GenerateSalt()
+        {
+            return "salt";
+        }
+
     }
 }
