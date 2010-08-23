@@ -7,6 +7,7 @@ namespace Foundry.Domain
     public class User : AggregateRootBase
     {
         private Username _username;
+        private Password _password;
         private string _displayName;
         private Email _email;
         private List<Guid> _codeRepositories;
@@ -17,10 +18,10 @@ namespace Foundry.Domain
             WireUpEventHandlers();
         }
 
-        public User(Username username, string displayName, Email email)
+        public User(Username username, Password password, string displayName, Email email)
             : this(Guid.NewGuid())
         {
-            Raise(new CreatedEvent { SourceId = Id, Username = username, DisplayName = displayName, Email = email });
+            Raise(new CreatedEvent { SourceId = Id, Username = username, Password = password, DisplayName = displayName, Email = email });
         }
 
         public void AddCodeRepository(Guid codeRepositoryId)
@@ -48,7 +49,8 @@ namespace Foundry.Domain
         {
             _username = @event.Username;
             _displayName = @event.DisplayName;
-            _email = @event.Email;
+            _password = @event.Password;
+            _password = @event.Password;        
         }
 
         public class AddCodeRepositoryEvent : IDomainEvent
@@ -63,6 +65,8 @@ namespace Foundry.Domain
             public Guid SourceId { get; set; }
 
             public Username Username { get; set; }
+
+            public Password Password { get; set; }
 
             public string DisplayName { get; set; }
 

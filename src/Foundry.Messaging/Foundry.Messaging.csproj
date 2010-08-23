@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PasswordFormat.cs" />
     <Compile Include="UserLoggedInMessage.cs" />
     <Compile Include="UserAuthenticationFailedMessage.cs" />
     <Compile Include="CreateUserMessage.cs" />

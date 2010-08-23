@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Shared\_ViewMessage.spark" />
-    <None Include="Views\Shared\_Logon.spark" />
+    <None Include="Views\Shared\_User.spark" />
     <None Include="Views\Shared\_global.spark" />
   </ItemGroup>
   <ItemGroup>

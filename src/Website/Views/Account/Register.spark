@@ -1,4 +1,4 @@
-﻿<viewdata model="Foundry.Website.Models.Account.RegisteriewModel" />
+﻿<viewdata model="Foundry.Website.Models.Account.RegisterViewModel" />
 
 <content:head>
   <link rel="stylesheet" href="~/Content/Account/Register.less" type="text/css" />
@@ -25,15 +25,17 @@
     </div>
     <div>
       ${Html.LabelFor(x => x.Email)}
-      ${Html.PasswordFor(x => x.Email)}
+      ${Html.TextBoxFor(x => x.Email)}
       ${Html.ValidationMessageFor(x => x.Email)}
     </div>
     <div>
       ${Html.LabelFor(x => x.DisplayName)}
-      ${Html.PasswordFor(x => x.DisplayName)}
+      ${Html.TextBoxFor(x => x.DisplayName)}
       ${Html.ValidationMessageFor(x => x.DisplayName)}
     </div>
 
-    <input type="submit" value="Register" />
+    <div class="buttons">
+      <input type="submit" value="Register" />
+    </div>
   </fieldset>
 <% } %>

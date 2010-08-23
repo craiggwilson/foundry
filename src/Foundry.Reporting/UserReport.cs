@@ -4,25 +4,39 @@ namespace Foundry.Reporting
 {
     public class UserReport
     {
-        private string _hashedPassword;
-        private string _salt;
-        private PasswordFormat _passwordFormat;
-
         public Guid Id { get; set; }
 
         public string Username { get; set; }
 
+        public string Email { get; set; }
+
+        public string DisplayName { get; set; }
+
+        internal PasswordFormat PasswordFormat { get; set; }
+
+        internal string Password { get; set; }
+
+        internal string Salt { get; set; }
+
         public bool IsValidPassword(string plainTextPassword)
         {
-            return true;
+            var generated = GeneratePassword(PasswordFormat, plainTextPassword, Salt);
+            return Password == generated;
         }
 
-        public static string HashPassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
+        public void SetPassword(string plainTextPassword)
+        {
+            Salt = GenerateSalt();
+            PasswordFormat = Reporting.PasswordFormat.Plain;
+            Password = GeneratePassword(PasswordFormat, plainTextPassword, Salt);
+        }
+
+        private static string GeneratePassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
         {
             return plainTextPassword;
         }
 
-        public static string CreateSalt()
+        private static string GenerateSalt()
         {
             return "salt";
         }

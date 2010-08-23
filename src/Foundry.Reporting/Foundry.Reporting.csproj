@@ -51,12 +51,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomanEventHandlers\UserReportEventHandler.cs" />
     <Compile Include="Infrastructure\ReportingDbContext.cs" />
     <Compile Include="Infrastructure\EfReportingRepository.cs" />
     <Compile Include="IReportingRepository.cs" />
     <Compile Include="PasswordFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReport.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
+      <Project>{4384E569-0F95-4D28-A360-E6814BE3299C}</Project>
+      <Name>Sikai.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
+      <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
+      <Name>Sikai.EventSourcing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
+      <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
+      <Name>Foundry.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

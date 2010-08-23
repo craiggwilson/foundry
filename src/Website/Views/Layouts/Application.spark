@@ -11,7 +11,7 @@
             <div id="applicationMenuContainer">
 				<use content="applicationMenu">
 					<ul id="applicationMenu">
-						<li><Logon /></li>
+						<li><User /></li>
 						<use content="applicationMenuExt" />
 						<li>${Html.ActionLink("Help", "Index", "Help")}</li>
 					</ul>

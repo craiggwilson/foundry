@@ -60,6 +60,9 @@ namespace Foundry.Website.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
             if (user != null)
             {
@@ -67,10 +70,7 @@ namespace Foundry.Website.Controllers
                     .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-            var salt = UserReport.CreateSalt();
-            var hashedPassword = UserReport.HashPassword(Foundry.Reporting.PasswordFormat.Plain, model.Password, salt);
-
-            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = hashedPassword, Salt = salt, PasswordFormat = Foundry.Messaging.PasswordFormat.Plain, Username = model.Username });
+            _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = model.Password, Username = model.Username });
 
             return View("Registered");
         }
