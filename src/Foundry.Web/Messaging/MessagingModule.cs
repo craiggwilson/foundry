@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.Web;
 using Foundry.Messaging.Infrastructure;
+using Foundry.Messaging.MessageHandlers;
 
 namespace Foundry.Messaging
 {
@@ -11,7 +12,7 @@ namespace Foundry.Messaging
         {
             builder.Register(c => new InProcessBus(c)).As<IBus>().HttpRequestScoped();
 
-            builder.RegisterAssemblyTypes(typeof(IBus).Assembly)
+            builder.RegisterAssemblyTypes(typeof(CreateUserMessageHandler).Assembly)
                 .Where(x => x.GetInterfaces().Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof(IMessageHandler<>)))
                 .AsClosedTypesOf(typeof(IMessageHandler<>));
         }

@@ -10,6 +10,8 @@ using Foundry.Domain;
 using Foundry.Messaging;
 using Foundry.Reporting;
 using System;
+using Spark;
+using Foundry.Website.Controllers;
 
 namespace Foundry.Website
 {
@@ -46,7 +48,14 @@ namespace Foundry.Website
 
             ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(ContainerProvider));
 
-            ViewEngines.Engines.Add(new SparkViewFactory());
+            var batch = new SparkBatchDescriptor();
+            batch.For<AccountController>()
+                .For<DashboardController>();
+
+            var viewFactory = new SparkViewFactory();
+            viewFactory.Precompile(batch);
+
+            ViewEngines.Engines.Add(viewFactory);
 
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F626EF48-EE2C-4971-A879-22F93F63970A}</ProjectGuid>
+    <ProjectGuid>{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Foundry.Messaging</RootNamespace>
-    <AssemblyName>Foundry.Messaging</AssemblyName>
+    <RootNamespace>Foundry.Messages.Handlers</RootNamespace>
+    <AssemblyName>Foundry.Messages.Handlers</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,12 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\IBus.cs" />
-    <Compile Include="Infrastructure\IMessageHandler.cs" />
-    <Compile Include="MessageHandlers\CreateUserMessageHandler.cs" />
-    <Compile Include="UserLoggedInMessage.cs" />
-    <Compile Include="UserAuthenticationFailedMessage.cs" />
-    <Compile Include="CreateUserMessage.cs" />
+    <Compile Include="CreateUserMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +55,10 @@
     <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
       <Name>Foundry.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
+      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
+      <Name>Foundry.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

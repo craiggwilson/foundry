@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{547B4148-F89C-484F-AE98-8C11C316C05A}</ProjectGuid>
+    <ProjectGuid>{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Foundry</RootNamespace>
-    <AssemblyName>Foundry.Web</AssemblyName>
+    <RootNamespace>Foundry.Domain.Events.Handlers</RootNamespace>
+    <AssemblyName>Foundry.Domain.Events.Handlers</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,70 +31,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\libs\Autofac\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Web">
-      <HintPath>..\..\libs\Autofac\Autofac.Integration.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Web.Mvc">
-      <HintPath>..\..\libs\Autofac\Autofac.Integration.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Data.Entity.CTP">
-      <HintPath>..\..\libs\Microsoft.Data.Entity\Microsoft.Data.Entity.CTP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\libs\sqlite\System.Data.SQLite.DLL</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Infrastructure\AutofacEventHandlerFactory.cs" />
-    <Compile Include="Domain\DomainModule.cs" />
-    <Compile Include="Messaging\Infrastructure\InProcessBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Messaging\MessagingModule.cs" />
-    <Compile Include="Reporting\ReportingModule.cs" />
+    <Compile Include="UserReportEventHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
-      <Project>{4384E569-0F95-4D28-A360-E6814BE3299C}</Project>
-      <Name>Sikai.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.Sqlite\Sikai.EventSourcing.Infrastructure.Sqlite.csproj">
-      <Project>{F1FDA40E-6485-463A-AA55-2DBD279CABF5}</Project>
-      <Name>Sikai.EventSourcing.Infrastructure.Sqlite</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
       <Name>Sikai.EventSourcing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain.Events.Handlers\Foundry.Domain.Events.Handlers.csproj">
-      <Project>{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}</Project>
-      <Name>Foundry.Domain.Events.Handlers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Foundry.Domain.Events\Foundry.Domain.Events.csproj">
       <Project>{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}</Project>
       <Name>Foundry.Domain.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
-      <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
-      <Name>Foundry.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Messages.Handlers\Foundry.Messages.Handlers.csproj">
-      <Project>{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}</Project>
-      <Name>Foundry.Messages.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
-      <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
-      <Name>Foundry.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Reporting\Foundry.Reports.csproj">
       <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>

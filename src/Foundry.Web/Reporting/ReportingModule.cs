@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.Web;
 using Foundry.Reporting.Infrastructure;
 using Sikai.EventSourcing.Infrastructure;
+using Foundry.Reporting.DomainEventHandlers;
 
 namespace Foundry.Reporting
 {
@@ -19,7 +20,7 @@ namespace Foundry.Reporting
 
             Database.SetInitializer(new RecreateDatabaseIfModelChanges<ReportingDbContext>());
 
-            builder.RegisterAssemblyTypes(typeof(IReportingRepository<>).Assembly)
+            builder.RegisterAssemblyTypes(typeof(UserReportEventHandler).Assembly)
                 .Where(x => x.GetInterfaces().Any(y => y.IsGenericType && y.GetGenericTypeDefinition() == typeof(IEventHandler<>)))
                 .AsClosedTypesOf(typeof(IEventHandler<>));
         }

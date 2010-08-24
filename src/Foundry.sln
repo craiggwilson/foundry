@@ -10,9 +10,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.
 		{F1FDA40E-6485-463A-AA55-2DBD279CABF5} = {F1FDA40E-6485-463A-AA55-2DBD279CABF5}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messaging", "Foundry.Messaging\Foundry.Messaging.csproj", "{F626EF48-EE2C-4971-A879-22F93F63970A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messages", "Foundry.Messages\Foundry.Messages.csproj", "{F626EF48-EE2C-4971-A879-22F93F63970A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Reporting", "Foundry.Reporting\Foundry.Reporting.csproj", "{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Reports", "Foundry.Reports\Foundry.Reports.csproj", "{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.Core", "..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj", "{4384E569-0F95-4D28-A360-E6814BE3299C}"
 EndProject
@@ -23,6 +23,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Web", "Foundry.Web\Foundry.Web.csproj", "{547B4148-F89C-484F-AE98-8C11C316C05A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Domain.Events", "Foundry.Domain.Events\Foundry.Domain.Events.csproj", "{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Domain.Events.Handlers", "Foundry.Domain.Events.Handlers\Foundry.Domain.Events.Handlers.csproj", "{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messages.Handlers", "Foundry.Messages.Handlers\Foundry.Messages.Handlers.csproj", "{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +128,26 @@ Global
 		{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}.Release|x86.ActiveCfg = Release|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

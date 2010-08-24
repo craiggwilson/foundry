@@ -6,6 +6,7 @@ using Sikai.EventSourcing.Domain;
 
 namespace Foundry.Domain.Events
 {
+    [Serializable]
     public abstract class DomainEvent : IDomainEvent
     {
         public Guid SourceId { get; set; }
