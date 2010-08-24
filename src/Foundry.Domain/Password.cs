@@ -21,6 +21,13 @@ namespace Foundry.Domain
             Value = GeneratePassword(Format, value, Salt);
         }
 
+        public Password(string value, PasswordFormat format, string salt)
+        {
+            Format = format;
+            Salt = salt;
+            Value = value;
+        }
+
         private static string GeneratePassword(PasswordFormat passwordFormat, string plainTextPassword, string salt)
         {
             return plainTextPassword;

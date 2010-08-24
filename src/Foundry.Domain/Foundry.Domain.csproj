@@ -43,7 +43,6 @@
     <Compile Include="Infrastructure\XmlFormatter.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordFormat.cs" />
-    <Compile Include="CodeRepository.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="Infrastructure\AggregateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +57,10 @@
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
       <Name>Sikai.EventSourcing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Domain.Events\Foundry.Domain.Events.csproj">
+      <Project>{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}</Project>
+      <Name>Foundry.Domain.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

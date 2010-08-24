@@ -2,21 +2,18 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</ProjectGuid>
+    <ProjectGuid>{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Foundry.Reporting</RootNamespace>
-    <AssemblyName>Foundry.Reporting</AssemblyName>
+    <RootNamespace>Foundry.Domain.Events</RootNamespace>
+    <AssemblyName>Foundry.Domain.Events</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,8 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,16 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Data.Entity.CTP">
-      <HintPath>..\..\libs\Microsoft.Data.Entity\Microsoft.Data.Entity.CTP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,13 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomanEventHandlers\UserReportEventHandler.cs" />
-    <Compile Include="Infrastructure\ReportingDbContext.cs" />
-    <Compile Include="Infrastructure\EfReportingRepository.cs" />
-    <Compile Include="IReportingRepository.cs" />
-    <Compile Include="IReportingUnitOfWork.cs" />
+    <Compile Include="DomainEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserReport.cs" />
+    <Compile Include="User\UserCreatedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
@@ -67,10 +52,6 @@
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
       <Name>Sikai.EventSourcing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain.Events\Foundry.Domain.Events.csproj">
-      <Project>{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}</Project>
-      <Name>Foundry.Domain.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

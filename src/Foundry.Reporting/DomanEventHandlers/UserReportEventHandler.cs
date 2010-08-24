@@ -1,11 +1,11 @@
 ﻿
 using Sikai.EventSourcing.Infrastructure;
-using Foundry.Domain;
+using Foundry.Domain.Events.User;
 
 
 namespace Foundry.Reporting.DomainEventHandlers
 {
-    public class UserReportEventHandler : IEventHandler<User.CreatedEvent>
+    public class UserReportEventHandler : IEventHandler<UserCreatedEvent>
     {
         private readonly IReportingRepository<UserReport> _repository;
 
@@ -14,17 +14,17 @@ namespace Foundry.Reporting.DomainEventHandlers
             _repository = repository;
         }
 
-        public void Handle(User.CreatedEvent @event)
+        public void Handle(UserCreatedEvent @event)
         {
             var user = new UserReport
             {
                 Id = @event.SourceId,
-                Username = @event.Username.Value,
-                Email = @event.Email.Address,
+                Username = @event.Username,
+                Email = @event.Email,
                 DisplayName = @event.DisplayName,
-                Password = @event.Password.Value,
-                PasswordFormat = (int)@event.Password.Format,
-                Salt = @event.Password.Salt
+                Password = @event.Password,
+                PasswordFormat = @event.PasswordFormat,
+                Salt = @event.PasswordSalt
             };
 
             _repository.Add(user);
