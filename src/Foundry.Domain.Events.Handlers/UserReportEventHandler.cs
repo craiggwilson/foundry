@@ -1,11 +1,12 @@
 ﻿
+using System.Linq;
 using Sikai.EventSourcing.Infrastructure;
 using Foundry.Domain.Events.User;
 
 
 namespace Foundry.Reporting.DomainEventHandlers
 {
-    public class UserReportEventHandler : IEventHandler<UserCreatedEvent>
+    public class UserReportEventHandler : IEventHandler<UserCreatedEvent>, IEventHandler<UserLoggedInEvent>
     {
         private readonly IReportingRepository<UserReport> _repository;
 
@@ -24,10 +25,17 @@ namespace Foundry.Reporting.DomainEventHandlers
                 DisplayName = @event.DisplayName,
                 Password = @event.Password,
                 PasswordFormat = @event.PasswordFormat,
-                Salt = @event.PasswordSalt
+                Salt = @event.PasswordSalt,
+                CreatedDateTime = @event.CreatedDateTime
             };
 
             _repository.Add(user);
+        }
+
+        public void Handle(UserLoggedInEvent @event)
+        {
+            var user = _repository.Single(u => u.Id == @event.SourceId);
+            user.LastLoginDateTime = @event.DateTime;
         }
     }
 }

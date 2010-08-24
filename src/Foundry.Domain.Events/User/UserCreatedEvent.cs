@@ -21,5 +21,7 @@ namespace Foundry.Domain.Events.User
         public string DisplayName { get; set; }
 
         public string Email { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
     }
 }

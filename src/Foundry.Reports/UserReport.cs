@@ -18,6 +18,10 @@ namespace Foundry.Reporting
 
         public string Salt { get; set; }
 
+        public DateTime CreatedDateTime { get; set; }
+
+        public DateTime? LastLoginDateTime { get; set; }
+
         public bool IsValidPassword(string plainTextPassword)
         {
             var generated = GeneratePassword(PasswordFormat, plainTextPassword, Salt);
