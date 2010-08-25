@@ -11,7 +11,7 @@ using Foundry.Services;
 
 namespace Foundry.Website.Controllers
 {
-    public class AccountController : FoundryController
+    public partial class AccountController : FoundryController
     {
         private readonly IMembershipService _membershipService;
 
@@ -21,13 +21,13 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public virtual ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public virtual ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -43,14 +43,20 @@ namespace Foundry.Website.Controllers
                 .WithMessage(this, string.Format("Welcome back, {0}", result.Item2.DisplayName), ViewMessageType.Info);
         }
 
+        public virtual ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction(MVC.Account.Login());
+        }
+
         [HttpGet]
-        public ActionResult Register()
+        public virtual ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterViewModel model)
+        public virtual ActionResult Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -61,7 +67,7 @@ namespace Foundry.Website.Controllers
                     .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-            return RedirectToRoute("Default")
+            return RedirectToAction(MVC.Account.Login())
                 .WithMessage(this, "Your user has been created. Please login to confirm.", ViewMessageType.Info);
         }
     }

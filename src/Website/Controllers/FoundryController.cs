@@ -5,7 +5,7 @@ using System;
 
 namespace Foundry.Website.Controllers
 {
-    public abstract class FoundryController : Controller
+    public abstract partial class FoundryController : Controller
     {
         public const string VIEW_MESSAGE_KEY = "Message";
 

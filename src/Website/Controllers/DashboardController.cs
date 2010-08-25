@@ -5,7 +5,7 @@ using Sikai.EventSourcing.Domain;
 namespace Foundry.Website.Controllers
 {
     [Authorize]
-    public class DashboardController : Controller
+    public partial class DashboardController : Controller
     {
         private IRepository _repository;
 
@@ -14,7 +14,7 @@ namespace Foundry.Website.Controllers
             _repository = repository;
         }
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View();
         }
