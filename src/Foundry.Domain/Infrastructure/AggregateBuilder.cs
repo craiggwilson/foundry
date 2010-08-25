@@ -9,24 +9,34 @@ namespace Foundry.Domain.Infrastructure
 {
     public class AggregateBuilder : IAggregateBuilder
     {
+        private readonly static Dictionary<Type, ConstructorInfo> _constructors = new Dictionary<Type, ConstructorInfo>();
+
         public TAggregateRoot BuildFromEventStream<TAggregateRoot>(IEnumerable<IDomainEvent> events) where TAggregateRoot : IAggregateRoot
         {
-            var raise = typeof(EntityBase).GetMethod("Raise", BindingFlags.Default, null, new[] { typeof(IDomainEvent) }, null);
+            var raise = typeof(EntityBase).GetMethod("Raise", BindingFlags.NonPublic | BindingFlags.Instance);
             object root = null;
             foreach(var @event in events)
             {
                 if (root == null)
-                    root = Activator.CreateInstance(typeof(TAggregateRoot), BindingFlags.CreateInstance | BindingFlags.NonPublic, null, new[] { @event.SourceId }, null);
+                    root = GetConstructorInfo(typeof(TAggregateRoot)).Invoke(new object[] { @event.SourceId });
 
-                raise.Invoke(root, new [] { @event });
+                raise.MakeGenericMethod(@event.GetType()).Invoke(root, new [] { @event });
             }
 
-            return root;
+            return (TAggregateRoot)root;
         }
 
         public TAggregateRoot BuildFromSnapshot<TAggregateRoot>(ISnapshot snapshot, IEnumerable<IDomainEvent> events) where TAggregateRoot :IAggregateRoot
         {
             throw new NotImplementedException();
+        }
+
+        private static ConstructorInfo GetConstructorInfo(Type type)
+        {
+            ConstructorInfo ctor;
+            if(!_constructors.TryGetValue(type, out ctor))
+                _constructors[type] = ctor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(Guid) }, null);
+            return ctor;
         }
     }
 }
