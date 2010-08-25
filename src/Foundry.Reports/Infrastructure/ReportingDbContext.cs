@@ -16,6 +16,8 @@ namespace Foundry.Reporting.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.RegisterSet<UserReport>();
+            modelBuilder.Entity<UserReport>()
+                .HasKey(x => x.Id);
         }
 
         public void Commit()

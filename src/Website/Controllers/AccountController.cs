@@ -55,14 +55,14 @@ namespace Foundry.Website.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if ( _membershipService.CreateUser(model.Username, model.Password, model.DisplayName, model.Email))
+            if (!_membershipService.CreateUser(model.Username, model.Password, model.DisplayName, model.Email))
             {
                 return View(model)
                     .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-
-            return RedirectToRoute("Default");
+            return RedirectToRoute("Default")
+                .WithMessage(this, "Your user has been created. Please login to confirm.", ViewMessageType.Info);
         }
     }
 }

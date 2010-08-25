@@ -14,19 +14,20 @@ namespace Foundry.Domain.Infrastructure
         public TAggregateRoot BuildFromEventStream<TAggregateRoot>(IEnumerable<IDomainEvent> events) where TAggregateRoot : IAggregateRoot
         {
             var raise = typeof(EntityBase).GetMethod("Raise", BindingFlags.NonPublic | BindingFlags.Instance);
-            object root = null;
+            TAggregateRoot root = default(TAggregateRoot);
             foreach(var @event in events)
             {
                 if (root == null)
-                    root = GetConstructorInfo(typeof(TAggregateRoot)).Invoke(new object[] { @event.SourceId });
+                    root = (TAggregateRoot)GetConstructorInfo(typeof(TAggregateRoot)).Invoke(new object[] { @event.SourceId });
 
                 raise.MakeGenericMethod(@event.GetType()).Invoke(root, new [] { @event });
             }
 
-            return (TAggregateRoot)root;
+            root.FlushEvents(); //get rid of these so we don't raise them again...
+            return root;
         }
 
-        public TAggregateRoot BuildFromSnapshot<TAggregateRoot>(ISnapshot snapshot, IEnumerable<IDomainEvent> events) where TAggregateRoot :IAggregateRoot
+        public TAggregateRoot BuildFromSnapshot<TAggregateRoot>(ISnapshot snapshot, IEnumerable<IDomainEvent> events) where TAggregateRoot : IAggregateRoot
         {
             throw new NotImplementedException();
         }
