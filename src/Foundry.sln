@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Domain.Events.Handl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messages.Handlers", "Foundry.Messages.Handlers\Foundry.Messages.Handlers.csproj", "{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Services", "Foundry.Services\Foundry.Services.csproj", "{001930EA-DD77-49B4-BF79-2D44E5ACF335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,16 @@ Global
 		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}.Release|x86.ActiveCfg = Release|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

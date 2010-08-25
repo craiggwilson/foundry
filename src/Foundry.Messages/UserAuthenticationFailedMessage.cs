@@ -3,6 +3,6 @@ namespace Foundry.Messaging
 {
     public class UserAuthenticationFailedMessage
     {
-        public string IpAddress { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -7,18 +7,17 @@ using Foundry.Website.Models;
 using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
 using System.Web.Security;
+using Foundry.Services;
 
 namespace Foundry.Website.Controllers
 {
     public class AccountController : FoundryController
     {
-        private readonly IBus _bus;
-        private readonly IReportingRepository<UserReport> _userReportRepository;
+        private readonly IMembershipService _membershipService;
 
-        public AccountController(IReportingRepository<UserReport> userReportRepository, IBus bus)
+        public AccountController(IMembershipService membershipService)
         {
-            _userReportRepository = userReportRepository;
-            _bus = bus;
+            _membershipService = membershipService;
         }
 
         [HttpGet]
@@ -33,19 +32,15 @@ namespace Foundry.Website.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
-            if (user == null || !user.IsValidPassword(model.Password))
+            var result = _membershipService.TryLogin(model.Username, model.Password);
+            if (!result.Item1)
             {
-                WithTransaction(() => _bus.Send(new UserAuthenticationFailedMessage { IpAddress = ControllerContext.HttpContext.Request.ServerVariables["REMOTE_ADDR"] }));
-
                 return View(model)
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            WithTransaction(() => _bus.Send(new UserLoggedInMessage { UserId = user.Id }));
-
             return new FormsAuthenticationResult(model.Username, model.RememberMe)
-                .WithMessage(this, string.Format("Welcome back, {0}", user.DisplayName), ViewMessageType.Info);
+                .WithMessage(this, string.Format("Welcome back, {0}", result.Item2.DisplayName), ViewMessageType.Info);
         }
 
         [HttpGet]
@@ -60,14 +55,12 @@ namespace Foundry.Website.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = _userReportRepository.SingleOrDefault(u => u.Username == model.Username);
-            if (user != null)
+            if ( _membershipService.CreateUser(model.Username, model.Password, model.DisplayName, model.Email))
             {
                 return View(model)
                     .WithMessage(this, "The username you have chosen is invalid.  Please try another one.", ViewMessageType.Error);
             }
 
-            WithTransaction(() => _bus.Send(new CreateUserMessage { DisplayName = model.DisplayName, Email = model.Email, Password = model.Password, Username = model.Username }));
 
             return RedirectToRoute("Default");
         }

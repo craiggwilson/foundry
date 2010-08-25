@@ -9,6 +9,7 @@ using Spark.Web.Mvc;
 using Foundry.Domain;
 using Foundry.Messaging;
 using Foundry.Reporting;
+using Foundry.Services;
 using System;
 using Spark;
 using Foundry.Website.Controllers;
@@ -43,6 +44,7 @@ namespace Foundry.Website
             builder.RegisterModule<DomainModule>();
             builder.RegisterModule<MessagingModule>();
             builder.RegisterModule<ReportingeModule>();
+            builder.RegisterModule<ServicesModule>();
 
             _containerProvider = new ContainerProvider(builder.Build());
 

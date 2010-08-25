@@ -29,7 +29,6 @@ namespace Foundry.Domain
                 SourceId = Id, 
                 Username = username.Value, 
                 Password = password.Value, 
-                PasswordFormat = (int)password.Format, 
                 PasswordSalt = password.Salt,
                 DisplayName = displayName, 
                 Email = email.Address,
@@ -56,7 +55,7 @@ namespace Foundry.Domain
         {
             _displayName = @event.DisplayName;
             _username = new Username(@event.Username);
-            _password = new Password(@event.Password, (PasswordFormat)@event.PasswordFormat, @event.PasswordSalt);
+            _password = new Password(@event.Password, @event.PasswordSalt);
             _email = new Email(@event.Email);
             _createdDateTime = @event.CreatedDateTime;
         }

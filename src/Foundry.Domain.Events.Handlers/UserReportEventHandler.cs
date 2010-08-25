@@ -24,7 +24,6 @@ namespace Foundry.Reporting.DomainEventHandlers
                 Email = @event.Email,
                 DisplayName = @event.DisplayName,
                 Password = @event.Password,
-                PasswordFormat = @event.PasswordFormat,
                 Salt = @event.PasswordSalt,
                 CreatedDateTime = @event.CreatedDateTime
             };

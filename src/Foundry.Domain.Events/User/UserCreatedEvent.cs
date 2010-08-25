@@ -14,8 +14,6 @@ namespace Foundry.Domain.Events.User
 
         public string Password { get; set; }
 
-        public int PasswordFormat { get; set; }
-
         public string PasswordSalt { get; set; }
 
         public string DisplayName { get; set; }

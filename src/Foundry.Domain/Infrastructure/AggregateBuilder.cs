@@ -12,11 +12,11 @@ namespace Foundry.Domain.Infrastructure
         public TAggregateRoot BuildFromEventStream<TAggregateRoot>(IEnumerable<IDomainEvent> events) where TAggregateRoot : IAggregateRoot
         {
             var raise = typeof(EntityBase).GetMethod("Raise", BindingFlags.Default, null, new[] { typeof(IDomainEvent) }, null);
-            dynamic root = null;
+            object root = null;
             foreach(var @event in events)
             {
                 if (root == null)
-                    root = (TAggregateRoot)Activator.CreateInstance(typeof(TAggregateRoot), BindingFlags.Default, null, new[] { @event.SourceId }, null);
+                    root = Activator.CreateInstance(typeof(TAggregateRoot), BindingFlags.CreateInstance | BindingFlags.NonPublic, null, new[] { @event.SourceId }, null);
 
                 raise.Invoke(root, new [] { @event });
             }

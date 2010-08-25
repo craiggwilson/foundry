@@ -139,6 +139,10 @@
       <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
       <Name>Foundry.Reports</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Foundry.Services\Foundry.Services.csproj">
+      <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>
+      <Name>Foundry.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foundry.Web\Foundry.Web.csproj">
       <Project>{547B4148-F89C-484F-AE98-8C11C316C05A}</Project>
       <Name>Foundry.Web</Name>

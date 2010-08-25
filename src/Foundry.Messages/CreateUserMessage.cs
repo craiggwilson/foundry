@@ -7,6 +7,8 @@ namespace Foundry.Messaging
 
         public string Password { get; set; }
 
+        public string PasswordSalt { get; set; }
+
         public string DisplayName { get; set; }
 
         public string Email { get; set; }

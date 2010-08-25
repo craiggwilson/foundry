@@ -21,7 +21,7 @@ namespace Foundry.Messaging.MessageHandlers
         {
             var user = new User(
                 new Username(message.Username), 
-                new Password(message.Password), 
+                new Password(message.Password, message.PasswordSalt),
                 message.DisplayName, 
                 new Email(message.Email));
 
