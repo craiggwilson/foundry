@@ -27,8 +27,10 @@
 @link_color4: #635644;
 @link_hover_color4: #fff;
 
-@background_color5: #362C23;
+@background_color5: #2E241D;
 @text_color5: #fff;
+@link_color5: #A1917B;
+@link_hover_color5: #fff;
 
 @error_color: #ff0000;
 @message_color: #C9C919;
@@ -38,12 +40,6 @@
     -webkit-border-radius: @radius;
     -moz-border-radius: @radius;
     border-radius: @radius;
-}
-
-.button(@background_color, @hover_color)
-{
-	background-color: #ae3900;
-	border: 1px #e66a13 solid;
 }
 
 /**************************************/
@@ -152,15 +148,15 @@ input[type="text"], input[type="password"]
     color: @error_color;
 }
 
-#applicationMenuContainer
+#accountContainer
 {
     ul 
     {
+        border-bottom: 1px @border_color4 solid;
         list-style: none;
         margin: 0;
         padding: .5em;
         text-align: right;
-        border-bottom: 1px @border_color4 solid;
 
         li
         {
@@ -175,11 +171,27 @@ input[type="text"], input[type="password"]
 	background-color: @background_color5;
 	color: @text_color5;
 
-	h1
-	{
-		font-size: @font_size * 4;
-		margin: 0;
-	}
+	ul
+    {
+		margin: 0 0 0 100px;
+        border-bottom: 1px @border_color4 solid;
+        list-style: none;
+        padding: 1em;
+
+        li
+        {
+            display: inline;
+			font-size: @font_size + .3;
+			a
+			{
+				color: @link_color5;
+			}
+			a:hover
+			{
+				color: @link_hover_color5;
+			}
+        }
+    }
 }
 
 .formbox
@@ -224,13 +236,15 @@ input[type="text"], input[type="password"]
 
 
 /**************************************/
-/* Login */
+/* Login/Register */
 /**************************************/
 
 #banner
 {
 	h1
 	{
+		font-size: @font_size * 4;
+		margin-top: 0;
 		margin-left: auto;
 		margin-right: auto;
 		width: 650px;

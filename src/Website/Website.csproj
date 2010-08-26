@@ -122,7 +122,6 @@
     </None>
     <None Include="Views\Account\Register.spark" />
     <None Include="Views\Account\Login.spark" />
-    <None Include="Views\Layouts\Application.spark" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -136,7 +135,7 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Layouts\Default.spark" />
+    <None Include="Views\Layouts\Application.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />
     <None Include="Views\Shared\_global.spark" />

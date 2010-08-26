@@ -1,5 +1,4 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.LoginViewModel" />
-<use master="Default" />
 
 <content name="banner">
   <h1>Login to Foundry.</h1>
