@@ -1,12 +1,12 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.LoginViewModel" />
+<use master="Default" />
 
-<content:head>
-  <link rel="stylesheet" href="~/Content/Account/Login.less" type="text/css" />
-</content:head>
-
-<content:menu />
+<content name="banner">
+  <h1>Login to Foundry.</h1>
+</content>
 
 <% using(Html.BeginForm()) { %>
+<div id="login" class="formbox">
   <fieldset>
     <div>
       ${Html.LabelFor(x => x.Username)}
@@ -17,8 +17,8 @@
       ${Html.PasswordFor(x => x.Password)}
     </div>
 
-    <div class="buttons">
-      <input type="submit" value="Login" />
-    </div>
+    Not a Member? ${Html.ActionLink("Register", MVC.Account.Register())}
+    <input id="loginButton" type="submit" value="Login" />
   </fieldset>
+</div>
 <% } %>

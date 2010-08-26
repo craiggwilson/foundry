@@ -1,41 +1,42 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.RegisterViewModel" />
+<use master="Default" />
 
-<content:head>
-  <link rel="stylesheet" href="~/Content/Account/Register.less" type="text/css" />
-</content:head>
+<content name="banner">
+  <h1>Register with Foundry.</h1>
+</content>
 
-<content:menu />
+<div class="formbox">
+  <% using(Html.BeginForm()) { %>
+    <fieldset>
+      <div>
+        ${Html.LabelFor(x => x.Username)}
+        ${Html.TextBoxFor(x => x.Username)}
+        ${Html.ValidationMessageFor(x => x.Username)}
+      </div>
+      <div>
+        ${Html.LabelFor(x => x.Password)}
+        ${Html.PasswordFor(x => x.Password)}
+        ${Html.ValidationMessageFor(x => x.Password)}
+      </div>
+      <div>
+        ${Html.LabelFor(x => x.PasswordAgain)}
+        ${Html.PasswordFor(x => x.PasswordAgain)}
+        ${Html.ValidationMessageFor(x => x.PasswordAgain)}
+      </div>
+      <div>
+        ${Html.LabelFor(x => x.Email)}
+        ${Html.TextBoxFor(x => x.Email)}
+        ${Html.ValidationMessageFor(x => x.Email)}
+      </div>
+      <div>
+        ${Html.LabelFor(x => x.DisplayName)}
+        ${Html.TextBoxFor(x => x.DisplayName)}
+        ${Html.ValidationMessageFor(x => x.DisplayName)}
+      </div>
 
-<% using(Html.BeginForm()) { %>
-  <fieldset>
-    <div>
-      ${Html.LabelFor(x => x.Username)}
-      ${Html.TextBoxFor(x => x.Username)}
-      ${Html.ValidationMessageFor(x => x.Username)}
-    </div>
-    <div>
-      ${Html.LabelFor(x => x.Password)}
-      ${Html.PasswordFor(x => x.Password)}
-      ${Html.ValidationMessageFor(x => x.Password)}
-    </div>
-    <div>
-      ${Html.LabelFor(x => x.PasswordAgain)}
-      ${Html.PasswordFor(x => x.PasswordAgain)}
-      ${Html.ValidationMessageFor(x => x.PasswordAgain)}
-    </div>
-    <div>
-      ${Html.LabelFor(x => x.Email)}
-      ${Html.TextBoxFor(x => x.Email)}
-      ${Html.ValidationMessageFor(x => x.Email)}
-    </div>
-    <div>
-      ${Html.LabelFor(x => x.DisplayName)}
-      ${Html.TextBoxFor(x => x.DisplayName)}
-      ${Html.ValidationMessageFor(x => x.DisplayName)}
-    </div>
-
-    <div class="buttons">
-      <input type="submit" value="Register" />
-    </div>
-  </fieldset>
-<% } %>
+      <div class="buttons">
+        <input type="submit" value="Register" />
+      </div>
+    </fieldset>
+  <% } %>
+</div>

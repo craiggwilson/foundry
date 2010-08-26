@@ -1,44 +1,8 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
-    <title><use content="title">Foundry</use></title>
-    <link rel="stylesheet" href="~/Content/Application.less" type="text/css" />
-    <use content="head"/>
-  </head>
-  <body>
-    <div id="page">
-        <div id="header">
-            <div id="applicationMenuContainer">
-				<use content="applicationMenu">
-					<ul id="applicationMenu">
-						<li><User /></li>
-						<use content="applicationMenuExt" />
-						<li>${Html.ActionLink("Help", "Index", "Help")}</li>
-					</ul>
-				</use>
-            </div>
-            <div id="banner">
-                <h1>Foundry</h1>
-            </div>
-            <div id="menuContainer">
-				<use content="menu">
-					<ul id="menu">
-							<li>${Html.ActionLink("Dashboard", "Index", "Dashboard")}</li>
-							<use content="menuExt" />
-					</ul>
-				</use>
-            </div>
-        </div>
-		
-        <div id="main">
-			<use content="main">
-				<ViewMessage />
-				<use content="view"/>
-			</use>
-			<div id="footer">
-				<use content="footer" />
-			</div>
-        </div>	
-    </div>
-  </body>
-</html>
+﻿<div id="banner">
+  <use content="menu">
+    <ul id="menu">
+        <li>${Html.ActionLink("Dashboard", MVC.Dashboard.Index())}</li>
+        <use content="menuExt" />
+    </ul>
+  </use>
+</div>

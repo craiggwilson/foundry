@@ -1,4 +1,5 @@
 ﻿<use namespace="System"/>
 <use namespace="System.Collections.Generic"/>
+<use namespace="System.Web.Mvc"/>
 <use namespace="System.Web.Mvc.Html"/>
 <use namespace="Foundry.Website"/>

@@ -3,11 +3,11 @@
     <span class="user">
       Welcome ${Context.User.Identity.Name}!
     </span>
-    [${Html.ActionLink("logoff", "Logoff", "Account")}]
+    [${Html.ActionLink("logoff", MVC.Account.Logout())}]
   </li>
   <li>${Html.ActionLink("Profile", "Profile", "Account")}</li>
 </if>
 <else>
-  <li>${Html.ActionLink("Login", "Login", "Account")}</li>
-  <li>${Html.ActionLink("Register", "Register", "Account")}</li>
+  <li>${Html.ActionLink("Login", MVC.Account.Login())}</li>
+  <li>${Html.ActionLink("Register", MVC.Account.Register())}</li>
 </else>

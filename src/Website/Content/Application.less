@@ -1,4 +1,50 @@
-@import "Common";
+@font_size: .8em;
+
+@background_color1: #ececec;
+@border_color1: @background_color1 - #222;
+@text_color1: #000;
+@link_color1: #00f;
+
+
+@background_color2: #fff;
+@text_color2: #000;
+@text_alt_color2: #727272;
+@border_color2: @background_color2 - #222;
+@button_color2: #ae3900;
+@button_hover_color2: #7F7E7D;
+@button_border_color2: @button_color2 + #222;
+@button_border_hover_color2: @button_hover_color2 - #222;
+@button_text_color2: #fff;
+@button_text_hover_color2: #fff;
+
+
+@background_color3: #f4f4f4;
+
+
+@background_color4: #201816;
+@border_color4: #473A2E;
+@text_color4: #635644;
+@link_color4: #635644;
+@link_hover_color4: #fff;
+
+@background_color5: #362C23;
+@text_color5: #fff;
+
+@error_color: #ff0000;
+@message_color: #C9C919;
+
+.rounded(@radius: 6px) 
+{
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.button(@background_color, @hover_color)
+{
+	background-color: #ae3900;
+	border: 1px #e66a13 solid;
+}
 
 /**************************************/
 /* Global */
@@ -6,11 +52,11 @@
 
 body
 {
-    background-color: @background_color;
-    color: @text_color;
-    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    background-color: @background_color1;
+    color: @text_color1;
+    font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
-    margin: 0 10px 0 10px;
+    margin: 0;
     padding: 0;
 }
 
@@ -26,12 +72,12 @@ img
 
 a
 {
-    color: @link_color;
+    color: @link_color1;
 }
 
 a:visited
 {
-    color: @link_color;
+    color: @link_color1;
 }
 
 span.user
@@ -46,27 +92,45 @@ span.user
 
 fieldset
 {
-    .rounded;
-    
-    label
-    {
-        float: left;
-        width: 25%;
-        margin-right: .5em;
-        padding-top: .2em;
-        text-align: right;
-        font-weight: bold;
-    }
-    
-    .buttons
-    {
-        text-align: center;
-    }
+    border: 0;
+}
+
+input[type="text"], input[type="password"]
+{
+    background-color: @background_color3;
+    border: 1px @border_color2 solid;
+    font-size: @font_size + .6em;
+    padding: 10px 5px;
 }
 
 /**************************************/
 /* Application */
 /**************************************/
+
+#header
+{
+    background-color: @background_color4;
+    color: @text_color4;
+
+    a
+    {
+        color: @link_color4;
+        text-decoration: none;
+    }
+    a:hover
+    {
+        color: @link_hover_color4;
+    }
+    a:visited
+    {
+        color: @link_color4;
+    }
+}
+
+#main
+{
+    margin: 0 10px 0 10px;
+}
 
 #message
 {
@@ -96,41 +160,93 @@ fieldset
         margin: 0;
         padding: .5em;
         text-align: right;
-        border-bottom: 1px (@background_color - #222) solid;
+        border-bottom: 1px @border_color4 solid;
 
         li
         {
             display: inline;
+			font-size: @font_size + .1;
         }
     }
 }
 
-#menuContainer
+#banner
 {
-    ul
+	background-color: @background_color5;
+	color: @text_color5;
+
+	h1
+	{
+		font-size: @font_size * 4;
+		margin: 0;
+	}
+}
+
+.formbox
+{
+    background-color: @background_color2;
+    border: 1px @border_color1 solid;
+    padding: 20px;
+
+    fieldset
     {
-        list-style: none;
-        margin: 0;
-        padding: .5em;
-        text-align: left;
-        border: 2px (@menu_color - #111) solid;
-        background-color: @menu_color;
-
-        li 
+        label
         {
-            display: inline;
-            a
-            {
-                color: @link_color;
-                font-weight: bold;
-                font-size: @font_size + .1em;
-            }
-
-            a:visited
-            {
-                color: @link_color;
-            }
-
+            display: block;
+            font-size: @font_size * 2;
         }
+
+        input[type="text"], input[type="password"]
+        {
+            width: 450px;
+            margin: 10px 0 30px 0;
+        }
+
+		a, input[type="submit"]
+		{
+			background-color: @button_color2;
+			border: 1px @button_border_color2 solid;
+			color: @button_text_color2;
+			font-size: @font_size + 1;
+			margin: 0;
+			padding: 5px 15px;
+			text-decoration: none;
+		}
+
+		a:hover, input[type="submit"]:hover
+		{
+			background: @button_hover_color2;
+			border: 1px @button_border_hover_color2 solid;
+			color: @button_text_hover_color2;
+		}
     }
+}
+
+
+/**************************************/
+/* Login */
+/**************************************/
+
+#banner
+{
+	h1
+	{
+		margin-left: auto;
+		margin-right: auto;
+		width: 650px;
+	}
+}
+
+#main
+{
+    text-align: left;
+    width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+	#login fieldset #loginButton
+	{
+		margin-left: 160px;
+	}
 }
