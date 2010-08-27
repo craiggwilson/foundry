@@ -224,6 +224,11 @@ input[type="text"], input[type="password"]
     border: 1px @border_color1 solid;
     padding: 20px;
 
+	h2
+	{
+		border-bottom: 1px @border_color2 solid;
+	}
+
     fieldset
     {
         label
@@ -298,7 +303,19 @@ input[type="text"], input[type="password"]
 #newsfeed
 {
 	float: left;
-	margin: 20px 0 0 20px;
+	width: 600px;
+
+	ul 
+	{
+		padding-left: 10px;
+		li
+		{
+			border-bottom: 1px @border_color2 solid;
+			list-style: none;
+			padding-bottom: 10px;
+			margin-bottom: 10px;
+		}
+	}
 }
 
 #repositories

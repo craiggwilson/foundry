@@ -11,15 +11,13 @@
     <div id="page">
       <div id="header">
         <div id="accountContainer">
-          <use content="account">
-            <ul id="accountMenu">
-              <li>
-                <User />
-              </li>
-              <use content="accountMenu" />
-              <li>Help</li>
-            </ul>
-          </use>
+			<ul id="accountMenu">
+				<li>
+				<User />
+				</li>
+				<use content="accountMenu" />
+				<li>Help</li>
+			</ul>
         </div>
         <div id="banner">
             <use content="banner">
@@ -27,7 +25,7 @@
 					<li class="selected">${Html.ActionLink("Dashboard", MVC.Dashboard.Index())}</li>
 					<li>${Html.ActionLink("Register", MVC.Account.Register())}</li>
 					<li>${Html.ActionLink("Logout", MVC.Account.Logout())}</li>
-					<use content="menuExt" />
+					<use content="menu" />
 				</ul>
 			</use>
         </div>
