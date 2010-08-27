@@ -18,11 +18,20 @@
 	</div>
 
 	<div id="repositories">
-		<h2>Your Repositories...</h2>
-		<ul>
-			<li>Repo 1</li>
-			<li>Repo 2</li>
-		</ul>
+		<div class="box">
+			<div class="caption"><h2>Your Repositories...</h2>${Html.ActionLink("New Repository", MVC.Dashboard.Index())}</div>
+			<ul>
+				<li>Repo 1</li>
+				<li>Repo 2</li>
+			</ul>
+		</div>
+		<div class="box">
+			<div class="caption"><h2>Watched Repositories...</h2></div>
+			<ul>
+				<li>Repo 1</li>
+				<li>Repo 2</li>
+			</ul>
+		</div>
 	</div>
 
 	<div class="clear"></div>

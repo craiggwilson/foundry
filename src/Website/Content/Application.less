@@ -224,11 +224,6 @@ input[type="text"], input[type="password"]
     border: 1px @border_color1 solid;
     padding: 20px;
 
-	h2
-	{
-		border-bottom: 1px @border_color2 solid;
-	}
-
     fieldset
     {
         label
@@ -243,7 +238,7 @@ input[type="text"], input[type="password"]
             margin: 10px 0 30px 0;
         }
 
-        a, input[type="submit"]
+        a, a:visited, input[type="submit"]
         {
             background-color: @button_color2;
             border: 1px @button_border_color2 solid;
@@ -321,4 +316,58 @@ input[type="text"], input[type="password"]
 #repositories
 {
 	float: right;
+	width: 350px;
+
+	.box
+	{
+		.rounded;
+		background-color: @background_color1;
+		border: 1px @border_color2 solid;
+		margin-bottom: 20px;
+
+		.caption
+		{
+			padding: 10px;
+			h2
+			{
+				display: inline;
+			}
+
+			a, a:visited
+			{
+				background-color: @button_color2;
+				border: 1px @button_border_color2 solid;
+				color: @button_text_color2;
+				text-decoration: none;
+				padding: 5px 10px;
+				float: right;
+			}
+
+			a:hover
+			{
+				background: @button_hover_color2;
+				border: 1px @button_border_hover_color2 solid;
+				color: @button_text_hover_color2;
+			}
+		}
+		
+
+		ul
+		{
+			background-color: @background_color2;
+			margin: 0px;
+			border-top: 1px @border_color2 solid;
+			padding-left: 0;
+
+			li
+			{
+				list-style: none;
+				border-bottom: 1px @border_color2 solid;
+				margin: 10px 0;
+				padding: 10px 10px;
+			}
+		}
+	}
+
+
 }
