@@ -5,7 +5,7 @@
 </content>
 
   <% using(Html.BeginForm()) { %>
-  <div id="register" class="formbox">
+  <div id="register" class="content">
     <fieldset>
       <div>
         ${Html.LabelFor(x => x.Username)}

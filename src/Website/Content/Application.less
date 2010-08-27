@@ -1,4 +1,4 @@
-@font_size: .8em;
+@font_size: .9em;
 
 @background_color1: #ececec;
 @border_color1: @background_color1 - #222;
@@ -51,7 +51,7 @@
 /* Global */
 /**************************************/
 
-body
+html, body
 {
     background-color: @background_color1;
     color: @text_color1;
@@ -208,7 +208,17 @@ input[type="text"], input[type="password"]
     }
 }
 
-.formbox
+#main
+{
+	margin: 20px 100px;
+}
+
+#footer
+{
+	clear: both;
+}
+
+.content
 {
     background-color: @background_color2;
     border: 1px @border_color1 solid;
@@ -248,6 +258,10 @@ input[type="text"], input[type="password"]
     }
 }
 
+.clear
+{
+	clear: both;
+}
 
 /**************************************/
 /* Login/Register */
@@ -265,7 +279,7 @@ input[type="text"], input[type="password"]
     }
 }
 
-#main #login, #main #register
+#login, #register
 {
 	margin-top: 50px;
 	margin-left: auto;
@@ -276,4 +290,18 @@ input[type="text"], input[type="password"]
 	{
 		margin-left: 160px;
 	}
+}
+
+/**************************************/
+/* Dashboard */
+/**************************************/
+#newsfeed
+{
+	float: left;
+	margin: 20px 0 0 20px;
+}
+
+#repositories
+{
+	float: right;
 }
