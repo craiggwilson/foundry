@@ -4,9 +4,8 @@
   <h1>Register with Foundry.</h1>
 </content>
 
-<div class="formbox">
   <% using(Html.BeginForm()) { %>
-  <div id="register">
+  <div id="register" class="formbox">
     <fieldset>
       <div>
         ${Html.LabelFor(x => x.Username)}
@@ -40,4 +39,3 @@
     </fieldset>
   </div>
   <% } %>
-</div>

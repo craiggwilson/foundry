@@ -17,7 +17,6 @@
 @button_text_color2: #fff;
 @button_text_hover_color2: #fff;
 
-
 @background_color3: #f4f4f4;
 
 
@@ -31,6 +30,12 @@
 @text_color5: #fff;
 @link_color5: #A1917B;
 @link_hover_color5: #fff;
+@button_color5: #ae3900;
+@button_hover_color5: #7F7E7D;
+@button_border_color5: @button_color2 + #222;
+@button_border_hover_color5: @button_hover_color2 - #222;
+@button_text_color5: #fff;
+@button_text_hover_color5: #fff;
 
 @error_color: #ff0000;
 @message_color: #C9C919;
@@ -123,11 +128,6 @@ input[type="text"], input[type="password"]
     }
 }
 
-#main
-{
-    margin: 0 10px 0 10px;
-}
-
 #message
 {
     .rounded;
@@ -161,34 +161,48 @@ input[type="text"], input[type="password"]
         li
         {
             display: inline;
-			font-size: @font_size + .1;
+            font-size: @font_size + .1;
         }
     }
 }
 
 #banner
 {
-	background-color: @background_color5;
-	color: @text_color5;
+    background-color: @background_color5;
+    color: @text_color5;
 
-	ul
+    ul
     {
-		margin: 0 0 0 100px;
+        margin: 0 0 0 100px;
         border-bottom: 1px @border_color4 solid;
         list-style: none;
-        padding: 1em;
-
         li
         {
             display: inline;
-			font-size: @font_size + .3;
+            font-size: @font_size + .3;
+            margin-left: 30px;
+			line-height: 50px;
+            a
+            {
+				border: 1px transparent solid;
+				border-bottom: 0px;
+                color: @link_color5;
+				padding: 19px;
+            }
+            a:hover
+            {
+                color: @link_hover_color5;
+            }
+        }
+        
+        li.selected, li:hover
+        {
 			a
 			{
-				color: @link_color5;
-			}
-			a:hover
-			{
-				color: @link_hover_color5;
+				background-color: @button_color5;
+				border: 1px @button_border_color5 solid;
+				border-bottom: 0px;
+				color: @button_text_color5;
 			}
         }
     }
@@ -214,23 +228,23 @@ input[type="text"], input[type="password"]
             margin: 10px 0 30px 0;
         }
 
-		a, input[type="submit"]
-		{
-			background-color: @button_color2;
-			border: 1px @button_border_color2 solid;
-			color: @button_text_color2;
-			font-size: @font_size + 1;
-			margin: 0;
-			padding: 5px 15px;
-			text-decoration: none;
-		}
+        a, input[type="submit"]
+        {
+            background-color: @button_color2;
+            border: 1px @button_border_color2 solid;
+            color: @button_text_color2;
+            font-size: @font_size + 1;
+            margin: 0;
+            padding: 5px 15px;
+            text-decoration: none;
+        }
 
-		a:hover, input[type="submit"]:hover
-		{
-			background: @button_hover_color2;
-			border: 1px @button_border_hover_color2 solid;
-			color: @button_text_hover_color2;
-		}
+        a:hover, input[type="submit"]:hover
+        {
+            background: @button_hover_color2;
+            border: 1px @button_border_hover_color2 solid;
+            color: @button_text_hover_color2;
+        }
     }
 }
 
@@ -241,25 +255,24 @@ input[type="text"], input[type="password"]
 
 #banner
 {
-	h1
-	{
-		font-size: @font_size * 4;
-		margin-top: 0;
-		margin-left: auto;
-		margin-right: auto;
-		width: 650px;
-	}
+    h1
+    {
+        font-size: @font_size * 4;
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 650px;
+    }
 }
 
-#main
+#main #login, #main #register
 {
-    text-align: left;
-    width: 540px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 490px;
 
-	#login fieldset #loginButton
+	fieldset #loginButton
 	{
 		margin-left: 160px;
 	}

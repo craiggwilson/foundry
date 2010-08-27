@@ -268,17 +268,7 @@ namespace Links {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Account {
-            private const string URLPATH = "~/Content/Account";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string Login_less = Url("Login.less");
-            public static readonly string Register_less = Url("Register.less");
-        }
-    
         public static readonly string Application_less = Url("Application.less");
-        public static readonly string Common_less = Url("Common.less");
     }
 
 }

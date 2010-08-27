@@ -1,3 +1,21 @@
 ﻿
+<div id="newsFeed">
+	<ul>
+		<li>
+			<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 2 days ago.
+		</li>
+		<li>
+			<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 5 days ago.
+		</li>
+		<li>
+			<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 10 days ago.
+		</li>
+		<li>
+			<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 11 days ago.
+		</li>
+	</ul>
+</div>
 
-Hola!
+<div id="repositories">
+
+</div>

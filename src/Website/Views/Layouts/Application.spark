@@ -24,7 +24,9 @@
         <div id="banner">
             <use content="banner">
 				<ul id="menu">
-					<li>${Html.ActionLink("Dashboard", MVC.Dashboard.Index())}</li>
+					<li class="selected">${Html.ActionLink("Dashboard", MVC.Dashboard.Index())}</li>
+					<li>${Html.ActionLink("Register", MVC.Account.Register())}</li>
+					<li>${Html.ActionLink("Logout", MVC.Account.Logout())}</li>
 					<use content="menuExt" />
 				</ul>
 			</use>
@@ -34,7 +36,7 @@
       <div id="main">
         <use content="main">
           <ViewMessage />
-          <use content="view"/>
+          <use content="view" />
         </use>
         <div id="footer">
           <use content="footer" />
