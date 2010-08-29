@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Messages.Handlers",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Services", "Foundry.Services\Foundry.Services.csproj", "{001930EA-DD77-49B4-BF79-2D44E5ACF335}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.SourceControl.GitIntegration", "Foundry.SourceControl.GitIntegration\Foundry.SourceControl.GitIntegration.csproj", "{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,16 @@ Global
 		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{001930EA-DD77-49B4-BF79-2D44E5ACF335}.Release|x86.ActiveCfg = Release|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
