@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.ComponentModel.Composition;
 
 namespace Foundry.SourceControl.GitIntegration
 {
+    [SourceControlProvider("Git")]
     public class GitSourceControlProvider
     {
         private readonly string _gitPath;
@@ -17,11 +19,10 @@ namespace Foundry.SourceControl.GitIntegration
             _reposPath = _reposPath;
         }
 
-        public void CreateNewRepository(string name)
+        public void CreateRepository(string name)
         {
             var cmd = new GitCommand(_gitPath, _reposPath);
             cmd.Execute("init --bare" + name);
         }
-
     }
 }

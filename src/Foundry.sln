@@ -32,6 +32,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Services", "Foundry
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.SourceControl.GitIntegration", "Foundry.SourceControl.GitIntegration\Foundry.SourceControl.GitIntegration.csproj", "{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.SourceControl", "Foundry.SourceControl\Foundry.SourceControl.csproj", "{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addins", "Addins", "{1891FA22-0535-448E-9B73-A757E8869612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +176,16 @@ Global
 		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,5 +194,6 @@ Global
 		{4384E569-0F95-4D28-A360-E6814BE3299C} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 		{F1FDA40E-6485-463A-AA55-2DBD279CABF5} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
+		{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C} = {1891FA22-0535-448E-9B73-A757E8869612}
 	EndGlobalSection
 EndGlobal

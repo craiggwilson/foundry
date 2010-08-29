@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}</ProjectGuid>
+    <ProjectGuid>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Foundry.SourceControl.GitIntegration</RootNamespace>
-    <AssemblyName>Foundry.SourceControl.GitIntegration</AssemblyName>
+    <RootNamespace>Foundry.SourceControl</RootNamespace>
+    <AssemblyName>Foundry.SourceControl</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,7 +34,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,16 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GitHttpHandler.cs" />
-    <Compile Include="GitSourceControlProvider.cs" />
-    <Compile Include="GitCommand.cs" />
+    <Compile Include="ISourceControlManager.cs" />
+    <Compile Include="ISourceControlProvider.cs" />
+    <Compile Include="ISourceControlProviderMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
-      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
-      <Name>Foundry.SourceControl</Name>
-    </ProjectReference>
+    <Compile Include="SourceControlManager.cs" />
+    <Compile Include="SourceControlProviderAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
