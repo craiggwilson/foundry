@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateUserRepositoryMessage.cs" />
     <Compile Include="Infrastructure\IBus.cs" />
     <Compile Include="Infrastructure\IMessageHandler.cs" />
     <Compile Include="UserLoggedInMessage.cs" />

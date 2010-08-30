@@ -45,7 +45,6 @@
     <Compile Include="ISourceControlProvider.cs" />
     <Compile Include="ISourceControlProviderMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourceControlManager.cs" />
     <Compile Include="SourceControlProviderAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

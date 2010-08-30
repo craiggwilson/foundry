@@ -5,22 +5,26 @@ using System.Text;
 using Foundry.Messaging.Infrastructure;
 using Sikai.EventSourcing.Domain;
 using Foundry.Domain;
+using Sikai.EventSourcing.Infrastructure;
 
 namespace Foundry.Messaging.MessageHandlers
 {
     public class UserLoggedInMessageHandler : IMessageHandler<UserLoggedInMessage>
     {
-        private readonly IRepository _repository;
+        private readonly IUnitOfWork _domain;
 
-        public UserLoggedInMessageHandler(IRepository repository)
+        public UserLoggedInMessageHandler(IUnitOfWork domain)
         {
-            _repository = repository;
+            _domain = domain;
         }
 
         public void Handle(UserLoggedInMessage message)
         {
-            var user = _repository.GetById<User>(message.UserId);
+            var repo = new Repository(_domain);
+            var user = repo.GetById<User>(message.UserId);
             user.LoggedIn();
+
+            _domain.Commit();
         }
     }
 }

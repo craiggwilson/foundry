@@ -1,14 +1,33 @@
 ﻿using System.Data.Entity;
-using Foundry.Reporting;
 
-namespace Foundry.Reporting.Infrastructure
+namespace Foundry.Reports.Infrastructure
 {
-    public class ReportingDbContext : DbContext, IReportingUnitOfWork
+    public class ReportingDbContext : DbContext, IReportingSession
     {
         public ReportingDbContext()
             : base("Reporting")
         {
             Database.CreateIfNotExists();
+        }
+
+        public void Add<T>(T report) where T : class
+        {
+            this.Set<T>().Add(report);
+        }
+
+        public void Remove<T>(T report) where T : class
+        {
+            this.Set<T>().Remove(report);
+        }
+
+        public System.Linq.IQueryable<T> Query<T>()  where T : class
+        {
+            return this.Set<T>();
+        }
+
+        public void Commit()
+        {
+            this.SaveChanges();
         }
 
         protected override void OnModelCreating(System.Data.Entity.ModelConfiguration.ModelBuilder modelBuilder)
@@ -17,12 +36,19 @@ namespace Foundry.Reporting.Infrastructure
 
             modelBuilder.RegisterSet<UserReport>();
             modelBuilder.Entity<UserReport>()
-                .HasKey(x => x.Id);
+                .HasKey(x => x.UserId);
+
+            modelBuilder.RegisterSet<CodeRepositoryReport>();
+            modelBuilder.Entity<CodeRepositoryReport>()
+                .HasKey(x => x.RepositoryId);
+
+            modelBuilder.RegisterSet<UserCodeRepositoryReport>();
+            modelBuilder.Entity<UserCodeRepositoryReport>()
+                .HasKey(x => x.RepositoryId);
         }
 
-        public void Commit()
-        {
-            this.SaveChanges();
-        }
+        
+
+        
     }
 }

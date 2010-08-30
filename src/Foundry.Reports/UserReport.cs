@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Foundry.Reporting
+namespace Foundry.Reports
 {
     public class UserReport
     {
-        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
 
         public string Username { get; set; }
 

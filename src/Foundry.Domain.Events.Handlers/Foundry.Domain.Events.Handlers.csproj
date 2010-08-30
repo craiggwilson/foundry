@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeRepositoryReportEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReportEventHandler.cs" />
+    <Compile Include="UserCodeRepositoryReportEventHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">

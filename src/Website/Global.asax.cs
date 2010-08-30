@@ -8,11 +8,14 @@ using Autofac.Integration.Web.Mvc;
 using Spark.Web.Mvc;
 using Foundry.Domain;
 using Foundry.Messaging;
-using Foundry.Reporting;
+using Foundry.Reports;
 using Foundry.Services;
 using System;
 using Spark;
 using Foundry.Website.Controllers;
+using System.Web.Security;
+using System.Web;
+using Foundry.Website.Models;
 
 namespace Foundry.Website
 {
@@ -43,7 +46,7 @@ namespace Foundry.Website
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
             builder.RegisterModule<DomainModule>();
             builder.RegisterModule<MessagingModule>();
-            builder.RegisterModule<ReportingeModule>();
+            builder.RegisterModule<ReportingModule>();
             builder.RegisterModule<ServicesModule>();
 
             _containerProvider = new ContainerProvider(builder.Build());
@@ -61,6 +64,25 @@ namespace Foundry.Website
 
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_AuthenticateRequest()
+        {
+            var cookieName = FormsAuthentication.FormsCookieName;
+            var cookie = HttpContext.Current.Request.Cookies[cookieName];
+
+            if (cookie != null)
+            {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+                if (ticket == null || ticket.Expired)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                    return;
+                }
+
+                var fuser = FoundryUser.FromString(ticket.UserData);
+                HttpContext.Current.User = fuser;
+            }
         }
     }
 }

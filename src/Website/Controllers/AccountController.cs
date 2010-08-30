@@ -2,12 +2,14 @@
 using System.Web.Mvc;
 
 using Foundry.Messaging;
-using Foundry.Reporting;
+using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
 using System.Web.Security;
 using Foundry.Services;
+using System;
+using System.Web;
 
 namespace Foundry.Website.Controllers
 {
@@ -39,7 +41,24 @@ namespace Foundry.Website.Controllers
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            return new FormsAuthenticationResult(model.Username, model.RememberMe)
+            var foundryIdentity = new FoundryUser { Id = result.Item2.UserId, Name = result.Item2.Username, DisplayName = result.Item2.DisplayName, IsAuthenticated = true, AuthenticationType = "Forms" };
+            
+            var ticket = new FormsAuthenticationTicket(1,
+                model.Username,
+                DateTime.Now,
+                DateTime.Now.AddDays(10),
+                model.RememberMe,
+                foundryIdentity.ToString());
+
+
+            var ticketString = FormsAuthentication.Encrypt(ticket);
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketString);
+            if (model.RememberMe)
+                cookie.Expires = DateTime.Now.AddDays(10);
+
+            Response.Cookies.Add(cookie);
+
+            return new FormsAuthenticationResult(model.Username)
                 .WithMessage(this, string.Format("Welcome back, {0}", result.Item2.DisplayName), ViewMessageType.Info);
         }
 

@@ -3,20 +3,20 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Autofac;
 using Autofac.Integration.Web;
-using Foundry.Reporting.Infrastructure;
+using Foundry.Reports.Infrastructure;
 using Sikai.EventSourcing.Infrastructure;
-using Foundry.Reporting.DomainEventHandlers;
+using Foundry.Reports.DomainEventHandlers;
 
-namespace Foundry.Reporting
+namespace Foundry.Reports
 {
-    public class ReportingeModule : Module
+    public class ReportingModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new ReportingDbContext())
-                .As<DbContext>().As<IReportingUnitOfWork>().HttpRequestScoped();
-            builder.RegisterGeneric(typeof(EfReportingRepository<>))
-                .As(typeof(IReportingRepository<>));
+                .As<IReportingSession>();
+            builder.RegisterGeneric(typeof(ReportingRepository<>))
+                .As(typeof(IReportingRepository<>)).HttpRequestScoped();
 
             Database.SetInitializer(new RecreateDatabaseIfModelChanges<ReportingDbContext>());
 

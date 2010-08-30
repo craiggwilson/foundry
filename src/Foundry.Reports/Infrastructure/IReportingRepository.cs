@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Foundry.Reporting
+namespace Foundry.Reports
 {
     public interface IReportingRepository<T> : IQueryable<T> where T : class
     {

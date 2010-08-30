@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundry.Messaging.Infrastructure;
-using Foundry.Reporting;
+using Foundry.Reports;
 using Foundry.Messaging;
+using Foundry.Reports.Infrastructure;
 
 namespace Foundry.Services
 {
@@ -28,7 +29,7 @@ namespace Foundry.Services
             var salt = GenerateSalt();
             var password = GeneratePassword(plainTextPassword, salt);
 
-            WithTransaction(() => _bus.Send(new CreateUserMessage { DisplayName = displayName, Email = email, Password = password, PasswordSalt = salt, Username = username }));
+            _bus.Send(new CreateUserMessage { DisplayName = displayName, Email = email, Password = password, PasswordSalt = salt, Username = username });
 
             return true;
         }
@@ -38,18 +39,18 @@ namespace Foundry.Services
             var user = _userRepository.SingleOrDefault(u => u.Username == username);
             if (user == null)
             {
-                WithTransaction(() => _bus.Send(new UserAuthenticationFailedMessage { Username = username }));
+                _bus.Send(new UserAuthenticationFailedMessage { Username = username });
                 return Tuple.Create<bool, UserReport>(false, null);
             }
 
             var password = GeneratePassword(plainTextPassword, user.Salt);
             if (user.Password != password)
             {
-                WithTransaction(() => _bus.Send(new UserAuthenticationFailedMessage { Username = username}));
+                _bus.Send(new UserAuthenticationFailedMessage { Username = username });
                 return Tuple.Create<bool, UserReport>(false, null);
             }
 
-            WithTransaction(() => _bus.Send(new UserLoggedInMessage { UserId = user.Id }));
+            _bus.Send(new UserLoggedInMessage { UserId = user.UserId });
 
             return Tuple.Create(true, user);
         }

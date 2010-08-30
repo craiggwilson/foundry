@@ -103,7 +103,9 @@
     </Compile>
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Dashboard\IndexViewModel.cs" />
     <Compile Include="Models\Repository\CreateViewModel.cs" />
+    <Compile Include="Models\FoundryUser.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryController.generated.cs">

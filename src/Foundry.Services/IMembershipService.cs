@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Foundry.Reporting;
+using Foundry.Reports;
 
 namespace Foundry.Services
 {

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +45,7 @@
     <Compile Include="MembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBase.cs" />
+    <Compile Include="SourceControlManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
@@ -61,6 +63,10 @@
     <ProjectReference Include="..\Foundry.Reports\Foundry.Reports.csproj">
       <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
       <Name>Foundry.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
+      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
+      <Name>Foundry.SourceControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

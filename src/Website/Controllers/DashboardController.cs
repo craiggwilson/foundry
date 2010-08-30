@@ -1,22 +1,29 @@
 ﻿using System.Web.Mvc;
+using System.Linq;
 
 using Sikai.EventSourcing.Domain;
+using Foundry.Reports;
+using Foundry.Website.Models;
+using Foundry.Website.Models.Dashboard;
 
 namespace Foundry.Website.Controllers
 {
     [Authorize]
     public partial class DashboardController : Controller
     {
-        private IRepository _repository;
+        private readonly IReportingRepository<UserCodeRepositoryReport> _userCodeRepositories;
 
-        public DashboardController(IRepository repository)
+        public DashboardController(IReportingRepository<UserCodeRepositoryReport> userCodeRepositories)
         {
-            _repository = repository;
+            _userCodeRepositories = userCodeRepositories;
         }
 
         public virtual ActionResult Index()
         {
-            return View();
+            var currentUserId = ((FoundryUser)User).Id;
+
+            var model = new IndexViewModel { UserCodeRepositories = _userCodeRepositories.Where(x => x.UserId == currentUserId).ToList() };
+            return View(model);
         }
     }
 }

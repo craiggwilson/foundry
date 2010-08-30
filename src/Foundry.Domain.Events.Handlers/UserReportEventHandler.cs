@@ -2,24 +2,25 @@
 using System.Linq;
 using Sikai.EventSourcing.Infrastructure;
 using Foundry.Domain.Events.User;
+using Foundry.Reports.Infrastructure;
 
 
-namespace Foundry.Reporting.DomainEventHandlers
+namespace Foundry.Reports.DomainEventHandlers
 {
     public class UserReportEventHandler : IEventHandler<UserCreatedEvent>, IEventHandler<UserLoggedInEvent>
     {
-        private readonly IReportingRepository<UserReport> _repository;
+        private readonly IReportingSession _reportingSession;
 
-        public UserReportEventHandler(IReportingRepository<UserReport> repository)
+        public UserReportEventHandler(IReportingSession reportingSession)
         {
-            _repository = repository;
+            _reportingSession = reportingSession;
         }
 
         public void Handle(UserCreatedEvent @event)
         {
             var user = new UserReport
             {
-                Id = @event.SourceId,
+                UserId = @event.SourceId,
                 Username = @event.Username,
                 Email = @event.Email,
                 DisplayName = @event.DisplayName,
@@ -28,13 +29,18 @@ namespace Foundry.Reporting.DomainEventHandlers
                 CreatedDateTime = @event.CreatedDateTime
             };
 
-            _repository.Add(user);
+            new ReportingRepository<UserReport>(_reportingSession).Add(user);
+
+            _reportingSession.Commit();
         }
 
         public void Handle(UserLoggedInEvent @event)
         {
-            var user = _repository.Single(u => u.Id == @event.SourceId);
+            var repo = new ReportingRepository<UserReport>(_reportingSession);
+            var user = repo.Single(u => u.UserId == @event.SourceId);
             user.LastLoginDateTime = @event.DateTime;
+
+            _reportingSession.Commit();
         }
     }
 }

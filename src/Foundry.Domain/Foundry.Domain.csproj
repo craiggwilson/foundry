@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeRepository.cs" />
     <Compile Include="Infrastructure\XmlFormatter.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="PasswordFormat.cs" />
