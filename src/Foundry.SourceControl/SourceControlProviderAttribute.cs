@@ -13,6 +13,7 @@ namespace Foundry.SourceControl
         public string Name { get; private set; }
 
         public SourceControlProviderAttribute(string name)
+            : base(typeof(ISourceControlProvider))
         {
             Name = name;
         }
