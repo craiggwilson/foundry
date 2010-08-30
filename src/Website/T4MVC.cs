@@ -24,6 +24,7 @@ using T4MVC;
 public static class MVC {
     public static Foundry.Website.Controllers.AccountController Account = new Foundry.Website.Controllers.T4MVC_AccountController();
     public static Foundry.Website.Controllers.DashboardController Dashboard = new Foundry.Website.Controllers.T4MVC_DashboardController();
+    public static Foundry.Website.Controllers.RepositoryController Repository = new Foundry.Website.Controllers.T4MVC_RepositoryController();
     public static T4MVC.LayoutsController Layouts = new T4MVC.LayoutsController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

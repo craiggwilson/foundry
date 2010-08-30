@@ -109,6 +109,10 @@
       <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>
       <Name>Foundry.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
+      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
+      <Name>Foundry.SourceControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

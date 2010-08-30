@@ -11,16 +11,23 @@ using Foundry.Services;
 using Foundry.Messaging.Infrastructure;
 using Foundry.Reporting;
 using System.ComponentModel.Composition.Hosting;
+using Foundry.SourceControl;
+using System.Collections.Generic;
+using System;
+using System.Reflection;
+using System.IO;
 
 namespace Foundry.Services
 {
-    public class ServicesModule : Module
+    public class ServicesModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new MembershipService(c.Resolve<IBus>(), c.Resolve<IReportingRepository<UserReport>>())).As<IMembershipService>().HttpRequestScoped().PropertiesAutowired();
+            builder.Register(c => new SourceControlManager(c.Resolve<IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>>>())).As<ISourceControlManager>().SingleInstance();
 
-            var catalog = new DirectoryCatalog("Addins");
+            var currentPath = Assembly.GetExecutingAssembly().CodeBase;
+            var catalog = new DirectoryCatalog("bin\\Addins");
             builder.RegisterComposablePartCatalog(catalog);
         }
     }

@@ -1,0 +1,26 @@
+﻿<viewdata model="Foundry.Website.Models.Repository.CreateViewModel" />
+
+<content name="banner">
+  <h1>Create Repository.</h1>
+</content>
+
+  <% using(Html.BeginForm()) { %>
+  <div id="register" class="content">
+    <fieldset>
+      <div>
+        ${Html.LabelFor(x => x.Name)}
+        ${Html.TextBoxFor(x => x.Name)}
+        ${Html.ValidationMessageFor(x => x.Name)}
+      </div>
+      <div>
+        ${Html.LabelFor(x => x.SelectedProviderName)}
+        ${Html.DropDownListFor(x => x.SelectedProviderName, Model.ProviderNames)}
+        ${Html.ValidationMessageFor(x => x.SelectedProviderName)}
+      </div>
+
+      <div class="buttons">
+        <input type="submit" value="Create" />
+      </div>
+    </fieldset>
+  </div>
+  <% } %>
