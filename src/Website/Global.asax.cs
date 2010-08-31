@@ -18,6 +18,7 @@ using System.Web.Security;
 using System.Web;
 using Foundry.Website.Models;
 using System.Security.Principal;
+using Foundry.SourceControl;
 
 namespace Foundry.Website
 {
@@ -33,7 +34,7 @@ namespace Foundry.Website
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
@@ -50,6 +51,7 @@ namespace Foundry.Website
             builder.RegisterModule<MessagingModule>();
             builder.RegisterModule<ReportingModule>();
             builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule<SourceControlModule>();
 
             _containerProvider = new ContainerProvider(builder.Build());
 

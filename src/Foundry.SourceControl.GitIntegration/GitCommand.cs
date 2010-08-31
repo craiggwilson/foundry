@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommand
+    internal class GitCommand
     {
         private readonly string _gitPath;
         private readonly string _workingDirectory;

@@ -18,14 +18,14 @@ using System.Reflection;
 using System.IO;
 using Foundry.SourceControl.GitIntegration;
 
-namespace Foundry.Services
+namespace Foundry.SourceControl
 {
-    public class ServicesModule : Autofac.Module
+    public class SourceControlModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new MembershipService(c.Resolve<IBus>(), c.Resolve<IReportingRepository<UserReport>>())).As<IMembershipService>().HttpRequestScoped().PropertiesAutowired();
-            builder.Register(c => new SourceControlManager(c.Resolve<IBus>(), c.Resolve<IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>>>())).As<ISourceControlManager>().PropertiesAutowired();
+            var catalog = new TypeCatalog(typeof(GitSourceControlProvider));
+            builder.RegisterComposablePartCatalog(catalog);
         }
     }
 }

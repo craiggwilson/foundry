@@ -67,6 +67,7 @@
     <Compile Include="Messaging\MessagingModule.cs" />
     <Compile Include="Reporting\ReportingModule.cs" />
     <Compile Include="Services\ServicesModule.cs" />
+    <Compile Include="SourceControl\SourceControlModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
@@ -108,6 +109,10 @@
     <ProjectReference Include="..\Foundry.Services\Foundry.Services.csproj">
       <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>
       <Name>Foundry.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.SourceControl.GitIntegration\Foundry.SourceControl.GitIntegration.csproj">
+      <Project>{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}</Project>
+      <Name>Foundry.SourceControl.GitIntegration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
       <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>

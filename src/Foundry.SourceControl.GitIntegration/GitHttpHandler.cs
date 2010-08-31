@@ -17,13 +17,10 @@ namespace Foundry.SourceControl.GitIntegration
 
         public void ProcessRequest(HttpContext context)
         {
-            string gitPath = "";
-            string reposPath = "";
             string repo = GetRepo(context.Request.RawUrl);
-            repo = Path.Combine(reposPath, repo);
+            repo = Path.Combine(GitSettings.RepositoriesPath, repo);
 
             if (string.IsNullOrEmpty(repo) ||
-                !File.Exists(gitPath) ||
                 !Directory.Exists(repo))
             {
                 context.Response.StatusCode = 400;
@@ -33,39 +30,39 @@ namespace Foundry.SourceControl.GitIntegration
 
             if (context.Request.RawUrl.IndexOf("/info/refs?service=git-receive-pack") >= 0)
             {
-                GetInfoRefs(context, gitPath, repo, "receive-pack");
+                GetInfoRefs(context, repo, "receive-pack");
             }
             else if (context.Request.RawUrl.IndexOf("/git-receive-pack") >= 0 && context.Request.RequestType == "POST")
             {
                 try
                 {
-                    ServiceRpc(context, gitPath, repo, "receive-pack");
+                    ServiceRpc(context, repo, "receive-pack");
                 }
                 finally
                 {
-                    var cmd = new GitCommand(gitPath, repo);
+                    var cmd = new GitCommand(GitSettings.ExePath, repo);
                     cmd.Execute("update-server-info");
                 }
             }
             else if (context.Request.RawUrl.IndexOf("/info/refs?service=git-upload-pack") >= 0)
             {
-                GetInfoRefs(context, gitPath, repo, "upload-pack");
+                GetInfoRefs(context, repo, "upload-pack");
             }
             else if (context.Request.RawUrl.IndexOf("/git-upload-pack") >= 0 && context.Request.RequestType == "POST")
             {
-                ServiceRpc(context, gitPath, repo, "upload-pack");
+                ServiceRpc(context, repo, "upload-pack");
             }
         }
 
-        private static void GetInfoRefs(HttpContext context, string gitPath, string repo, string serviceName)
+        private static void GetInfoRefs(HttpContext context, string repo, string serviceName)
         {
             var fout = Path.GetTempFileName();
             context.Response.ContentType = string.Format("application/x-git-{0}-advertisement", serviceName);
             context.Response.Write(GitString("# service=git-" + serviceName));
             context.Response.Write("0000");
 
-            var cmd = new GitCommand(gitPath, repo);
-            cmd.Execute(string.Format(@"{0} --stateless-rpc --advertise-refs . > ""{1}""", serviceName, fout));
+            var cmd = new GitCommand(GitSettings.ExePath, GitSettings.RepositoriesPath);
+            cmd.Execute(string.Format(@"{0} --stateless-rpc --advertise-refs ""{1}"" > ""{2}""", serviceName, repo, fout));
 
             context.Response.WriteFile(fout);
             context.Response.End();
@@ -74,9 +71,11 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static string GetRepo(string url)
         {
-            var match = Regex.Match(url, "//(.[^\\.]+).git");
-            var path = match.Success ? match.Groups[1].Value : "";
-            return Path.GetFileNameWithoutExtension(path);
+            var match = Regex.Match(url, @".*?([^\/]+\/.+?)\.git.*");
+            if (!match.Success)
+                return "";
+
+            return match.Groups[1].Value;
         }
 
         private static string GitString(string s)
@@ -87,7 +86,7 @@ namespace Foundry.SourceControl.GitIntegration
             return len + s;
         }
 
-        private static void ServiceRpc(HttpContext context, string gitPath, string repo, string serviceName)
+        private static void ServiceRpc(HttpContext context, string repo, string serviceName)
         {
             context.Response.ContentType = string.Format("application/x-git-{0}-result", serviceName);
 
@@ -102,7 +101,7 @@ namespace Foundry.SourceControl.GitIntegration
                     file.Write(buffer, 0, bytesRead);
             }
 
-            var cmd = new GitCommand(gitPath, repo);
+            var cmd = new GitCommand(GitSettings.ExePath, repo);
             cmd.Execute(string.Format(@"{0} --stateless-rpc . < ""{1}"" > ""{2}""", serviceName, fin, fout));
 
             context.Response.WriteFile(fout);
