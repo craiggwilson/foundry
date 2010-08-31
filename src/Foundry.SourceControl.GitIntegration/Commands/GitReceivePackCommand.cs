@@ -22,7 +22,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
 
         protected override IEnumerable<string> GetArguments()
         {
-            yield return Directory;
+            yield return Quote(Directory);
         }
     }
 }

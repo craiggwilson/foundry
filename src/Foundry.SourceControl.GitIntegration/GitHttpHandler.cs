@@ -16,14 +16,14 @@ namespace Foundry.SourceControl.GitIntegration
             {
                 { "GET", new Dictionary<Regex, Action<IGitSession, string, HttpContext>>
                     { 
-                        { new Regex(".*?/git-upload-pack$", RegexOptions.Compiled), HandleUploadPackGet },
-                        { new Regex(".*?/git-receive-pack$", RegexOptions.Compiled), HandleReceivePackGet }
+                        { new Regex(".*?git-upload-pack$", RegexOptions.Compiled), HandleUploadPackGet },
+                        { new Regex(".*?git-receive-pack$", RegexOptions.Compiled), HandleReceivePackGet }
                     }
                 },
                 { "POST", new Dictionary<Regex, Action<IGitSession, string, HttpContext>>
                     {
-                        { new Regex(".*?/git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
-                        { new Regex(".*?/git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
+                        { new Regex(".*?git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
+                        { new Regex(".*?git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
                     }
                 }
             };
@@ -36,10 +36,9 @@ namespace Foundry.SourceControl.GitIntegration
         public void ProcessRequest(HttpContext context)
         {
             string repo = GetRepo(context.Request.RawUrl);
-            repo = Path.Combine(GitSettings.RepositoriesPath, repo);
 
             if (string.IsNullOrEmpty(repo) ||
-                !Directory.Exists(repo))
+                !Directory.Exists(Path.Combine(GitSettings.RepositoriesPath, repo)))
             {
                 context.Response.StatusCode = 400;
                 context.Response.End();
@@ -63,7 +62,9 @@ namespace Foundry.SourceControl.GitIntegration
 
                 if (handler == null)
                 {
-                    throw new NotSupportedException();
+                    context.Response.StatusCode = 400;
+                    context.Response.End();
+                    return;
                 }
 
                 handler(gitSession, repo, context);

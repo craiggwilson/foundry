@@ -25,7 +25,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
             if (Bare.GetValueOrDefault())
                 yield return "--bare";
 
-            yield return Directory;
+            yield return Quote(Directory);
         }
     }
 }

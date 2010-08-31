@@ -32,7 +32,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
             if (Timeout.HasValue)
                 yield return "--timeout=" + Timeout.Value.Seconds.ToString();
 
-            yield return Directory;
+            yield return Quote(Directory);
         }
     }
 }

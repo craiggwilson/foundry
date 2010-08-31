@@ -50,19 +50,24 @@ namespace Foundry.SourceControl.GitIntegration
 
         protected abstract IEnumerable<string> GetArguments();
 
+        protected string Quote(string s)
+        {
+            return string.Format("\"{0}\"", s);
+        }
+
         private string BuildCommandLine(IEnumerable<string> args)
         {
             var sb = new StringBuilder();
             sb.Append(Name);
 
             foreach (var arg in args)
-                sb.Append(arg + " ");
+                sb.Append(" " + arg);
 
             if (!string.IsNullOrWhiteSpace(Infile))
-                sb.AppendFormat(@" < ""{0}""", Infile);
+                sb.AppendFormat(" < {0}", Quote(Infile));
 
             if(!string.IsNullOrWhiteSpace(Outfile))
-                sb.AppendFormat(@" > ""{0}""", Outfile);
+                sb.AppendFormat(" > {0}", Quote(Outfile));
 
             return sb.ToString();
         }
