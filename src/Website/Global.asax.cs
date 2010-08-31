@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Linq;
 
 using Autofac;
 using Autofac.Integration.Web;
@@ -16,6 +17,7 @@ using Foundry.Website.Controllers;
 using System.Web.Security;
 using System.Web;
 using Foundry.Website.Models;
+using System.Security.Principal;
 
 namespace Foundry.Website
 {
@@ -80,8 +82,18 @@ namespace Foundry.Website
                     return;
                 }
 
-                var fuser = FoundryUser.FromString(ticket.UserData);
-                HttpContext.Current.User = fuser;
+                IPrincipal currentUser = null;
+
+                try
+                {
+                    currentUser = FoundryUser.FromString(ticket.UserData);
+                }
+                catch
+                {
+                    FormsAuthentication.SignOut();
+                    currentUser = null;
+                }
+                HttpContext.Current.User = currentUser;
             }
         }
     }
