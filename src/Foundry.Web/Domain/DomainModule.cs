@@ -25,7 +25,7 @@ namespace Foundry.Domain
             builder.Register(c => new SqliteEventStore(new SQLiteConnection(connString), new XmlFormatter())).As<IEventStore>();
             builder.Register(c => new AggregateBuilder()).As<IAggregateBuilder>();
             builder.Register(c => new AutofacEventHandlerFactory(c)).As<IEventHandlerFactory>();
-            builder.Register(c => new UnitOfWork(c.Resolve<IEventStore>(), c.Resolve<IAggregateBuilder>(), c.Resolve<IEventHandlerFactory>())).As<IUnitOfWork>();
+            builder.Register(c => new DomainSession(c.Resolve<IEventStore>(), c.Resolve<IAggregateBuilder>(), c.Resolve<IEventHandlerFactory>())).As<IDomainSession>();
         }
     }
 }

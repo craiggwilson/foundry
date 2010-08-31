@@ -12,12 +12,12 @@ namespace Foundry.Messages.Handlers
 {
     public class CreateUserRepositoryMessageHandler : IMessageHandler<CreateUserRepositoryMessage>
     {
-        private readonly IUnitOfWork _domain;
+        private readonly IDomainSession _domainSession;
         private readonly IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> _sourceControlProviders;
 
-        public CreateUserRepositoryMessageHandler(IUnitOfWork domain, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
+        public CreateUserRepositoryMessageHandler(IDomainSession domainSession, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
         {
-            _domain = domain;
+            _domainSession = domainSession;
             _sourceControlProviders = sourceControlProviders;
         }
 
@@ -27,7 +27,7 @@ namespace Foundry.Messages.Handlers
 
             provider.Value.CreateRepository(message.RepositoryName);
 
-            var domainRepository = new Repository(_domain);
+            var domainRepository = new DomainRepository(_domainSession);
 
             var repo = new CodeRepository(message.SourceControlProvider, message.RepositoryName);
             domainRepository.Add(repo);
@@ -35,7 +35,7 @@ namespace Foundry.Messages.Handlers
             var user = domainRepository.GetById<User>(message.UserId);
             user.AddRepository(repo.Id);
 
-            _domain.Commit();
+            _domainSession.Commit();
         }
     }
 }

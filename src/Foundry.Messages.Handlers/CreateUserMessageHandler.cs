@@ -11,11 +11,11 @@ namespace Foundry.Messaging.MessageHandlers
 {
     public class CreateUserMessageHandler : IMessageHandler<CreateUserMessage>
     {
-        private IUnitOfWork _domain;
+        private IDomainSession _domainSession;
 
-        public CreateUserMessageHandler(IUnitOfWork domain)
+        public CreateUserMessageHandler(IDomainSession domainSession)
         {
-            _domain = domain;
+            _domainSession = domainSession;
         }
 
         public void Handle(CreateUserMessage message)
@@ -26,9 +26,9 @@ namespace Foundry.Messaging.MessageHandlers
                 message.DisplayName, 
                 new Email(message.Email));
 
-            var repo = new Repository(_domain);
+            var repo = new DomainRepository(_domainSession);
             repo.Add(user);
-            _domain.Commit();
+            _domainSession.Commit();
         }
     }
 }

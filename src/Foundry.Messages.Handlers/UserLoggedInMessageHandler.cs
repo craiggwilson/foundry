@@ -11,20 +11,20 @@ namespace Foundry.Messaging.MessageHandlers
 {
     public class UserLoggedInMessageHandler : IMessageHandler<UserLoggedInMessage>
     {
-        private readonly IUnitOfWork _domain;
+        private readonly IDomainSession _domainSession;
 
-        public UserLoggedInMessageHandler(IUnitOfWork domain)
+        public UserLoggedInMessageHandler(IDomainSession domainSession)
         {
-            _domain = domain;
+            _domainSession = domainSession;
         }
 
         public void Handle(UserLoggedInMessage message)
         {
-            var repo = new Repository(_domain);
+            var repo = new DomainRepository(_domainSession);
             var user = repo.GetById<User>(message.UserId);
             user.LoggedIn();
 
-            _domain.Commit();
+            _domainSession.Commit();
         }
     }
 }
