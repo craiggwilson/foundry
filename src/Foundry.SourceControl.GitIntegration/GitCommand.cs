@@ -6,27 +6,36 @@ using System.Diagnostics;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    internal class GitCommand
+    public abstract class GitCommand : IGitCommand
     {
-        private readonly string _gitPath;
-        private readonly string _workingDirectory;
+        private readonly IGitSession _session;
 
-        public GitCommand(string gitPath, string workingDirectory)
+        public string Infile { get; set; }
+
+        public string Outfile { get; set; }
+
+        public abstract string Name { get; }
+
+        public IGitSession Session
         {
-            _gitPath = gitPath;
-            _workingDirectory = workingDirectory;
+            get { return _session; }
         }
 
-        public string Execute(string args)
+        public GitCommand(IGitSession session)
         {
-            var processInfo = new ProcessStartInfo(_gitPath)
+            _session = session;
+        }
+
+        public GitCommandResult Execute()
+        {
+            var processInfo = new ProcessStartInfo(_session.Path)
             {
-                Arguments = args,
+                Arguments = BuildCommandLine(GetArguments()),
                 CreateNoWindow = true,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
-                WorkingDirectory = _workingDirectory
+                WorkingDirectory = _session.WorkingDirectory
             };
 
             using (var process = Process.Start(processInfo))
@@ -35,11 +44,27 @@ namespace Foundry.SourceControl.GitIntegration
                 var error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
-                if (!string.IsNullOrEmpty(error))
-                    throw new Exception(error);
-
-                return output;
+                return new GitCommandResult(output, error);
             };
+        }
+
+        protected abstract IEnumerable<string> GetArguments();
+
+        private string BuildCommandLine(IEnumerable<string> args)
+        {
+            var sb = new StringBuilder();
+            sb.Append(Name);
+
+            foreach (var arg in args)
+                sb.Append(arg + " ");
+
+            if (!string.IsNullOrWhiteSpace(Infile))
+                sb.AppendFormat(@" < ""{0}""", Infile);
+
+            if(!string.IsNullOrWhiteSpace(Outfile))
+                sb.AppendFormat(@" > ""{0}""", Outfile);
+
+            return sb.ToString();
         }
     }
 }

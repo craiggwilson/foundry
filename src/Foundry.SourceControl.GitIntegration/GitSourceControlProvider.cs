@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.ComponentModel.Composition;
 using System.Configuration;
+using Foundry.SourceControl.GitIntegration.Commands;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -13,8 +14,11 @@ namespace Foundry.SourceControl.GitIntegration
     {
         public void CreateRepository(string name)
         {
-            var cmd = new GitCommand(GitSettings.ExePath, GitSettings.RepositoriesPath);
-            cmd.Execute("init --bare " + name);
+            using (var session = new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath))
+            {
+                var cmd = new GitInitCommand(session, name) { Bare = true };
+                cmd.Execute();
+            }
         }
     }
 }
