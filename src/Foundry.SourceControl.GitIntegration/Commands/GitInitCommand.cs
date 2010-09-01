@@ -18,7 +18,9 @@ namespace Foundry.SourceControl.GitIntegration.Commands
 
         public GitInitCommand(IGitSession session, string directory)
             : base(session)
-        { }
+        {
+            Directory = directory;
+        }
 
         protected override IEnumerable<string> GetArguments()
         {

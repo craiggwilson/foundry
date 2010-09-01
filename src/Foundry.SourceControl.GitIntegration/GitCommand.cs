@@ -55,6 +55,12 @@ namespace Foundry.SourceControl.GitIntegration
                     Output.Write(output.ReadToEnd());
                 if (Error != null)
                     Error.Write(error.ReadToEnd());
+                else
+                {
+                    string errorString = error.ReadToEnd();
+                    if (!string.IsNullOrWhiteSpace(errorString))
+                        throw new Exception(errorString);
+                }
             };
         }
 

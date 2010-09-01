@@ -49,16 +49,7 @@ namespace Foundry.SourceControl.GitIntegration
             {
                 var handlers = _services[context.Request.RequestType];
 
-                Action<IGitSession, string, HttpContext> handler = null;
-
-                foreach (var kvp in handlers)
-                {
-                    if (kvp.Key.IsMatch(context.Request.RawUrl))
-                    {
-                        handler = kvp.Value;
-                        break;
-                    }
-                }
+                KeyValuePair<Regex, Action<IGitSession, string, HttpContext>>? handler = handlers.FirstOrDefault(x => x.Key.IsMatch(context.Request.RawUrl));
 
                 if (handler == null)
                 {
@@ -67,7 +58,7 @@ namespace Foundry.SourceControl.GitIntegration
                     return;
                 }
 
-                handler(gitSession, repo, context);
+                handler.Value.Value(gitSession, repo, context);
             }
         }
 
@@ -105,7 +96,8 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static void ExecuteCommand(HttpContext context, IGitCommand cmd, bool readFile)
         {
-            using (var outputWriter = new StreamWriter(context.Response.OutputStream))
+            context.Response.ContentEncoding = Encoding.Unicode;
+            using (var outputWriter = new StreamWriter(context.Response.OutputStream, context.Response.ContentEncoding))
             {
                 cmd.Output = outputWriter;
 

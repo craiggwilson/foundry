@@ -34,6 +34,7 @@ namespace Foundry.Website
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{account}/{repo}.git/{*pathInfo}");
 
             routes.MapRoute(
                 "Default", // Route name
