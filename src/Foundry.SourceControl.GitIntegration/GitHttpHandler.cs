@@ -105,28 +105,24 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static void ExecuteCommand(HttpContext context, IGitCommand cmd, bool readFile)
         {
-            cmd.Outfile = Path.GetTempFileName();
-
-            if (readFile)
+            using (var outputWriter = new StreamWriter(context.Response.OutputStream))
             {
-                cmd.Infile = Path.GetTempFileName();
-                using (var file = File.Create(cmd.Infile))
+                cmd.Output = outputWriter;
+
+                try
                 {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = context.Request.InputStream.Read(buffer, 0, buffer.Length)) != 0)
-                        file.Write(buffer, 0, bytesRead);
+                    if (readFile)
+                        cmd.Input = new StreamReader(context.Request.InputStream);
+
+                    cmd.Execute();
+                }
+                finally
+                {
+                    if (readFile)
+                        cmd.Input.Dispose();
                 }
             }
-
-            var result = cmd.Execute();
-
-            context.Response.WriteFile(cmd.Outfile);
             context.Response.End();
-
-            File.Delete(cmd.Outfile);
-            if(readFile)
-                File.Delete(cmd.Infile);
         }
 
         private static void ExecuteInfoRefsCommand(HttpContext context, IGitCommand cmd)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -9,12 +10,14 @@ namespace Foundry.SourceControl.GitIntegration
     {
         string Name { get; }
 
-        string Infile { get; set; }
+        StreamReader Input { get; set; }
 
-        string Outfile { get; set; }
+        StreamWriter Output { get; set; }
+
+        StreamWriter Error { get; set; }
 
         IGitSession Session { get; }
 
-        GitCommandResult Execute();
+        void Execute();
     }
 }

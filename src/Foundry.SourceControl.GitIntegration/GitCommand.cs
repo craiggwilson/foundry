@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.IO;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -10,9 +11,11 @@ namespace Foundry.SourceControl.GitIntegration
     {
         private readonly IGitSession _session;
 
-        public string Infile { get; set; }
+        public StreamReader Input { get; set; }
 
-        public string Outfile { get; set; }
+        public StreamWriter Output { get; set; }
+
+        public StreamWriter Error { get; set; }
 
         public abstract string Name { get; }
 
@@ -26,12 +29,13 @@ namespace Foundry.SourceControl.GitIntegration
             _session = session;
         }
 
-        public GitCommandResult Execute()
+        public void Execute()
         {
             var processInfo = new ProcessStartInfo(_session.Path)
             {
                 Arguments = BuildCommandLine(GetArguments()),
                 CreateNoWindow = true,
+                RedirectStandardInput = Input != null,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
@@ -40,11 +44,17 @@ namespace Foundry.SourceControl.GitIntegration
 
             using (var process = Process.Start(processInfo))
             {
-                var output = process.StandardOutput.ReadToEnd();
-                var error = process.StandardError.ReadToEnd();
+                if (Input != null)
+                    process.StandardInput.Write(Input.ReadToEnd());
+
+                var output = process.StandardOutput;
+                var error = process.StandardError;
                 process.WaitForExit();
 
-                return new GitCommandResult(output, error);
+                if (Output != null)
+                    Output.Write(output.ReadToEnd());
+                if (Error != null)
+                    Error.Write(error.ReadToEnd());
             };
         }
 
@@ -62,12 +72,6 @@ namespace Foundry.SourceControl.GitIntegration
 
             foreach (var arg in args)
                 sb.Append(" " + arg);
-
-            if (!string.IsNullOrWhiteSpace(Infile))
-                sb.AppendFormat(" < {0}", Quote(Infile));
-
-            if(!string.IsNullOrWhiteSpace(Outfile))
-                sb.AppendFormat(" > {0}", Quote(Outfile));
 
             return sb.ToString();
         }
