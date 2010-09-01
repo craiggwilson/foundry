@@ -11,87 +11,107 @@ namespace Foundry.SourceControl.GitIntegration
 {
     public class GitHttpHandler : IHttpHandler
     {
-        private static Dictionary<string, Dictionary<Regex, Action<IGitSession, string, HttpContext>>> _services = 
-            new Dictionary<string,Dictionary<Regex,Action<IGitSession, string, HttpContext>>>()
+        private static Dictionary<string, Dictionary<Regex, Action<HttpContext, GitRoute>>> _services =
+            new Dictionary<string, Dictionary<Regex, Action<HttpContext, GitRoute>>>()
             {
-                { "GET", new Dictionary<Regex, Action<IGitSession, string, HttpContext>>
+                { "GET", new Dictionary<Regex, Action<HttpContext, GitRoute>>
                     { 
-                        { new Regex(".*?git-upload-pack$", RegexOptions.Compiled), HandleUploadPackGet },
-                        { new Regex(".*?git-receive-pack$", RegexOptions.Compiled), HandleReceivePackGet }
+                        { new Regex("(.*?)git-upload-pack$", RegexOptions.Compiled), HandleUploadPackGet },
+                        { new Regex("(.*?)git-receive-pack$", RegexOptions.Compiled), HandleReceivePackGet },
+                        { new Regex("(.*?)/HEAD$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
+                        { new Regex("(.*?)/objects/info/alternates$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
+                        { new Regex("(.*?)/objects/info/http-alternates$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
+                        { new Regex("(.*?)/objects/info/packs$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain; charset=utf-8") },
+                        { new Regex("(.*?)/objects/info/[^/]*$", RegexOptions.Compiled),  (c, r) => SendFile(c, r, "text/plain") },
+                        { new Regex("(.*?)/objects/[0-9a-f]{2}/[0-9a-f]{38}$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "application/x-git-loose-object") },
+                        { new Regex("(.*?)/objects/pack/pack-[0-9a-f]{40}\\.pack$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "application/x-git-packed-objects") },
+                        { new Regex("(.*?)/objects/pack/pack-[0-9a-f]{40}\\.idx$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "application/x-git-packed-objects-toc") }
                     }
                 },
-                { "POST", new Dictionary<Regex, Action<IGitSession, string, HttpContext>>
+                { "POST", new Dictionary<Regex, Action<HttpContext, GitRoute>>
                     {
-                        { new Regex(".*?git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
-                        { new Regex(".*?git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
+                        { new Regex("(.*?)git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
+                        { new Regex("(.*?)git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
                     }
                 }
             };
 
         public bool IsReusable
         {
-            get { return false; }
+            get { return true; }
         }
 
         public void ProcessRequest(HttpContext context)
         {
-            string repo = GetRepo(context.Request.RawUrl);
-
-            if (string.IsNullOrEmpty(repo) ||
-                !Directory.Exists(Path.Combine(GitSettings.RepositoriesPath, repo)))
-            {
-                context.Response.StatusCode = 400;
-                context.Response.End();
-                return;
-            }
-
             using (var gitSession = new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath))
             {
-                var handlers = _services[context.Request.RequestType];
-
-                KeyValuePair<Regex, Action<IGitSession, string, HttpContext>>? handler = handlers.FirstOrDefault(x => x.Key.IsMatch(context.Request.RawUrl));
-
-                if (handler == null)
+                var route = GetGitRoute(context);
+                if (route == null) 
                 {
-                    context.Response.StatusCode = 400;
+                    if (context.Request.RequestType == "PROPFIND")
+                        context.Response.StatusCode = 405;
+                    else
+                        context.Response.StatusCode = 400;
                     context.Response.End();
                     return;
                 }
 
-                handler.Value.Value(gitSession, repo, context);
+                route.Handler(context, route);
+            }
+            context.Response.End();
+        }
+
+        private static void HandleReceivePackGet(HttpContext context, GitRoute route)
+        {
+            using (var session = CreateGitSession())
+            {
+                var cmd = new GitSmartHttpReceivePackCommand(session, route.Repository) { AdvertiseRefs = true };
+                ExecuteInfoRefsCommand(context, cmd);
             }
         }
 
-        private static void HandleReceivePackGet(IGitSession session, string repository, HttpContext context)
+        private static void HandleReceivePackPost(HttpContext context, GitRoute route)
         {
-            var cmd = new GitSmartHttpReceivePackCommand(session, repository) { AdvertiseRefs = true };
-            ExecuteInfoRefsCommand(context, cmd);
+            using (var session = CreateGitSession())
+            {
+                try
+                {
+                    var cmd = new GitSmartHttpReceivePackCommand(session, route.Repository);
+                    ExecuteServiceCommand(context, cmd);
+                }
+                finally
+                {
+                    var cmd = new GitUpdateServerInfoCommand(session);
+                    cmd.Execute();
+                }
+            }
         }
 
-        private static void HandleReceivePackPost(IGitSession session, string repository, HttpContext context)
+        private static void HandleUploadPackGet(HttpContext context, GitRoute route)
         {
-            try
+            using (var session = CreateGitSession())
             {
-                var cmd = new GitSmartHttpReceivePackCommand(session, repository);
+                var cmd = new GitSmartHttpUploadPackCommand(session, route.Repository) { AdvertiseRefs = true };
+                ExecuteInfoRefsCommand(context, cmd);
+            }
+        }
+
+        private static void HandleUploadPackPost(HttpContext context, GitRoute route)
+        {
+            using (var session = CreateGitSession())
+            {
+                var cmd = new GitSmartHttpUploadPackCommand(session, route.Repository);
                 ExecuteServiceCommand(context, cmd);
             }
-            finally
-            {
-                var cmd = new GitUpdateServerInfoCommand(session);
-                cmd.Execute();
-            }
         }
 
-        private static void HandleUploadPackGet(IGitSession session, string repository, HttpContext context)
+        private static void SendFile(HttpContext context, GitRoute route, string contentType)
         {
-            var cmd = new GitSmartHttpUploadPackCommand(session, repository) { AdvertiseRefs = true };
-            ExecuteInfoRefsCommand(context, cmd);
-        }
+            var file = Path.Combine(GitSettings.RepositoriesPath, route.Repository, route.File);
+            context.Response.ContentType = contentType;
+            context.Response.AddFileDependency(file);
 
-        private static void HandleUploadPackPost(IGitSession session, string repository, HttpContext context)
-        {
-            var cmd = new GitSmartHttpUploadPackCommand(session, repository);
-            ExecuteServiceCommand(context, cmd);
+            context.Response.WriteFile(file);
         }
 
         private static void ExecuteCommand(HttpContext context, IGitCommand cmd, bool readFile)
@@ -114,7 +134,6 @@ namespace Foundry.SourceControl.GitIntegration
                         cmd.Input.Dispose();
                 }
             }
-            context.Response.End();
         }
 
         private static void ExecuteInfoRefsCommand(HttpContext context, IGitCommand cmd)
@@ -148,6 +167,39 @@ namespace Foundry.SourceControl.GitIntegration
             return len + s;
         }
 
+        private static GitRoute GetGitRoute(HttpContext context)
+        {
+            if (!_services.ContainsKey(context.Request.RequestType))
+                return null;
+
+            var handlers = _services[context.Request.RequestType];
+            foreach(var pair in handlers)
+            {
+                Match m = pair.Key.Match(context.Request.RawUrl);
+                if(m.Success)
+                {
+                    var route = new GitRoute();
+                    route.Handler = pair.Value;
+                    route.Repository = context.Request.FilePath.Replace(context.Request.ApplicationPath + "/", "").Replace(".git", "");
+                    route.File = context.Request.RawUrl.Replace(m.Groups[1].Value + "/", "");
+                    return route;
+                }
+            }
+
+            return null;
+        }
+
+        private static IGitSession CreateGitSession()
+        {
+            return new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath);
+        }
+
+        private class GitRoute
+        {
+            public Action<HttpContext, GitRoute> Handler;
+            public string Repository;
+            public string File;
+        }
         
     }
 }
