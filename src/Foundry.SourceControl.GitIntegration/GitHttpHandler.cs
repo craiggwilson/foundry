@@ -16,8 +16,7 @@ namespace Foundry.SourceControl.GitIntegration
             {
                 { "GET", new Dictionary<Regex, Action<HttpContext, GitRoute>>
                     { 
-                        { new Regex("(.*?)git-upload-pack$", RegexOptions.Compiled), HandleUploadPackGet },
-                        { new Regex("(.*?)git-receive-pack$", RegexOptions.Compiled), HandleReceivePackGet },
+                        { new Regex("(.*?)/info/refs$", RegexOptions.Compiled), HandleInfoRefsGet },
                         { new Regex("(.*?)/HEAD$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
                         { new Regex("(.*?)/objects/info/alternates$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
                         { new Regex("(.*?)/objects/info/http-alternates$", RegexOptions.Compiled), (c, r) => SendFile(c, r, "text/plain") },
@@ -30,8 +29,8 @@ namespace Foundry.SourceControl.GitIntegration
                 },
                 { "POST", new Dictionary<Regex, Action<HttpContext, GitRoute>>
                     {
-                        { new Regex("(.*?)git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
-                        { new Regex("(.*?)git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
+                        { new Regex("(.*?)/git-upload-pack$", RegexOptions.Compiled), HandleUploadPackPost },
+                        { new Regex("(.*?)/git-receive-pack$", RegexOptions.Compiled), HandleReceivePackPost }
                     }
                 }
             };
@@ -46,7 +45,7 @@ namespace Foundry.SourceControl.GitIntegration
             using (var gitSession = new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath))
             {
                 var route = GetGitRoute(context);
-                if (route == null) 
+                if (route == null)
                 {
                     Respond404(context);
                     return;
@@ -57,12 +56,24 @@ namespace Foundry.SourceControl.GitIntegration
             context.Response.End();
         }
 
-        private static void HandleReceivePackGet(HttpContext context, GitRoute route)
+        private static void HandleInfoRefsGet(HttpContext context, GitRoute route)
         {
-            using (var session = CreateGitSession())
+            var service = context.Request.QueryString["service"];
+
+            if (string.IsNullOrWhiteSpace(service) || !service.StartsWith("git-"))
             {
-                var cmd = new GitSmartHttpReceivePackCommand(session, route.Repository) { AdvertiseRefs = true };
-                ExecuteInfoRefsCommand(context, cmd);
+                SendFile(context, route, "text/plain; charset=utf-8");
+            }
+            else
+            {
+                using (var session = CreateGitSession())
+                {
+                    var cmd = new RawGitCommand(session, service.Substring(4));
+                    cmd.Arguments.Add("--stateless-rpc");
+                    cmd.Arguments.Add("--advertise-refs");
+                    cmd.Arguments.Add(route.Repository);
+                    ExecuteInfoRefsCommand(context, cmd);
+                }
             }
         }
 
@@ -83,15 +94,6 @@ namespace Foundry.SourceControl.GitIntegration
             }
         }
 
-        private static void HandleUploadPackGet(HttpContext context, GitRoute route)
-        {
-            using (var session = CreateGitSession())
-            {
-                var cmd = new GitSmartHttpUploadPackCommand(session, route.Repository) { AdvertiseRefs = true };
-                ExecuteInfoRefsCommand(context, cmd);
-            }
-        }
-
         private static void HandleUploadPackPost(HttpContext context, GitRoute route)
         {
             using (var session = CreateGitSession())
@@ -105,20 +107,18 @@ namespace Foundry.SourceControl.GitIntegration
         {
             var file = new FileInfo(route.FilePath);
             if (!file.Exists)
-            {
-                Respond404(context);
                 return;
-            }
+
             context.Response.ContentType = contentType;
             context.Response.AddFileDependency(file.FullName);
-
             context.Response.WriteFile(file.FullName);
         }
 
         private static void ExecuteCommand(HttpContext context, IGitCommand cmd, bool readFile)
         {
-            context.Response.ContentEncoding = Encoding.Unicode;
-            using (var outputWriter = new StreamWriter(context.Response.OutputStream, context.Response.ContentEncoding))
+            var file = Path.GetTempFileName();
+            using(var stream = File.Create(file))
+            using (var outputWriter = new StreamWriter(stream))
             {
                 cmd.Output = outputWriter;
 
@@ -135,12 +135,19 @@ namespace Foundry.SourceControl.GitIntegration
                         cmd.Input.Dispose();
                 }
             }
+
+            context.Response.WriteFile(file);
+            try
+            {
+                File.Delete(file);
+            }
+            catch { }
         }
 
         private static void ExecuteInfoRefsCommand(HttpContext context, IGitCommand cmd)
         {
             context.Response.ContentType = string.Format("application/x-git-{0}-advertisement", cmd.Name);
-            context.Response.Write(GitString("# service=git-" + cmd.Name));
+            context.Response.Write(GitString("# service=git-" + cmd.Name + "\n"));
             context.Response.Write("0000");
             ExecuteCommand(context, cmd, false);
         }
@@ -153,10 +160,7 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static string GitString(string s)
         {
-            var len = (s.Length + 4).ToString("x");
-            while (len.Length < 4) 
-                len = "0" + len;
-            return len + s;
+            return (s.Length + 4).ToString("x").PadLeft(4, '0') + s;
         }
 
         private static GitRoute GetGitRoute(HttpContext context)
@@ -165,10 +169,10 @@ namespace Foundry.SourceControl.GitIntegration
                 return null;
 
             var handlers = _services[context.Request.RequestType];
-            foreach(var pair in handlers)
+            foreach (var pair in handlers)
             {
-                Match m = pair.Key.Match(context.Request.RawUrl);
-                if(m.Success)
+                Match m = pair.Key.Match(context.Request.Path);
+                if (m.Success)
                 {
                     var route = new GitRoute();
                     route.Handler = pair.Value;
@@ -176,7 +180,7 @@ namespace Foundry.SourceControl.GitIntegration
                         route.Repository = context.Request.FilePath.Substring(1, context.Request.FilePath.Length - 5);
                     else
                         route.Repository = context.Request.FilePath.Replace(context.Request.ApplicationPath + "/", "").Replace(".git", "");
-                    route.File = context.Request.RawUrl.Replace(m.Groups[1].Value + "/", "");
+                    route.File = context.Request.Path.Replace(m.Groups[1].Value + "/", "");
 
                     route.RepositoryPath = Path.Combine(GitSettings.RepositoriesPath, route.Repository);
                     route.FilePath = Path.Combine(route.RepositoryPath, route.File);
@@ -206,6 +210,6 @@ namespace Foundry.SourceControl.GitIntegration
             public string File;
             public string FilePath;
         }
-        
+
     }
 }

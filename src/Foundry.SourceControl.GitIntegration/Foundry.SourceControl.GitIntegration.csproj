@@ -49,6 +49,7 @@
     <Compile Include="Commands\GitSmartHttpUploadPackCommand.cs" />
     <Compile Include="Commands\GitUpdateServerInfoCommand.cs" />
     <Compile Include="Commands\GitUploadPackCommand.cs" />
+    <Compile Include="Commands\RawGitCommand.cs" />
     <Compile Include="GitCommandResult.cs" />
     <Compile Include="GitHttpHandler.cs" />
     <Compile Include="GitSession.cs" />
