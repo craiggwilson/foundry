@@ -48,11 +48,7 @@ namespace Foundry.SourceControl.GitIntegration
                 var route = GetGitRoute(context);
                 if (route == null) 
                 {
-                    if (context.Request.RequestType == "PROPFIND")
-                        context.Response.StatusCode = 405;
-                    else
-                        context.Response.StatusCode = 400;
-                    context.Response.End();
+                    Respond404(context);
                     return;
                 }
 
@@ -107,11 +103,16 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static void SendFile(HttpContext context, GitRoute route, string contentType)
         {
-            var file = Path.Combine(GitSettings.RepositoriesPath, route.Repository, route.File);
+            var file = new FileInfo(route.FilePath);
+            if (!file.Exists)
+            {
+                Respond404(context);
+                return;
+            }
             context.Response.ContentType = contentType;
-            context.Response.AddFileDependency(file);
+            context.Response.AddFileDependency(file.FullName);
 
-            context.Response.WriteFile(file);
+            context.Response.WriteFile(file.FullName);
         }
 
         private static void ExecuteCommand(HttpContext context, IGitCommand cmd, bool readFile)
@@ -150,15 +151,6 @@ namespace Foundry.SourceControl.GitIntegration
             ExecuteCommand(context, cmd, true);
         }
 
-        private static string GetRepo(string url)
-        {
-            var match = Regex.Match(url, @".*?([^\/]+\/.+?)\.git.*");
-            if (!match.Success)
-                return "";
-
-            return match.Groups[1].Value;
-        }
-
         private static string GitString(string s)
         {
             var len = (s.Length + 4).ToString("x");
@@ -180,8 +172,14 @@ namespace Foundry.SourceControl.GitIntegration
                 {
                     var route = new GitRoute();
                     route.Handler = pair.Value;
-                    route.Repository = context.Request.FilePath.Replace(context.Request.ApplicationPath + "/", "").Replace(".git", "");
+                    if (context.Request.ApplicationPath == "/")
+                        route.Repository = context.Request.FilePath.Substring(1, context.Request.FilePath.Length - 5);
+                    else
+                        route.Repository = context.Request.FilePath.Replace(context.Request.ApplicationPath + "/", "").Replace(".git", "");
                     route.File = context.Request.RawUrl.Replace(m.Groups[1].Value + "/", "");
+
+                    route.RepositoryPath = Path.Combine(GitSettings.RepositoriesPath, route.Repository);
+                    route.FilePath = Path.Combine(route.RepositoryPath, route.File);
                     return route;
                 }
             }
@@ -194,11 +192,19 @@ namespace Foundry.SourceControl.GitIntegration
             return new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath);
         }
 
+        private static void Respond404(HttpContext context)
+        {
+            context.Response.StatusCode = 400;
+            context.Response.End();
+        }
+
         private class GitRoute
         {
             public Action<HttpContext, GitRoute> Handler;
+            public string RepositoryPath;
             public string Repository;
             public string File;
+            public string FilePath;
         }
         
     }
