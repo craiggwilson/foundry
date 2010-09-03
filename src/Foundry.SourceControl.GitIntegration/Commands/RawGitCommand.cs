@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration.Commands
 {
-    public class RawGitCommand : GitCommand
+    public class RawGitCommand : GitWrapperCommand
     {
         private readonly string _name;
         private readonly List<string> _arguments;
@@ -20,8 +20,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
             get { return _arguments; }
         }
 
-        public RawGitCommand(IGitSession session, string name)
-            : base(session)
+        public RawGitCommand(string name)
         {
             _name = name;
             _arguments = new List<string>();

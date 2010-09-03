@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration.Commands
 {
-    public class GitUpdateServerInfoCommand : GitCommand
+    public class GitUpdateServerInfoCommand : GitWrapperCommand
     {
         public bool? Force { get; set; }
 
@@ -14,8 +14,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
             get { return "update-server-info"; }
         }
 
-        public GitUpdateServerInfoCommand(IGitSession session)
-            : base(session)
+        public GitUpdateServerInfoCommand()
         { }
 
         protected override IEnumerable<string> GetArguments()

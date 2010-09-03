@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Foundry.SourceControl.GitIntegration
+namespace Foundry.SourceControl.GitIntegration.Commands
 {
-    public interface IGitCommand
+    public interface IGitWrapperCommand
     {
         string Name { get; }
 
@@ -15,8 +15,6 @@ namespace Foundry.SourceControl.GitIntegration
         StreamWriter Output { get; set; }
 
         StreamWriter Error { get; set; }
-
-        IGitSession Session { get; }
 
         void Execute();
     }

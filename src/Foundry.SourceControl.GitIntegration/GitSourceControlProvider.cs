@@ -14,11 +14,8 @@ namespace Foundry.SourceControl.GitIntegration
     {
         public void CreateRepository(string name)
         {
-            using (var session = new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath))
-            {
-                var cmd = new GitInitCommand(session, name) { Bare = true };
-                cmd.Execute();
-            }
+            var cmd = new GitInitCommand(name) { Bare = true };
+            cmd.Execute();
         }
     }
 }

@@ -44,20 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\GitInitCommand.cs" />
-    <Compile Include="Commands\GitReceivePackCommand.cs" />
-    <Compile Include="Commands\GitSmartHttpReceivePackCommand.cs" />
-    <Compile Include="Commands\GitSmartHttpUploadPackCommand.cs" />
     <Compile Include="Commands\GitUpdateServerInfoCommand.cs" />
-    <Compile Include="Commands\GitUploadPackCommand.cs" />
     <Compile Include="Commands\RawGitCommand.cs" />
-    <Compile Include="GitCommandResult.cs" />
     <Compile Include="GitHttpHandler.cs" />
-    <Compile Include="GitSession.cs" />
     <Compile Include="GitSettings.cs" />
     <Compile Include="GitSourceControlProvider.cs" />
-    <Compile Include="GitCommand.cs" />
-    <Compile Include="IGitCommand.cs" />
-    <Compile Include="IGitSession.cs" />
+    <Compile Include="Commands\GitWrapperCommand.cs" />
+    <Compile Include="Commands\IGitWrapperCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

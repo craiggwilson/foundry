@@ -5,11 +5,13 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 
-namespace Foundry.SourceControl.GitIntegration
+namespace Foundry.SourceControl.GitIntegration.Commands
 {
-    public abstract class GitCommand : IGitCommand
+    public abstract class GitWrapperCommand : IGitWrapperCommand
     {
-        private readonly IGitSession _session;
+        public string WorkingDirectory { get; set; }
+
+        public string GitExePath { get; set; }
 
         public StreamReader Input { get; set; }
 
@@ -19,19 +21,15 @@ namespace Foundry.SourceControl.GitIntegration
 
         public abstract string Name { get; }
 
-        public IGitSession Session
+        protected GitWrapperCommand()
         {
-            get { return _session; }
-        }
-
-        public GitCommand(IGitSession session)
-        {
-            _session = session;
+            GitExePath = GitSettings.ExePath;
+            WorkingDirectory = GitSettings.RepositoriesPath;
         }
 
         public void Execute()
         {
-            var processInfo = new ProcessStartInfo(_session.Path)
+            var processInfo = new ProcessStartInfo(GitExePath)
             {
                 Arguments = BuildCommandLine(GetArguments()),
                 CreateNoWindow = true,
@@ -39,7 +37,7 @@ namespace Foundry.SourceControl.GitIntegration
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
-                WorkingDirectory = _session.WorkingDirectory
+                WorkingDirectory = WorkingDirectory
             };
 
             using (var process = Process.Start(processInfo))

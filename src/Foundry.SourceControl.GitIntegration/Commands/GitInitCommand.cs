@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration.Commands
 {
-    public class GitInitCommand : GitCommand
+    public class GitInitCommand : GitWrapperCommand
     {
         public override string Name
         {
@@ -16,8 +16,7 @@ namespace Foundry.SourceControl.GitIntegration.Commands
 
         public string Directory { get; private set; }
 
-        public GitInitCommand(IGitSession session, string directory)
-            : base(session)
+        public GitInitCommand(string directory)
         {
             Directory = directory;
         }
