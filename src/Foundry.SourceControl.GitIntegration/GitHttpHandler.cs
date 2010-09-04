@@ -58,7 +58,7 @@ namespace Foundry.SourceControl.GitIntegration
         private static void HandleInfoRefsGet(HttpContext context, GitRoute route)
         {
             var gitService = context.Request.QueryString["service"];
-            
+
             if (string.IsNullOrWhiteSpace(gitService) || !gitService.StartsWith("git-"))
             {
                 SendFile(context, route, "text/plain; charset=utf-8");
@@ -72,11 +72,12 @@ namespace Foundry.SourceControl.GitIntegration
 
                 if (service == "upload-pack")
                 {
-                    using(var pack = new UploadPack(route.Repository))
+                    var pack = new UploadPack(route.Repository);
                     pack.sendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(context.Response.OutputStream)));
                 }
                 else if (service == "receive-pack")
                 {
+                    VerifyAccess(context);
                     var pack = new ReceivePack(route.Repository);
                     pack.SendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(context.Response.OutputStream)));
                 }
@@ -85,6 +86,7 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static void HandleReceivePackPost(HttpContext context, GitRoute route)
         {
+            VerifyAccess(context);
             context.Response.ContentType = "application/x-git-receive-pack-result";
             var pack = new ReceivePack(route.Repository);
             pack.setBiDirectionalPipe(false);
@@ -94,11 +96,9 @@ namespace Foundry.SourceControl.GitIntegration
         private static void HandleUploadPackPost(HttpContext context, GitRoute route)
         {
             context.Response.ContentType = "application/x-git-upload-pack-result";
-            using (var pack = new UploadPack(route.Repository))
-            {
-                pack.setBiDirectionalPipe(false);
-                pack.Upload(context.Request.InputStream, context.Response.OutputStream, context.Response.OutputStream);
-            }
+            var pack = new UploadPack(route.Repository);
+            pack.setBiDirectionalPipe(false);
+            pack.Upload(context.Request.InputStream, context.Response.OutputStream, context.Response.OutputStream);
         }
 
         private static void SendFile(HttpContext context, GitRoute route, string contentType)
@@ -146,6 +146,17 @@ namespace Foundry.SourceControl.GitIntegration
             }
 
             return null;
+        }
+
+        private static void VerifyAccess(HttpContext context)
+        {
+            if (!context.User.Identity.IsAuthenticated)
+            {
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "Access Denied";
+                context.Response.Write("401 Access Denied");
+                context.Response.End();
+            }
         }
 
         private static void Respond404(HttpContext context)

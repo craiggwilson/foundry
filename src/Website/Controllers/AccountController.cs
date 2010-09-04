@@ -41,25 +41,10 @@ namespace Foundry.Website.Controllers
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            var foundryIdentity = new FoundryUser { Id = result.Item2.UserId, Name = result.Item2.Username, DisplayName = result.Item2.DisplayName, IsAuthenticated = true, AuthenticationType = "Forms" };
+            var user = new FoundryUser { Id = result.Item2.UserId, Name = result.Item2.Username, DisplayName = result.Item2.DisplayName, IsAuthenticated = true, AuthenticationType = "Forms" };
             
-            var ticket = new FormsAuthenticationTicket(1,
-                model.Username,
-                DateTime.Now,
-                DateTime.Now.AddDays(10),
-                model.RememberMe,
-                foundryIdentity.ToString());
-
-
-            var ticketString = FormsAuthentication.Encrypt(ticket);
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketString);
-            if (model.RememberMe)
-                cookie.Expires = DateTime.Now.AddDays(10);
-
-            Response.Cookies.Add(cookie);
-
-            return new FormsAuthenticationResult(model.Username)
-                .WithMessage(this, string.Format("Welcome back, {0}", result.Item2.DisplayName), ViewMessageType.Info);
+            return new FormsAuthenticationResult(user, model.RememberMe)
+                .WithMessage(this, string.Format("Welcome back, {0}", user.DisplayName), ViewMessageType.Info);
         }
 
         public virtual ActionResult Logout()

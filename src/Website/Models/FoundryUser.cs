@@ -9,6 +9,11 @@ namespace Foundry.Website.Models
 {
     public class FoundryUser : IPrincipal, IIdentity
     {
+        public static readonly FoundryUser Anonymous = new FoundryUser
+        {
+            IsAuthenticated = false
+        };
+
         public Guid Id { get; set; }
 
         public string AuthenticationType { get; set; }
