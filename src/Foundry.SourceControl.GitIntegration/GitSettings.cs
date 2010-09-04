@@ -8,11 +8,6 @@ namespace Foundry.SourceControl.GitIntegration
 {
     internal static class GitSettings
     {
-        public static string ExePath
-        {
-            get { return ConfigurationManager.AppSettings["GitPath"]; }
-        }
-
         public static string RepositoriesPath
         {
             get 
