@@ -13,10 +13,10 @@ namespace Foundry.Website.Controllers
     [Authorize]
     public partial class DashboardController : Controller
     {
-        private readonly IReportingRepository<CodeRepositoryReport> _codeRepositoryRepository;
+        private readonly IReportingRepository<RepositoryReport> _codeRepositoryRepository;
         private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<CodeRepositoryReport> codeRepositoryRepository)
+        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<RepositoryReport> codeRepositoryRepository)
         {
             _authorizationService = authorizationService;
             _codeRepositoryRepository = codeRepositoryRepository;
@@ -26,7 +26,7 @@ namespace Foundry.Website.Controllers
         {
             var currentUserId = ((FoundryUser)User).Id;
 
-            var repos = new CodeRepositoryReport[0];
+            var repos = new RepositoryReport[0];
 
             var model = new IndexViewModel
             {

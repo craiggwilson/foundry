@@ -6,7 +6,7 @@ using Foundry.Security;
 
 namespace Foundry.Reports
 {
-    public class CodeRepositoryReport : IAuthorizable<CodeRepositoryReport>
+    public class RepositoryReport : IAuthorizable<RepositoryReport>
     {
         public Guid RepositoryId { get; set; }
 
@@ -18,7 +18,7 @@ namespace Foundry.Reports
 
         public bool IsPrivate { get; set; }
 
-        Guid IAuthorizable<CodeRepositoryReport>.Id
+        Guid IAuthorizable<RepositoryReport>.Id
         {
             get { return RepositoryId; }
         }

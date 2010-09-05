@@ -38,8 +38,8 @@ namespace Foundry.Reports.Infrastructure
             modelBuilder.Entity<UserReport>()
                 .HasKey(x => x.UserId);
 
-            modelBuilder.RegisterSet<CodeRepositoryReport>();
-            modelBuilder.Entity<CodeRepositoryReport>()
+            modelBuilder.RegisterSet<RepositoryReport>();
+            modelBuilder.Entity<RepositoryReport>()
                 .HasKey(x => x.RepositoryId);
 
             modelBuilder.RegisterSet<NewsFeedReport>();

@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeRepositoryReport.cs" />
+    <Compile Include="RepositoryReport.cs" />
     <Compile Include="NewsFeedReport.cs" />
     <Compile Include="UserPermissionsReport.cs" />
     <Compile Include="Infrastructure\ReportingDbContext.cs" />

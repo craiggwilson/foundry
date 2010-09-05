@@ -9,26 +9,17 @@ using Foundry.Reports;
 
 namespace Foundry.Domain.Events.Handlers
 {
-    public class CodeRepositoryReportEventHandler : IEventHandler<RepositoryCreatedEvent>, IEventHandler<RepositoryDeletedEvent>
+    public class NewsFeedReportEventHandler : IEventHandler<RepositoryCreatedEvent>, IEventHandler<RepositoryDeletedEvent>
     {
         private readonly IReportingSession _reportingSession;
 
-        public CodeRepositoryReportEventHandler(IReportingSession reportingSession)
+        public NewsFeedReportEventHandler(IReportingSession reportingSession)
         {
             _reportingSession = reportingSession;
         }
 
         public void Handle(RepositoryCreatedEvent @event)
         {
-            new ReportingRepository<CodeRepositoryReport>(_reportingSession).Add(new CodeRepositoryReport
-            {
-                RepositoryId = @event.SourceId,
-                OwnerId = @event.OwnerId,
-                SourceControlProvider = @event.SourceControlProvider,
-                Name = @event.Name,
-                IsPrivate = @event.IsPrivate
-            });
-
             if(!@event.IsPrivate)
             {
                 var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
@@ -37,7 +28,7 @@ namespace Foundry.Domain.Events.Handlers
                     SubjectType = SubjectType.User,
                     SubjectId = @event.OwnerId, //TODO: get the current user for this property...
                     SubjectName = @event.Name,
-                    DateTime = DateTime.Now,
+                    DateTime = DateTime.UtcNow,
                     Event = "Repository-Created",
                     Message = string.Format("created [[Repository: {0}]]", @event.Name)
                 });
@@ -47,22 +38,24 @@ namespace Foundry.Domain.Events.Handlers
 
         public void Handle(RepositoryDeletedEvent @event)
         {
-            var repo = new ReportingRepository<CodeRepositoryReport>(_reportingSession);
+            var repo = new ReportingRepository<RepositoryReport>(_reportingSession);
             var codeRepository = repo.Single(x => x.RepositoryId == @event.SourceId);
-            repo.Remove(codeRepository);
 
             if (!codeRepository.IsPrivate)
             {
                 var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
                 feedRepo.Add(new NewsFeedReport
                 {
-                    SubjectType = SubjectType.Repository,
+                    SubjectType = SubjectType.User,
                     SubjectId = codeRepository.OwnerId, //TODO: get the current user for this property...
                     SubjectName = codeRepository.Name,
-                    DateTime = DateTime.Now,
-                    Event = "Deleted",
-                    Message = string.Format("created [[Repository: {0}]]", codeRepository.Name)
+                    DateTime = DateTime.UtcNow,
+                    Event = "Repository-Deleted",
+                    Message = string.Format("deleted {0}", codeRepository.Name)
                 });
-            }  }
+            }
+
+            _reportingSession.Commit();        
+        }
     }
 }

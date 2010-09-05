@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeRepositoryReportEventHandler.cs" />
+    <Compile Include="NewsFeedReportEventHandler.cs" />
+    <Compile Include="RepositoryReportEventHandler.cs" />
     <Compile Include="UserPermissionsReportEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReportEventHandler.cs" />
