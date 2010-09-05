@@ -15,13 +15,10 @@ namespace Foundry.Domain
         private DateTime _createdDateTime;
         private DateTime _lastLoginDateTime;
 
-        private List<Guid> _repositories;
-
         private User(Guid id)
             : base(id)
         {
             WireUpEventHandlers();
-            _repositories = new List<Guid>();
         }
 
         public User(Username username, Password password, string displayName, Email email)
@@ -39,30 +36,12 @@ namespace Foundry.Domain
             });
         }
 
-        public void AddRepository(Guid repositoryId)
-        {
-            Raise(new UserRepositoryAddedEvent
-            {
-                SourceId = Id,
-                RepositoryId = repositoryId
-            });
-        }
-
-        public void RemoveRepository(Guid repositoryId)
-        {
-            Raise(new UserRepositoryRemovedEvent
-            {
-                SourceId = Id,
-                RepositoryId = repositoryId
-            });
-        }
-
-        public void LoggedIn()
+        public void LoggedIn(DateTime at)
         {
             Raise(new UserLoggedInEvent
             {
                 SourceId = Id,
-                DateTime = DateTime.UtcNow
+                DateTime = at
             });
         }
 
@@ -70,8 +49,6 @@ namespace Foundry.Domain
         {
             RegisterEventHandler<UserCreatedEvent>(OnCreated);
             RegisterEventHandler<UserLoggedInEvent>(OnLoggedIn);
-            RegisterEventHandler<UserRepositoryAddedEvent>(OnRepositoryAdded);
-            RegisterEventHandler<UserRepositoryRemovedEvent>(OnRepositoryRemoved);
         }
 
         private void OnCreated(UserCreatedEvent @event)
@@ -86,16 +63,6 @@ namespace Foundry.Domain
         private void OnLoggedIn(UserLoggedInEvent @event)
         {
             _lastLoginDateTime = @event.DateTime;
-        }
-
-        private void OnRepositoryAdded(UserRepositoryAddedEvent @event)
-        {
-            _repositories.Add(@event.RepositoryId);
-        }
-
-        private void OnRepositoryRemoved(UserRepositoryRemovedEvent @event)
-        {
-            _repositories.Remove(@event.RepositoryId);
         }
     }
 }

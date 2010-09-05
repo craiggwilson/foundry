@@ -5,24 +5,31 @@ using Sikai.EventSourcing.Domain;
 using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Dashboard;
+using Foundry.Services;
 
 namespace Foundry.Website.Controllers
 {
     [Authorize]
     public partial class DashboardController : Controller
     {
-        private readonly IReportingRepository<UserCodeRepositoryReport> _userCodeRepositories;
+        private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IReportingRepository<UserCodeRepositoryReport> userCodeRepositories)
+        public DashboardController(IAuthorizationService authorizationService)
         {
-            _userCodeRepositories = userCodeRepositories;
+            _authorizationService = authorizationService;
         }
 
         public virtual ActionResult Index()
         {
             var currentUserId = ((FoundryUser)User).Id;
 
-            var model = new IndexViewModel { UserCodeRepositories = _userCodeRepositories.Where(x => x.UserId == currentUserId).ToList() };
+            var authInfo = _authorizationService.GetAuthorizationInformation(currentUserId);
+
+            var model = new IndexViewModel
+            {
+                WritableRepositories = (from p in authInfo.GetAllAuthorizations(SubjectType.Repository, "Write")
+                                       select p.SubjectName).ToList()
+            };
             return View(model);
         }
     }

@@ -23,7 +23,7 @@
 			<div class="caption"><h2>Your Repositories...</h2>${Html.ActionLink("Create Repository", MVC.Repository.Create())}</div>
 			<ul>
 				<li each="var repo in Model.UserCodeRepositories">
-          ${repo.Name}
+          ${repo.RepositoryName}
         </li>
 			</ul>
 		</div>

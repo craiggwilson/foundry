@@ -50,7 +50,7 @@ namespace Foundry.Services
                 return Tuple.Create<bool, UserReport>(false, null);
             }
 
-            _bus.Send(new UserLoggedInMessage { UserId = user.UserId });
+            _bus.Send(new UserLoggedInMessage { UserId = user.UserId, DateTime = DateTime.UtcNow });
 
             return Tuple.Create(true, user);
         }

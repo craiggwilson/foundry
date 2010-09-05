@@ -44,8 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryDeletedEvent.cs" />
     <Compile Include="Repository\RepositoryCreatedEvent.cs" />
-    <Compile Include="User\UserRepositoryRemovedEvent.cs" />
-    <Compile Include="User\UserRepositoryAddedEvent.cs" />
     <Compile Include="User\UserCreatedEvent.cs" />
     <Compile Include="User\UserLoggedInEvent.cs" />
   </ItemGroup>

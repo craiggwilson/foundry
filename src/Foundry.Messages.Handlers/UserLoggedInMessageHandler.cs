@@ -22,7 +22,7 @@ namespace Foundry.Messaging.MessageHandlers
         {
             var repo = new DomainRepository(_domainSession);
             var user = repo.GetById<User>(message.UserId);
-            user.LoggedIn();
+            user.LoggedIn(message.DateTime);
 
             _domainSession.Commit();
         }

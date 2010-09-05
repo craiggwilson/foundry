@@ -25,15 +25,12 @@ namespace Foundry.Messages.Handlers
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == message.SourceControlProvider);
 
-            provider.Value.CreateRepository(message.RepositoryName);
-
             var domainRepository = new DomainRepository(_domainSession);
 
-            var repo = new CodeRepository(message.SourceControlProvider, message.RepositoryName);
+            var repo = new CodeRepository(message.UserId, message.SourceControlProvider, message.RepositoryName, message.Private);
             domainRepository.Add(repo);
 
-            var user = domainRepository.GetById<User>(message.UserId);
-            user.AddRepository(repo.Id);
+            provider.Value.CreateRepository(message.RepositoryName);
 
             _domainSession.Commit();
         }

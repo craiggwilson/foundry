@@ -26,6 +26,7 @@ namespace Foundry.Services
         {
             builder.Register(c => new MembershipService(c.Resolve<IBus>(), c.Resolve<IReportingRepository<UserReport>>())).As<IMembershipService>().HttpRequestScoped().PropertiesAutowired();
             builder.Register(c => new SourceControlManager(c.Resolve<IBus>(), c.Resolve<IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>>>())).As<ISourceControlManager>().PropertiesAutowired();
+            builder.Register(c => new AuthorizationService(c.Resolve<IReportingRepository<UserPermissionsReport>>())).As<IAuthorizationService>();
         }
     }
 }

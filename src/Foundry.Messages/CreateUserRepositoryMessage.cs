@@ -12,5 +12,7 @@ namespace Foundry.Messages
         public string SourceControlProvider { get; set; }
 
         public string RepositoryName { get; set; }
+
+        public bool Private { get; set; }
     }
 }

@@ -11,6 +11,9 @@ namespace Foundry.Domain
     {
         private string _sourceControlProvider;
         private string _name;
+        private bool _isDeleted;
+        private Guid _ownerId;
+        private bool _isPrivate;
 
         private CodeRepository(Guid id)
             : base(id)
@@ -18,26 +21,47 @@ namespace Foundry.Domain
             WireUpEventHandlers();
         }
 
-        public CodeRepository(string sourceControlProvider, string name)
+        public CodeRepository(Guid owner, string sourceControlProvider, string name, bool isPrivate)
              : this(Guid.NewGuid())
         {
             Raise(new RepositoryCreatedEvent
             {
                 SourceId = Id,
+                OwnerId = _ownerId,
                 SourceControlProvider = sourceControlProvider,
-                Name = name
+                Name = name,
+                IsPrivate = isPrivate
+            });
+        }
+
+        public void Delete()
+        {
+            if (_isDeleted)
+                throw new InvalidOperationException("Repository is already deleted.");
+
+            Raise(new RepositoryDeletedEvent
+            {
+                SourceId = Id
             });
         }
 
         private void WireUpEventHandlers()
         {
             RegisterEventHandler<RepositoryCreatedEvent>(OnCreated);
+            RegisterEventHandler<RepositoryDeletedEvent>(OnDeleted);
         }
 
         private void OnCreated(RepositoryCreatedEvent @event)
         {
+            _ownerId = @event.OwnerId;
             _sourceControlProvider = @event.SourceControlProvider;
             _name = @event.Name;
+            _isPrivate = @event.IsPrivate;
+        }
+
+        private void OnDeleted(RepositoryDeletedEvent @event)
+        {
+            _isDeleted = true;
         }
 
     }

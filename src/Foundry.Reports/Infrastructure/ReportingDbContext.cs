@@ -42,13 +42,13 @@ namespace Foundry.Reports.Infrastructure
             modelBuilder.Entity<CodeRepositoryReport>()
                 .HasKey(x => x.RepositoryId);
 
-            modelBuilder.RegisterSet<UserCodeRepositoryReport>();
-            modelBuilder.Entity<UserCodeRepositoryReport>()
-                .HasKey(x => x.RepositoryId);
+            modelBuilder.RegisterSet<NewsFeedReport>();
+            modelBuilder.Entity<NewsFeedReport>()
+                .HasKey(x => x.SubjectId);
+
+            modelBuilder.RegisterSet<UserPermissionsReport>();
+            modelBuilder.Entity<UserPermissionsReport>()
+                .HasKey(x => new { x.UserId, x.SubjectId, x.Operation });
         }
-
-        
-
-        
     }
 }

@@ -20,15 +20,28 @@ namespace Foundry.Domain.Events.Handlers
 
         public void Handle(RepositoryCreatedEvent @event)
         {
-            var repo = new CodeRepositoryReport
+            new ReportingRepository<CodeRepositoryReport>(_reportingSession).Add(new CodeRepositoryReport
             {
                 RepositoryId = @event.SourceId,
+                OwnerId = @event.OwnerId,
                 SourceControlProvider = @event.SourceControlProvider,
-                Name = @event.Name
-            };
+                Name = @event.Name,
+                IsPrivate = @event.IsPrivate
+            });
 
-            new ReportingRepository<CodeRepositoryReport>(_reportingSession).Add(repo);
-
+            if(!@event.IsPrivate)
+            {
+                var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
+                feedRepo.Add(new NewsFeedReport
+                {
+                    SubjectType = Reports.SubjectType.Repository,
+                    SubjectId = @event.OwnerId, //TODO: get the current user for this property...
+                    SubjectName = @event.Name,
+                    DateTime = DateTime.Now,
+                    Event = "Created",
+                    Message = string.Format("created [[Repository: {0}]]", @event.Name)
+                });
+            }
             _reportingSession.Commit();
         }
 
@@ -38,7 +51,18 @@ namespace Foundry.Domain.Events.Handlers
             var codeRepository = repo.Single(x => x.RepositoryId == @event.SourceId);
             repo.Remove(codeRepository);
 
-            _reportingSession.Commit();
-        }
+            if (!codeRepository.IsPrivate)
+            {
+                var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
+                feedRepo.Add(new NewsFeedReport
+                {
+                    SubjectType = Reports.SubjectType.Repository,
+                    SubjectId = codeRepository.OwnerId, //TODO: get the current user for this property...
+                    SubjectName = codeRepository.Name,
+                    DateTime = DateTime.Now,
+                    Event = "Deleted",
+                    Message = string.Format("created [[Repository: {0}]]", codeRepository.Name)
+                });
+            }  }
     }
 }

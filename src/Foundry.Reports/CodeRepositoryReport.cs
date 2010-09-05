@@ -9,8 +9,12 @@ namespace Foundry.Reports
     {
         public Guid RepositoryId { get; set; }
 
-        public string SourceControlProvider { get; set; }
+        public Guid OwnerId { get; set; }
 
         public string Name { get; set; }
+
+        public string SourceControlProvider { get; set; }
+
+        public bool IsPrivate { get; set; }
     }
 }

@@ -14,13 +14,9 @@ namespace Foundry.SourceControl.GitIntegration
     {
         public void CreateRepository(string name)
         {
-            var directory = Path.Combine(GitSettings.RepositoriesPath, name);
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
-
             var cmd = new InitCommand
             {
-                GitDirectory = directory,
+                GitDirectory = Path.Combine(GitSettings.RepositoriesPath, name),
                 Quiet = false,
                 Bare = true
             };

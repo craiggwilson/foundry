@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeRepositoryReport.cs" />
-    <Compile Include="UserCodeRepositoryReport.cs" />
+    <Compile Include="NewsFeedReport.cs" />
+    <Compile Include="SubjectType.cs" />
+    <Compile Include="UserPermissionsReport.cs" />
     <Compile Include="Infrastructure\ReportingDbContext.cs" />
     <Compile Include="Infrastructure\ReportingRepository.cs" />
     <Compile Include="Infrastructure\IReportingRepository.cs" />
