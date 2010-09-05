@@ -22,7 +22,7 @@ namespace Foundry.Domain.Events.Handlers
         {
             new ReportingRepository<RepositoryReport>(_reportingSession).Add(new RepositoryReport
             {
-                RepositoryId = @event.SourceId,
+                Id = @event.SourceId,
                 OwnerId = @event.OwnerId,
                 SourceControlProvider = @event.SourceControlProvider,
                 Name = @event.Name,
@@ -34,7 +34,7 @@ namespace Foundry.Domain.Events.Handlers
         public void Handle(RepositoryDeletedEvent @event)
         {
             var repo = new ReportingRepository<RepositoryReport>(_reportingSession);
-            var codeRepository = repo.Single(x => x.RepositoryId == @event.SourceId);
+            var codeRepository = repo.Single(x => x.Id == @event.SourceId);
             repo.Remove(codeRepository);
 
             _reportingSession.Commit();

@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Foundry.SourceControl">
-      <HintPath>..\Foundry.SourceControl\bin\Debug\Foundry.SourceControl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -57,6 +54,10 @@
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
       <Name>Sikai.EventSourcing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
+      <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
+      <Name>Foundry.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
       <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>

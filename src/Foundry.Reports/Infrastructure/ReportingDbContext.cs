@@ -40,7 +40,7 @@ namespace Foundry.Reports.Infrastructure
 
             modelBuilder.RegisterSet<RepositoryReport>();
             modelBuilder.Entity<RepositoryReport>()
-                .HasKey(x => x.RepositoryId);
+                .HasKey(x => x.Id);
 
             modelBuilder.RegisterSet<NewsFeedReport>();
             modelBuilder.Entity<NewsFeedReport>()

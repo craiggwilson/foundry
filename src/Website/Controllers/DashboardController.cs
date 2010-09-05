@@ -13,24 +13,24 @@ namespace Foundry.Website.Controllers
     [Authorize]
     public partial class DashboardController : Controller
     {
-        private readonly IReportingRepository<RepositoryReport> _codeRepositoryRepository;
+        private readonly IReportingRepository<RepositoryReport> _repositoryRepository;
         private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<RepositoryReport> codeRepositoryRepository)
+        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<RepositoryReport> repositoryRepository)
         {
             _authorizationService = authorizationService;
-            _codeRepositoryRepository = codeRepositoryRepository;
+            _repositoryRepository = repositoryRepository;
         }
 
         public virtual ActionResult Index()
         {
             var currentUserId = ((FoundryUser)User).Id;
 
-            var repos = new RepositoryReport[0];
+            var auth = _authorizationService.GetAuthorizationInformation(currentUserId);
 
             var model = new IndexViewModel
             {
-                WritableRepositories = repos.Select(x => x.Name).ToList()
+                WritableRepositories = auth.Filter(_repositoryRepository, SubjectType.Repository, "Write").ToList()
             };
             return View(model);
         }

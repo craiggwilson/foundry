@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundry.Messaging.Infrastructure;
-using Foundry.SourceControl;
 using Sikai.EventSourcing.Domain;
 using Foundry.Domain;
 using Sikai.EventSourcing.Infrastructure;
+using Foundry.SourceControl;
 
 namespace Foundry.Messages.Handlers
 {

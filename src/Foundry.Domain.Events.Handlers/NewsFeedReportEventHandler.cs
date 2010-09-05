@@ -39,7 +39,7 @@ namespace Foundry.Domain.Events.Handlers
         public void Handle(RepositoryDeletedEvent @event)
         {
             var repo = new ReportingRepository<RepositoryReport>(_reportingSession);
-            var codeRepository = repo.Single(x => x.RepositoryId == @event.SourceId);
+            var codeRepository = repo.Single(x => x.Id == @event.SourceId);
 
             if (!codeRepository.IsPrivate)
             {

@@ -8,7 +8,7 @@ namespace Foundry.Reports
 {
     public class RepositoryReport : IAuthorizable<RepositoryReport>
     {
-        public Guid RepositoryId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid OwnerId { get; set; }
 
@@ -17,10 +17,5 @@ namespace Foundry.Reports
         public string SourceControlProvider { get; set; }
 
         public bool IsPrivate { get; set; }
-
-        Guid IAuthorizable<RepositoryReport>.Id
-        {
-            get { return RepositoryId; }
-        }
     }
 }
