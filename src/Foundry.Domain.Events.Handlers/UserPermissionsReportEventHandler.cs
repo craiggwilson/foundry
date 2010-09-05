@@ -47,11 +47,10 @@ namespace Foundry.Reports.DomainEventHandlers
             return new UserPermissionsReport
             {
                 UserId = userId,
-                SubjectType = Reports.SubjectType.Repository,
+                SubjectType = SubjectType.Repository,
                 SubjectId = repositoryId,
-                SubjectName = repositoryName,
                 Level = 99,
-                Operation = "*",
+                Operation = Security.Operation.All,
                 Allow = true
             };
         }
@@ -61,11 +60,10 @@ namespace Foundry.Reports.DomainEventHandlers
             return new UserPermissionsReport
             {
                 UserId = Guid.Empty,
-                SubjectType = Reports.SubjectType.Repository,
+                SubjectType = SubjectType.Repository,
                 SubjectId = repositoryId,
-                SubjectName = repositoryName,
                 Level = 1,
-                Operation = "Read",
+                Operation = Security.Operation.Read,
                 Allow = true
             };
         }

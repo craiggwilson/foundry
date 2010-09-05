@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}</ProjectGuid>
+    <ProjectGuid>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Foundry.SourceControl.GitIntegration</RootNamespace>
-    <AssemblyName>Foundry.SourceControl.GitIntegration</AssemblyName>
+    <RootNamespace>Foundry</RootNamespace>
+    <AssemblyName>Foundry.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,46 +31,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GitSharp">
-      <HintPath>..\..\libs\GitSharp\GitSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="GitSharp.Core">
-      <HintPath>..\..\libs\GitSharp\GitSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\libs\GitSharp\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tamir.SharpSSH">
-      <HintPath>..\..\libs\GitSharp\Tamir.SharpSSH.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GitHttpHandler.cs" />
-    <Compile Include="GitSettings.cs" />
-    <Compile Include="GitSourceControlProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AuthorizationInformation.cs" />
+    <Compile Include="Security\FoundryUser.cs" />
+    <Compile Include="Security\IAuthorizable.cs" />
+    <Compile Include="Security\IAuthorizationService.cs" />
+    <Compile Include="Security\IMembershipService.cs" />
+    <Compile Include="Security\Operation.cs" />
+    <Compile Include="Security\UserPermission.cs" />
+    <Compile Include="SourceControl\ISourceControlManager.cs" />
+    <Compile Include="SourceControl\ISourceControlProvider.cs" />
+    <Compile Include="SourceControl\ISourceControlProviderMetadata.cs" />
+    <Compile Include="SourceControl\SourceControlProviderAttribute.cs" />
+    <Compile Include="SubjectType.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
-      <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
-      <Name>Foundry.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

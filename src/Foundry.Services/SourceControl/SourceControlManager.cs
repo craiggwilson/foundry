@@ -8,7 +8,7 @@ using Foundry.Messaging.Infrastructure;
 using Foundry.Messages;
 using Foundry.Reports;
 
-namespace Foundry.Services
+namespace Foundry.Services.SourceControl
 {
     [Export]
     public class SourceControlManager : ServiceBase, ISourceControlManager

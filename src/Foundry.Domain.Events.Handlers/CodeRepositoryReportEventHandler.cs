@@ -34,7 +34,7 @@ namespace Foundry.Domain.Events.Handlers
                 var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
                 feedRepo.Add(new NewsFeedReport
                 {
-                    SubjectType = Reports.SubjectType.User,
+                    SubjectType = SubjectType.User,
                     SubjectId = @event.OwnerId, //TODO: get the current user for this property...
                     SubjectName = @event.Name,
                     DateTime = DateTime.Now,
@@ -56,7 +56,7 @@ namespace Foundry.Domain.Events.Handlers
                 var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
                 feedRepo.Add(new NewsFeedReport
                 {
-                    SubjectType = Reports.SubjectType.Repository,
+                    SubjectType = SubjectType.Repository,
                     SubjectId = codeRepository.OwnerId, //TODO: get the current user for this property...
                     SubjectName = codeRepository.Name,
                     DateTime = DateTime.Now,

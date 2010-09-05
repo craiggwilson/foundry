@@ -6,29 +6,31 @@ using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Dashboard;
 using Foundry.Services;
+using Foundry.Security;
 
 namespace Foundry.Website.Controllers
 {
     [Authorize]
     public partial class DashboardController : Controller
     {
+        private readonly IReportingRepository<CodeRepositoryReport> _codeRepositoryRepository;
         private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IAuthorizationService authorizationService)
+        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<CodeRepositoryReport> codeRepositoryRepository)
         {
             _authorizationService = authorizationService;
+            _codeRepositoryRepository = codeRepositoryRepository;
         }
 
         public virtual ActionResult Index()
         {
             var currentUserId = ((FoundryUser)User).Id;
 
-            var authInfo = _authorizationService.GetAuthorizationInformation(currentUserId);
+            var repos = new CodeRepositoryReport[0];
 
             var model = new IndexViewModel
             {
-                WritableRepositories = (from p in authInfo.GetAllAuthorizations(SubjectType.Repository, "Write")
-                                       select p.SubjectName).ToList()
+                WritableRepositories = repos.Select(x => x.Name).ToList()
             };
             return View(model);
         }

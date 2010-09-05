@@ -6,8 +6,9 @@ using Foundry.Messaging.Infrastructure;
 using Foundry.Reports;
 using Foundry.Messaging;
 using Foundry.Reports.Infrastructure;
+using Foundry.Security;
 
-namespace Foundry.Services
+namespace Foundry.Services.Security
 {
     public class MembershipService : ServiceBase, IMembershipService
     {
@@ -34,25 +35,25 @@ namespace Foundry.Services
             return true;
         }
 
-        public Tuple<bool, UserReport> TryLogin(string username, string plainTextPassword)
+        public FoundryUser TryLogin(string username, string plainTextPassword)
         {
             var user = _userRepository.SingleOrDefault(u => u.Username == username);
             if (user == null)
             {
                 _bus.Send(new UserAuthenticationFailedMessage { Username = username });
-                return Tuple.Create<bool, UserReport>(false, null);
+                return FoundryUser.Anonymous;
             }
 
             var password = GeneratePassword(plainTextPassword, user.Salt);
             if (user.Password != password)
             {
                 _bus.Send(new UserAuthenticationFailedMessage { Username = username });
-                return Tuple.Create<bool, UserReport>(false, null);
+                return FoundryUser.Anonymous;
             }
 
             _bus.Send(new UserLoggedInMessage { UserId = user.UserId, DateTime = DateTime.UtcNow });
 
-            return Tuple.Create(true, user);
+            return new FoundryUser { Id = user.UserId, AuthenticationType = "Forms", DisplayName = user.DisplayName, IsAuthenticated = true, Name = username };
         }
 
         private static string GeneratePassword(string plainTextPassword, string salt)

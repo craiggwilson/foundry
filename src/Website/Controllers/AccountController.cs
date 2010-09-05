@@ -10,6 +10,7 @@ using System.Web.Security;
 using Foundry.Services;
 using System;
 using System.Web;
+using Foundry.Security;
 
 namespace Foundry.Website.Controllers
 {
@@ -34,15 +35,13 @@ namespace Foundry.Website.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var result = _membershipService.TryLogin(model.Username, model.Password);
-            if (!result.Item1)
+            var user = _membershipService.TryLogin(model.Username, model.Password);
+            if (!user.IsAuthenticated)
             {
                 return View(model)
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            var user = new FoundryUser { Id = result.Item2.UserId, Name = result.Item2.Username, DisplayName = result.Item2.DisplayName, IsAuthenticated = true, AuthenticationType = "Forms" };
-            
             return new FormsAuthenticationResult(user, model.RememberMe)
                 .WithMessage(this, string.Format("Welcome back, {0}", user.DisplayName), ViewMessageType.Info);
         }

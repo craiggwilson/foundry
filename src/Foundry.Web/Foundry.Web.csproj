@@ -79,6 +79,10 @@
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
       <Name>Sikai.EventSourcing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
+      <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
+      <Name>Foundry.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Foundry.Domain.Events.Handlers\Foundry.Domain.Events.Handlers.csproj">
       <Project>{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}</Project>
       <Name>Foundry.Domain.Events.Handlers</Name>
@@ -110,10 +114,6 @@
     <ProjectReference Include="..\Foundry.SourceControl.GitIntegration\Foundry.SourceControl.GitIntegration.csproj">
       <Project>{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}</Project>
       <Name>Foundry.SourceControl.GitIntegration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
-      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
-      <Name>Foundry.SourceControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

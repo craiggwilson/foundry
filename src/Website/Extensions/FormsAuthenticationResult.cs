@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Foundry.Website.Models;
+using Foundry.Security;
 
 namespace Foundry.Website
 {

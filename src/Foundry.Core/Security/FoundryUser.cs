@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Security.Principal;
-using System.Web.Security;
 
-namespace Foundry.Website.Models
+namespace Foundry.Security
 {
     public class FoundryUser : IPrincipal, IIdentity
     {

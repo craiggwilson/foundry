@@ -2,7 +2,7 @@
 using Sikai.EventSourcing.Infrastructure;
 using Foundry.Reports;
 using System;
-using Foundry.Website.Models;
+using Foundry.Security;
 
 namespace Foundry.Website.Controllers
 {

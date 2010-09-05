@@ -19,6 +19,7 @@ using System.Web;
 using Foundry.Website.Models;
 using System.Security.Principal;
 using Foundry.SourceControl;
+using Foundry.Security;
 
 namespace Foundry.Website
 {

@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Foundry.Reports
+namespace Foundry.Security
 {
-    public class UserPermissionsReport
+    public class UserPermission
     {
-        public Guid UserId { get; set; }
-
         public string SubjectType { get; set; }
 
         public Guid SubjectId { get; set; }
 
         public string Operation { get; set; }
 
-        public int Level { get; set; }
-
         public bool Allow { get; set; }
+
+        public int Level { get; set; }
     }
 }

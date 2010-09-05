@@ -17,6 +17,9 @@ using System;
 using System.Reflection;
 using System.IO;
 using Foundry.SourceControl.GitIntegration;
+using Foundry.Services.Security;
+using Foundry.Services.SourceControl;
+using Foundry.Security;
 
 namespace Foundry.Services
 {

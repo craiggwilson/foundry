@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Foundry.Reports
+namespace Foundry
 {
     public static class SubjectType
     {
