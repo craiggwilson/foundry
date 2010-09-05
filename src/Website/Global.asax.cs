@@ -60,10 +60,11 @@ namespace Foundry.Website
 
             var batch = new SparkBatchDescriptor();
             batch.For<AccountController>()
-                .For<DashboardController>();
+                .For<DashboardController>()
+                .For<RepositoryController>();
 
             var viewFactory = new SparkViewFactory();
-            //viewFactory.Precompile(batch);
+            viewFactory.Precompile(batch);
 
             ViewEngines.Engines.Add(viewFactory);
 

@@ -21,13 +21,13 @@ namespace Foundry.Domain
             WireUpEventHandlers();
         }
 
-        public CodeRepository(Guid owner, string sourceControlProvider, string name, bool isPrivate)
+        public CodeRepository(Guid ownerId, string sourceControlProvider, string name, bool isPrivate)
              : this(Guid.NewGuid())
         {
             Raise(new RepositoryCreatedEvent
             {
                 SourceId = Id,
-                OwnerId = _ownerId,
+                OwnerId = ownerId,
                 SourceControlProvider = sourceControlProvider,
                 Name = name,
                 IsPrivate = isPrivate

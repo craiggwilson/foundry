@@ -14,7 +14,7 @@ namespace Foundry.Reports
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register(c => new ReportingDbContext())
-                .As<IReportingSession>();
+                .As<IReportingSession>().HttpRequestScoped();
             builder.RegisterGeneric(typeof(ReportingRepository<>))
                 .As(typeof(IReportingRepository<>)).HttpRequestScoped();
 

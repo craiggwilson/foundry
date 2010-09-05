@@ -7,7 +7,7 @@ namespace Foundry.Reports
 {
     public class NewsFeedReport
     {
-        public SubjectType SubjectType { get; set; }
+        public string SubjectType { get; set; }
 
         public Guid SubjectId { get; set; }
 

@@ -22,13 +22,13 @@ namespace Foundry.Services
             _permissions = permissions;
         }
 
-        public bool IsAllowed(SubjectType subjectType, Guid subjectId, string operation)
+        public bool IsAllowed(string subjectType, Guid subjectId, string operation)
         {
             //TODO: come back and do this...
             return true;
         }
 
-        public IEnumerable<UserPermissionsReport> GetAllAuthorizations(SubjectType subjectType, string operation)
+        public IEnumerable<UserPermissionsReport> GetAllAuthorizations(string subjectType, string operation)
         {
             var entries = _permissions.Where(x => x.SubjectType == subjectType);
             //TODO: come back and do this...

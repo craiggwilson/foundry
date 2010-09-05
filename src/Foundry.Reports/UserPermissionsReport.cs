@@ -9,7 +9,7 @@ namespace Foundry.Reports
     {
         public Guid UserId { get; set; }
 
-        public SubjectType SubjectType { get; set; }
+        public string SubjectType { get; set; }
 
         public Guid SubjectId { get; set; }
 

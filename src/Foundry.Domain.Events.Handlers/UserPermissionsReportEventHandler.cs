@@ -65,7 +65,7 @@ namespace Foundry.Reports.DomainEventHandlers
                 SubjectId = repositoryId,
                 SubjectName = repositoryName,
                 Level = 1,
-                Operation = "View",
+                Operation = "Read",
                 Allow = true
             };
         }

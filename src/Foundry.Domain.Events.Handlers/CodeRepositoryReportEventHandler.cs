@@ -34,11 +34,11 @@ namespace Foundry.Domain.Events.Handlers
                 var feedRepo = new ReportingRepository<NewsFeedReport>(_reportingSession);
                 feedRepo.Add(new NewsFeedReport
                 {
-                    SubjectType = Reports.SubjectType.Repository,
+                    SubjectType = Reports.SubjectType.User,
                     SubjectId = @event.OwnerId, //TODO: get the current user for this property...
                     SubjectName = @event.Name,
                     DateTime = DateTime.Now,
-                    Event = "Created",
+                    Event = "Repository-Created",
                     Message = string.Format("created [[Repository: {0}]]", @event.Name)
                 });
             }

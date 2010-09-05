@@ -51,9 +51,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\libs\sqlite\System.Data.SQLite.DLL</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -74,9 +71,9 @@
       <Project>{4384E569-0F95-4D28-A360-E6814BE3299C}</Project>
       <Name>Sikai.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.Sqlite\Sikai.EventSourcing.Infrastructure.Sqlite.csproj">
-      <Project>{F1FDA40E-6485-463A-AA55-2DBD279CABF5}</Project>
-      <Name>Sikai.EventSourcing.Infrastructure.Sqlite</Name>
+    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.MsSql\Sikai.EventSourcing.Infrastructure.MsSql.csproj">
+      <Project>{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}</Project>
+      <Name>Sikai.EventSourcing.Infrastructure.MsSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
       <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>

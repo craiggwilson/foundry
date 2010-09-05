@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Foundry.Reports
 {
-    public enum SubjectType
+    public static class SubjectType
     {
-        Repository
+        public static readonly string Repository = "Repository";
+        public static readonly string User = "User";
     }
 }
