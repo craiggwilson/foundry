@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sikai.EventSourcing.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Core", "Foundry.Core\Foundry.Core.csproj", "{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{69034093-2077-49D2-A7A1-926E1E1B78DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundry.Tests", "Foundry.Tests\Foundry.Tests.csproj", "{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +185,16 @@ Global
 		{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}.Release|x86.ActiveCfg = Release|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,5 +203,6 @@ Global
 		{4384E569-0F95-4D28-A360-E6814BE3299C} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 		{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
 		{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B} = {C714CCF6-29ED-4DA5-AA9F-2922F68EFAA1}
+		{F4BDD527-B09F-421C-A1F4-97951AD7A8FD} = {69034093-2077-49D2-A7A1-926E1E1B78DA}
 	EndGlobalSection
 EndGlobal

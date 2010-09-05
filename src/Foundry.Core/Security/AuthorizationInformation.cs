@@ -29,6 +29,52 @@ namespace Foundry.Security
 
         public IEnumerable<T> Filter<T>(IEnumerable<T> subjects, string subjectType, string operation) where T : IAuthorizable<T>
         {
+            var perms = GetDistinctPermissions(subjectType, operation).OrderByDescending(x => x.Level);
+            
+            if (!perms.Any())
+                return Enumerable.Empty<T>();
+
+            var allowedList = new List<Guid>();
+            var denyList = new List<Guid>();
+
+            bool allowDefault = false;
+            foreach (var perm in perms)
+            {
+                if (perm.Allow)
+                {
+                    if (perm.SubjectId == Guid.Empty)
+                    {
+                        allowDefault = true;
+                        break;
+                    }
+
+                    allowedList.Add(perm.SubjectId);
+                }
+                else
+                {
+                    if (perm.SubjectId == Guid.Empty)
+                    {
+                        allowDefault = false;
+                        break;
+                    }
+
+                    denyList.Add(perm.SubjectId);
+                }
+            }
+
+            if (allowDefault)
+            {
+                if (denyList.Any())
+                    subjects = subjects.Where(s => !denyList.Contains(s.Id));
+            }
+            else
+            {
+                if (allowedList.Any())
+                    subjects = subjects.Where(s => allowedList.Contains(s.Id));
+                else
+                    return Enumerable.Empty<T>();
+            }
+
             return subjects;
         }
 
