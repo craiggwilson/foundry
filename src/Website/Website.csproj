@@ -90,6 +90,7 @@
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
     <Compile Include="Extensions\UserFilterAttribute.cs" />
     <Compile Include="Extensions\ViewMessagesExtensions.cs" />
+    <Compile Include="Extensions\ViewModelUserFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -98,6 +99,7 @@
     <Compile Include="Models\Dashboard\IndexViewModel.cs" />
     <Compile Include="Models\Repository\CreateViewModel.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>

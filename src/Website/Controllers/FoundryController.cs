@@ -7,7 +7,7 @@ using Foundry.Website.Extensions;
 
 namespace Foundry.Website.Controllers
 {
-    [UserFilter]
+    [UserFilter, ViewModelUserFilter]
     public abstract partial class FoundryController : Controller
     {
         public const string VIEW_MESSAGE_KEY = "Message";
