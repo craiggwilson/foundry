@@ -11,13 +11,16 @@ namespace Foundry.Services.Security
     {
         private static readonly List<OperationImplication> _implications = new List<OperationImplication>
         {
+            new OperationImplication("Create", "Create"),
+            new OperationImplication("Create", "Read"),
+            new OperationImplication("Delete", "Delete"),
+            new OperationImplication("Delete", "Read"),
+            new OperationImplication("Write", "Write"),
+            new OperationImplication("Write", "Read"),
             new OperationImplication("*", "Create"),
             new OperationImplication("*", "Read"),
             new OperationImplication("*", "Write"),
             new OperationImplication("*", "Delete"),
-            new OperationImplication("Write", "Read"),
-            new OperationImplication("Create", "Read"),
-            new OperationImplication("Delete", "Read"),
         };
 
         private readonly IReportingRepository<UserPermissionsReport> _permissionsRepository;
@@ -29,9 +32,13 @@ namespace Foundry.Services.Security
 
         public AuthorizationInformation GetAuthorizationInformation(Guid userId)
         {
+            var userPermissions = _permissionsRepository
+                .Where(x => x.UserId == userId || x.UserId == Guid.Empty)
+                .ToList();
+
             return new AuthorizationInformation(
                 userId,
-                from p in _permissionsRepository
+                from p in userPermissions
                 join oi in _implications on p.Operation equals oi.Operation into g
                 from perm in g.DefaultIfEmpty(new OperationImplication(p.Operation, p.Operation))
                 select new UserPermission

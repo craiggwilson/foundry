@@ -24,8 +24,7 @@ namespace Foundry.Reports.DomainEventHandlers
             var userAccessRepo = new ReportingRepository<UserPermissionsReport>(_reportingSession);
 
             userAccessRepo.Add(GetOwnerPermissions(@event.OwnerId, @event.SourceId, @event.Name));
-            if (!@event.IsPrivate)
-                userAccessRepo.Add(GetEveryonePermissions(@event.SourceId, @event.Name));
+            userAccessRepo.Add(GetEveryonePermissions(@event.SourceId, @event.Name, @event.IsPrivate));
 
             //TODO: when OwnerId is an organization, get all members and add their permissions here...
 
@@ -55,7 +54,7 @@ namespace Foundry.Reports.DomainEventHandlers
             };
         }
 
-        private static UserPermissionsReport GetEveryonePermissions(Guid repositoryId, string repositoryName)
+        private static UserPermissionsReport GetEveryonePermissions(Guid repositoryId, string repositoryName, bool isPrivate)
         {
             return new UserPermissionsReport
             {
@@ -64,7 +63,7 @@ namespace Foundry.Reports.DomainEventHandlers
                 SubjectId = repositoryId,
                 Level = 1,
                 Operation = Security.Operation.Read,
-                Allow = true
+                Allow = isPrivate
             };
         }
     }

@@ -30,7 +30,7 @@ namespace Foundry.Website.Controllers
 
             var model = new IndexViewModel
             {
-                WritableRepositories = auth.Filter(_repositoryRepository, SubjectType.Repository, "Write").ToList()
+                WritableRepositories = auth.Filter(_repositoryRepository, SubjectType.Repository, Operation.Write).ToList()
             };
             return View(model);
         }
