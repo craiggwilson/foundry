@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Foundry.Security;
 
 namespace Foundry.Domain
 {
-    public class NewsItem
+    public abstract class NewsItem
     {
-        public string SubjectType { get; set; }
-
-        public Guid SubjectId { get; set; }
-
-        public string SubjectName { get; set; }
+        public int Id { get; set; }
 
         public string Event { get; set; }
 
@@ -20,4 +17,29 @@ namespace Foundry.Domain
         public string Message { get; set; }
     }
 
+    public class RepositoryNewsItem : NewsItem, IAuthorizable
+    {
+        public Guid RepositoryId { get; set; }
+
+        public string RepositoryName { get; set; }
+
+        Guid IAuthorizable.Id
+        {
+            get { return RepositoryId; }
+        }
+    }
+
+    public class UserNewsItem : NewsItem, IAuthorizable
+    {
+        public Guid UserId { get; set; }
+
+        public string Username { get; set; }
+
+        public string UserDisplayName { get; set; }
+
+        Guid IAuthorizable.Id
+        {
+            get { return UserId; }
+        }
+    }
 }

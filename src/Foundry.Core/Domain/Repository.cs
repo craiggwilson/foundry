@@ -6,7 +6,7 @@ using Foundry.Security;
 
 namespace Foundry.Domain
 {
-    public class Repository : IAuthorizable<Repository>
+    public class Repository : IAuthorizable
     {
         public Guid Id { get; set; }
 

@@ -45,5 +45,11 @@ namespace Foundry.Website.Controllers
             return RedirectToAction(MVC.Dashboard.Index())
                 .WithMessage(this, "Repository successfully created", ViewMessageType.Info);
         }
+
+        [HttpGet]
+        public virtual ActionResult Index(string repositoryName)
+        {
+            return View();
+        }
     }
 }

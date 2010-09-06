@@ -308,6 +308,11 @@ namespace Foundry.Website.Controllers {
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Index() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AccountController Actions { get { return MVC.Account; } }
@@ -321,6 +326,7 @@ namespace Foundry.Website.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
+            public readonly string Index = "Index";
             public readonly string Login = "Login";
             public readonly string Logout = "Logout";
             public readonly string Register = "Register";
@@ -332,6 +338,7 @@ namespace Foundry.Website.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
+            public readonly string Index = "~/Views/Account/Index.spark";
             public readonly string Login = "~/Views/Account/Login.spark";
             public readonly string Register = "~/Views/Account/Register.spark";
         }
@@ -340,6 +347,12 @@ namespace Foundry.Website.Controllers {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class T4MVC_AccountController: Foundry.Website.Controllers.AccountController {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Index(string accountName) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("accountName", accountName);
+            return callInfo;
+        }
 
         public override System.Web.Mvc.ActionResult Login() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
@@ -437,6 +450,11 @@ namespace Foundry.Website.Controllers {
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Index() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RepositoryController Actions { get { return MVC.Repository; } }
@@ -451,6 +469,7 @@ namespace Foundry.Website.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Create = "Create";
+            public readonly string Index = "Index";
         }
 
 
@@ -460,6 +479,7 @@ namespace Foundry.Website.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string Create = "~/Views/Repository/Create.spark";
+            public readonly string Index = "~/Views/Repository/Index.spark";
         }
     }
 
@@ -476,6 +496,12 @@ namespace Foundry.Website.Controllers {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
             callInfo.RouteValueDictionary.Add("model", model);
             callInfo.RouteValueDictionary.Add("user", user);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Index(string repositoryName) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("repositoryName", repositoryName);
             return callInfo;
         }
 

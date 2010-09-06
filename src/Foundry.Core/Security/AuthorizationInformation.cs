@@ -27,15 +27,15 @@ namespace Foundry.Security
             return true;
         }
 
-        public IEnumerable<T> Filter<T>(IEnumerable<T> subjects, string subjectType, string operation) where T : IAuthorizable<T>
+        public IEnumerable<T> Filter<T>(IEnumerable<T> subjects, string subjectType, string operation) where T : IAuthorizable
         {
             var auths = GetDistinct(subjectType, operation).OrderByDescending(x => x.Level);
             
             if (!auths.Any())
                 return Enumerable.Empty<T>();
 
-            var allowedList = new List<Guid>();
-            var denyList = new List<Guid>();
+            var allowedList = new HashSet<Guid>();
+            var denyList = new HashSet<Guid>();
 
             bool allowDefault = false;
             foreach (var perm in auths)
@@ -48,7 +48,8 @@ namespace Foundry.Security
                         break;
                     }
 
-                    allowedList.Add(perm.SubjectId);
+                    if(!allowedList.Contains(perm.SubjectId) && !denyList.Contains(perm.SubjectId))
+                        allowedList.Add(perm.SubjectId);
                 }
                 else
                 {
@@ -58,7 +59,8 @@ namespace Foundry.Security
                         break;
                     }
 
-                    denyList.Add(perm.SubjectId);
+                    if(!allowedList.Contains(perm.SubjectId) && !denyList.Contains(perm.SubjectId))
+                        denyList.Add(perm.SubjectId);
                 }
             }
 
@@ -82,8 +84,7 @@ namespace Foundry.Security
         {
             return from p in _authorizations
                    where p.SubjectType == subjectType && p.Operation == operation
-                   group p by p.SubjectId into g
-                   select g.OrderByDescending(x => x.Level).First();
+                   select p;
         }
     }
 }

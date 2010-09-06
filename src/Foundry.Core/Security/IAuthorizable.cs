@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.Security
 {
-    public interface IAuthorizable<T>
+    public interface IAuthorizable
     {
         Guid Id { get; }
     }

@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
 using Foundry.Domain;
+using System.Data.Entity.ModelConfiguration;
+using Foundry.Services.Domain.Configurations;
 
 namespace Foundry.Domain.Infrastructure
 {
@@ -29,25 +31,16 @@ namespace Foundry.Domain.Infrastructure
             this.SaveChanges();
         }
 
-        protected override void OnModelCreating(System.Data.Entity.ModelConfiguration.ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.RegisterSet<User>();
-            modelBuilder.Entity<User>()
-                .HasKey(x => x.Id);
-
-            modelBuilder.RegisterSet<Repository>();
-            modelBuilder.Entity<Repository>()
-                .HasKey(x => x.Id);
-
-            modelBuilder.RegisterSet<NewsItem>();
-            modelBuilder.Entity<NewsItem>()
-                .HasKey(x => x.SubjectId);
-
-            modelBuilder.RegisterSet<UserPermission>();
-            modelBuilder.Entity<UserPermission>()
-                .HasKey(x => new { x.UserId, x.SubjectId, x.Operation });
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new UserPermissionConfiguration());
+            modelBuilder.Configurations.Add(new RepositoryConfiguration());
+            modelBuilder.Configurations.Add(new NewsItemConfiguration());
+            modelBuilder.Configurations.Add(new RepositoryNewsItemConfiguration());
+            modelBuilder.Configurations.Add(new UserNewsItemConfiguration());
         }
     }
 }

@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Configurations\NewsItemConfiguration.cs" />
+    <Compile Include="Domain\Configurations\UserPermissionConfiguration.cs" />
+    <Compile Include="Domain\Configurations\RepositoryConfiguration.cs" />
+    <Compile Include="Domain\Configurations\UserConfiguration.cs" />
     <Compile Include="Domain\FoundryDbContext.cs" />
     <Compile Include="Domain\FoundryRepository.cs" />
     <Compile Include="Security\AuthorizationService.cs" />

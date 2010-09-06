@@ -111,6 +111,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <None Include="Views\Account\Index.spark" />
     <None Include="Views\Account\Register.spark" />
     <None Include="Views\Account\Login.spark" />
   </ItemGroup>
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Repository\Index.spark" />
     <None Include="Views\Repository\Create.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />

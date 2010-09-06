@@ -8,6 +8,8 @@ namespace Foundry.Website.Models.Dashboard
 {
     public class IndexViewModel : ViewModel
     {
+        public IEnumerable<NewsItem> NewsItems { get; set; }
+
         public IEnumerable<Foundry.Domain.Repository> WritableRepositories { get; set; }
     }
 }

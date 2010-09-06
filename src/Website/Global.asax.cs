@@ -42,6 +42,16 @@ namespace Foundry.Website
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+
+            routes.MapRoute(
+                "Account",
+                "account/{accountName}",
+                new { controller = "Account", action = "Index", accountName = "accountName" });
+
+            routes.MapRoute(
+                "Repository",
+                "repository/{*repositoryName}",
+                new { controller = "Account", action = "Index", repositoryName = "repositoryName" });
         }
 
         protected void Application_Start()
@@ -103,7 +113,7 @@ namespace Foundry.Website
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            if(HttpContext.Current.AllErrors == null || !HttpContext.Current.AllErrors.Any())
+            if (HttpContext.Current.AllErrors == null || !HttpContext.Current.AllErrors.Any())
                 _containerProvider.RequestLifetime.Resolve<IDomainSession>().Commit();
 
             _containerProvider.EndRequestLifetime();
