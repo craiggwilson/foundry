@@ -22,11 +22,9 @@ namespace Foundry.Website.Controllers
             _repositoryRepository = repositoryRepository;
         }
 
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(FoundryUser user)
         {
-            var currentUserId = ((FoundryUser)User).Id;
-
-            var auth = _authorizationService.GetAuthorizationInformation(currentUserId);
+            var auth = _authorizationService.GetAuthorizationInformation(user.Id);
 
             var model = new IndexViewModel
             {

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Foundry.SourceControl;
 using Foundry.Website.Models.Repository;
 using Foundry.Website.Models;
+using Foundry.Security;
 
 namespace Foundry.Website.Controllers
 {
@@ -31,7 +32,7 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult Create(CreateViewModel model)
+        public virtual ActionResult Create(CreateViewModel model, FoundryUser user)
         {
             if (!ModelState.IsValid)
             {
@@ -39,7 +40,7 @@ namespace Foundry.Website.Controllers
                 return View(model);
             }
 
-            _sourceControlManager.CreateUserRepository(FoundryUser.Id, model.SelectedProviderName, FoundryUser.Name + "/" + model.Name);
+            _sourceControlManager.CreateUserRepository(user.Id, model.SelectedProviderName, user.Name + "/" + model.Name);
 
             return RedirectToAction(MVC.Dashboard.Index())
                 .WithMessage(this, "Repository successfully created", ViewMessageType.Info);
