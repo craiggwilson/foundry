@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundry.Messaging.Infrastructure;
-using Foundry.Reports;
 using Foundry.Messaging;
-using Foundry.Reports.Infrastructure;
 using Foundry.Security;
+using Foundry.Domain;
 
 namespace Foundry.Services.Security
 {
     public class MembershipService : ServiceBase, IMembershipService
     {
         private IBus _bus;
-        private IReportingRepository<UserReport> _userRepository;
+        private IDomainRepository<User> _userRepository;
 
-        public MembershipService(IBus bus, IReportingRepository<UserReport> userRepository)
+        public MembershipService(IBus bus, IDomainRepository<User> userRepository)
         {
             _bus = bus;
             _userRepository = userRepository;
@@ -51,9 +50,9 @@ namespace Foundry.Services.Security
                 return FoundryUser.Anonymous;
             }
 
-            _bus.Send(new UserLoggedInMessage { UserId = user.UserId, DateTime = DateTime.UtcNow });
+            _bus.Send(new UserLoggedInMessage { UserId = user.Id, DateTime = DateTime.UtcNow });
 
-            return new FoundryUser { Id = user.UserId, AuthenticationType = "Forms", DisplayName = user.DisplayName, IsAuthenticated = true, Name = username };
+            return new FoundryUser { Id = user.Id, AuthenticationType = "Forms", DisplayName = user.DisplayName, IsAuthenticated = true, Name = username };
         }
 
         private static string GeneratePassword(string plainTextPassword, string salt)

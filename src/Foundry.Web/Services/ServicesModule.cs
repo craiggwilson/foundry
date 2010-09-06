@@ -4,12 +4,8 @@ using System.Linq;
 using Autofac;
 using Autofac.Integration.Web;
 using Autofac.Integration.Mef;
-using Foundry.Reports.Infrastructure;
-using Sikai.EventSourcing.Infrastructure;
-using Foundry.Reports.DomainEventHandlers;
 using Foundry.Services;
 using Foundry.Messaging.Infrastructure;
-using Foundry.Reports;
 using System.ComponentModel.Composition.Hosting;
 using Foundry.SourceControl;
 using System.Collections.Generic;
@@ -20,6 +16,7 @@ using Foundry.SourceControl.GitIntegration;
 using Foundry.Services.Security;
 using Foundry.Services.SourceControl;
 using Foundry.Security;
+using Foundry.Domain;
 
 namespace Foundry.Services
 {
@@ -27,9 +24,10 @@ namespace Foundry.Services
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new MembershipService(c.Resolve<IBus>(), c.Resolve<IReportingRepository<UserReport>>())).As<IMembershipService>().HttpRequestScoped().PropertiesAutowired();
-            builder.Register(c => new SourceControlManager(c.Resolve<IBus>(), c.Resolve<IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>>>())).As<ISourceControlManager>().PropertiesAutowired();
-            builder.Register(c => new AuthorizationService(c.Resolve<IReportingRepository<UserPermissionsReport>>())).As<IAuthorizationService>();
+            builder.RegisterType<SourceControlManager>().As<ISourceControlManager>().PropertiesAutowired();
+
+            builder.RegisterType<MembershipService>().As<IMembershipService>().HttpRequestScoped().PropertiesAutowired();
+            builder.RegisterType<AuthorizationService>().As<IAuthorizationService>().HttpRequestScoped();
         }
     }
 }

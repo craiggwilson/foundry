@@ -1,22 +1,21 @@
 ﻿using System.Web.Mvc;
 using System.Linq;
 
-using Sikai.EventSourcing.Domain;
-using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Dashboard;
 using Foundry.Services;
 using Foundry.Security;
+using Foundry.Domain;
 
 namespace Foundry.Website.Controllers
 {
     [Authorize]
     public partial class DashboardController : FoundryController
     {
-        private readonly IReportingRepository<RepositoryReport> _repositoryRepository;
+        private readonly IDomainRepository<Repository> _repositoryRepository;
         private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IAuthorizationService authorizationService, IReportingRepository<RepositoryReport> repositoryRepository)
+        public DashboardController(IAuthorizationService authorizationService, IDomainRepository<Repository> repositoryRepository)
         {
             _authorizationService = authorizationService;
             _repositoryRepository = repositoryRepository;

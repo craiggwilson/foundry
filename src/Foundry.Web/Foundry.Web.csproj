@@ -57,43 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Infrastructure\AutofacEventHandlerFactory.cs" />
     <Compile Include="Domain\DomainModule.cs" />
     <Compile Include="Messaging\Infrastructure\InProcessBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messaging\MessagingModule.cs" />
-    <Compile Include="Reporting\ReportingModule.cs" />
     <Compile Include="Services\ServicesModule.cs" />
     <Compile Include="SourceControl\SourceControlModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
-      <Project>{4384E569-0F95-4D28-A360-E6814BE3299C}</Project>
-      <Name>Sikai.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing.Infrastructure.MsSql\Sikai.EventSourcing.Infrastructure.MsSql.csproj">
-      <Project>{4C4EA8A8-D75B-4ADF-B646-01FBEF096A4B}</Project>
-      <Name>Sikai.EventSourcing.Infrastructure.MsSql</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
-      <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
-      <Name>Sikai.EventSourcing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
       <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
       <Name>Foundry.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain.Events.Handlers\Foundry.Domain.Events.Handlers.csproj">
-      <Project>{BE59502E-BF35-4B6D-AA4F-6B226760FBB9}</Project>
-      <Name>Foundry.Domain.Events.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain.Events\Foundry.Domain.Events.csproj">
-      <Project>{16F60C1F-5D77-4CB7-A9D9-2F85F187D768}</Project>
-      <Name>Foundry.Domain.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
-      <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
-      <Name>Foundry.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Messages.Handlers\Foundry.Messages.Handlers.csproj">
       <Project>{1BD847EE-0B72-45EF-AD8C-BEE769FCFFFD}</Project>
@@ -102,10 +76,6 @@
     <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
       <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
       <Name>Foundry.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Reports\Foundry.Reports.csproj">
-      <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
-      <Name>Foundry.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Services\Foundry.Services.csproj">
       <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>

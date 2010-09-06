@@ -1,6 +1,4 @@
 ﻿using System.Web.Mvc;
-using Sikai.EventSourcing.Infrastructure;
-using Foundry.Reports;
 using System;
 using Foundry.Security;
 using Foundry.Website.Extensions;

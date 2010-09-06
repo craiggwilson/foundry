@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Foundry.Reports;
+using Foundry.Domain;
 
 namespace Foundry.Website.Models.Dashboard
 {
     public class IndexViewModel : ViewModel
     {
-        public IEnumerable<RepositoryReport> WritableRepositories { get; set; }
+        public IEnumerable<Foundry.Domain.Repository> WritableRepositories { get; set; }
     }
 }

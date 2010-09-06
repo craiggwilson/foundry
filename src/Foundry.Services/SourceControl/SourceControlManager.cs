@@ -6,7 +6,6 @@ using System.ComponentModel.Composition;
 using Foundry.SourceControl;
 using Foundry.Messaging.Infrastructure;
 using Foundry.Messages;
-using Foundry.Reports;
 
 namespace Foundry.Services.SourceControl
 {
@@ -29,7 +28,7 @@ namespace Foundry.Services.SourceControl
 
         public void CreateUserRepository(Guid userId, string providerName, string repositoryName)
         {
-            _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, RepositoryName = repositoryName });
+            _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, Name = repositoryName });
         }
     }
 }

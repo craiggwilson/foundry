@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Foundry.Reports;
 using Foundry.Security;
+using Foundry.Domain;
 
 namespace Foundry.Services.Security
 {
@@ -23,9 +23,9 @@ namespace Foundry.Services.Security
             new OperationImplication("*", "Delete"),
         };
 
-        private readonly IReportingRepository<UserPermissionsReport> _permissionsRepository;
+        private readonly IDomainRepository<UserPermission> _permissionsRepository;
 
-        public AuthorizationService(IReportingRepository<UserPermissionsReport> permissionsRepository)
+        public AuthorizationService(IDomainRepository<UserPermission> permissionsRepository)
         {
             _permissionsRepository = permissionsRepository;
         }
@@ -41,7 +41,7 @@ namespace Foundry.Services.Security
                 from p in userPermissions
                 join oi in _implications on p.Operation equals oi.Operation into g
                 from perm in g.DefaultIfEmpty(new OperationImplication(p.Operation, p.Operation))
-                select new UserPermission
+                select new UserAuthorization
                 {
                     SubjectType = p.SubjectType,
                     SubjectId = p.SubjectId,

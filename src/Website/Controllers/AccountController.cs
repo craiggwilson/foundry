@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 
 using Foundry.Messaging;
-using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
