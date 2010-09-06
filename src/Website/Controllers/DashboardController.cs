@@ -11,7 +11,7 @@ using Foundry.Security;
 namespace Foundry.Website.Controllers
 {
     [Authorize]
-    public partial class DashboardController : Controller
+    public partial class DashboardController : FoundryController
     {
         private readonly IReportingRepository<RepositoryReport> _repositoryRepository;
         private readonly IAuthorizationService _authorizationService;

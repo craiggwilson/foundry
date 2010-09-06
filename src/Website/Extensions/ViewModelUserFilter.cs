@@ -13,16 +13,12 @@ namespace Foundry.Website.Extensions
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             ViewModel model;
-            if (filterContext.Controller.ViewData.Model == null)
+            if (filterContext.Controller.ViewData.Model != null)
             {
-                model = new ViewModel();
-                filterContext.Controller.ViewData.Model = model;
-            }
-            else
                 model = filterContext.Controller.ViewData.Model as ViewModel;
-
-            if (model != null)
-                model.User = filterContext.HttpContext.User as FoundryUser;
+                if (model != null)
+                    model.User = (filterContext.HttpContext.User as FoundryUser) ?? FoundryUser.Anonymous;
+            }
 
             base.OnActionExecuted(filterContext);
         }

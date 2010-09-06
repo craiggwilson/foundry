@@ -1,7 +1,7 @@
-﻿<if condition="Request.IsAuthenticated">
+﻿<if condition="Model != null && Model.User.IsAuthenticated">
   <li>
     <span class="user">
-      Welcome ${Context.User.Identity.Name}!
+      Welcome ${Model.User.DisplayName}!
     </span>
     [${Html.ActionLink("logoff", MVC.Account.Logout())}]
   </li>
