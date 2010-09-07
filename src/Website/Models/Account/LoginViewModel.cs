@@ -2,7 +2,7 @@
 
 namespace Foundry.Website.Models.Account
 {
-    public class LoginViewModel
+    public class LoginViewModel : ViewModel
     {
         [Required(ErrorMessage = "Username is required to login.")]
         public string Username { get; set; }

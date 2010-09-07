@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 
 using Foundry.Messaging;
-using Foundry.Reports;
 using Foundry.Website.Models;
 using Foundry.Website.Models.Account;
 using Foundry.Messaging.Infrastructure;
@@ -10,6 +9,7 @@ using System.Web.Security;
 using Foundry.Services;
 using System;
 using System.Web;
+using Foundry.Security;
 
 namespace Foundry.Website.Controllers
 {
@@ -20,6 +20,12 @@ namespace Foundry.Website.Controllers
         public AccountController(IMembershipService membershipService)
         {
             _membershipService = membershipService;
+        }
+
+        [HttpGet]
+        public virtual ActionResult Index(string accountName)
+        {
+            return View();
         }
 
         [HttpGet]
@@ -34,32 +40,15 @@ namespace Foundry.Website.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var result = _membershipService.TryLogin(model.Username, model.Password);
-            if (!result.Item1)
+            var user = _membershipService.TryLogin(model.Username, model.Password);
+            if (!user.IsAuthenticated)
             {
                 return View(model)
                     .WithMessage(this, "The username or password provided is incorrect", ViewMessageType.Error);
             }
 
-            var foundryIdentity = new FoundryUser { Id = result.Item2.UserId, Name = result.Item2.Username, DisplayName = result.Item2.DisplayName, IsAuthenticated = true, AuthenticationType = "Forms" };
-            
-            var ticket = new FormsAuthenticationTicket(1,
-                model.Username,
-                DateTime.Now,
-                DateTime.Now.AddDays(10),
-                model.RememberMe,
-                foundryIdentity.ToString());
-
-
-            var ticketString = FormsAuthentication.Encrypt(ticket);
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticketString);
-            if (model.RememberMe)
-                cookie.Expires = DateTime.Now.AddDays(10);
-
-            Response.Cookies.Add(cookie);
-
-            return new FormsAuthenticationResult(model.Username)
-                .WithMessage(this, string.Format("Welcome back, {0}", result.Item2.DisplayName), ViewMessageType.Info);
+            return new FormsAuthenticationResult(user, model.RememberMe)
+                .WithMessage(this, string.Format("Welcome back, {0}", user.DisplayName), ViewMessageType.Info);
         }
 
         public virtual ActionResult Logout()

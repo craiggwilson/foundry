@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.ComponentModel.Composition;
 using System.Configuration;
-using Foundry.SourceControl.GitIntegration.Commands;
+using GitSharp.Commands;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -14,11 +14,13 @@ namespace Foundry.SourceControl.GitIntegration
     {
         public void CreateRepository(string name)
         {
-            using (var session = new GitSession(GitSettings.ExePath, GitSettings.RepositoriesPath))
+            var cmd = new InitCommand
             {
-                var cmd = new GitInitCommand(session, name) { Bare = true };
-                cmd.Execute();
-            }
+                GitDirectory = Path.Combine(GitSettings.RepositoriesPath, name),
+                Quiet = false,
+                Bare = true
+            };
+            cmd.Execute();
         }
     }
 }

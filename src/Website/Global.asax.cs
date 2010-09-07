@@ -9,7 +9,6 @@ using Autofac.Integration.Web.Mvc;
 using Spark.Web.Mvc;
 using Foundry.Domain;
 using Foundry.Messaging;
-using Foundry.Reports;
 using Foundry.Services;
 using System;
 using Spark;
@@ -19,6 +18,8 @@ using System.Web;
 using Foundry.Website.Models;
 using System.Security.Principal;
 using Foundry.SourceControl;
+using Foundry.Security;
+using Foundry.Domain.Infrastructure;
 
 namespace Foundry.Website
 {
@@ -41,6 +42,16 @@ namespace Foundry.Website
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+
+            routes.MapRoute(
+                "Account",
+                "account/{accountName}",
+                new { controller = "Account", action = "Index", accountName = "accountName" });
+
+            routes.MapRoute(
+                "Repository",
+                "repository/{*repositoryName}",
+                new { controller = "Account", action = "Index", repositoryName = "repositoryName" });
         }
 
         protected void Application_Start()
@@ -50,7 +61,6 @@ namespace Foundry.Website
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
             builder.RegisterModule<DomainModule>();
             builder.RegisterModule<MessagingModule>();
-            builder.RegisterModule<ReportingModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<SourceControlModule>();
 
@@ -60,10 +70,11 @@ namespace Foundry.Website
 
             var batch = new SparkBatchDescriptor();
             batch.For<AccountController>()
-                .For<DashboardController>();
+                .For<DashboardController>()
+                .For<RepositoryController>();
 
             var viewFactory = new SparkViewFactory();
-            //viewFactory.Precompile(batch);
+            viewFactory.Precompile(batch);
 
             ViewEngines.Engines.Add(viewFactory);
 
@@ -98,6 +109,14 @@ namespace Foundry.Website
                 }
                 HttpContext.Current.User = currentUser;
             }
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.AllErrors == null || !HttpContext.Current.AllErrors.Any())
+                _containerProvider.RequestLifetime.Resolve<IDomainSession>().Commit();
+
+            _containerProvider.EndRequestLifetime();
         }
     }
 }

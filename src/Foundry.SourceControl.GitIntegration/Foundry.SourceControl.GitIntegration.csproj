@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GitSharp">
+      <HintPath>..\..\libs\GitSharp\GitSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GitSharp.Core">
+      <HintPath>..\..\libs\GitSharp\GitSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\libs\GitSharp\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
@@ -41,34 +50,26 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tamir.SharpSSH">
+      <HintPath>..\..\libs\GitSharp\Tamir.SharpSSH.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\GitInitCommand.cs" />
-    <Compile Include="Commands\GitReceivePackCommand.cs" />
-    <Compile Include="Commands\GitSmartHttpReceivePackCommand.cs" />
-    <Compile Include="Commands\GitSmartHttpUploadPackCommand.cs" />
-    <Compile Include="Commands\GitUpdateServerInfoCommand.cs" />
-    <Compile Include="Commands\GitUploadPackCommand.cs" />
-    <Compile Include="Commands\RawGitCommand.cs" />
-    <Compile Include="GitCommandResult.cs" />
     <Compile Include="GitHttpHandler.cs" />
-    <Compile Include="GitSession.cs" />
     <Compile Include="GitSettings.cs" />
     <Compile Include="GitSourceControlProvider.cs" />
-    <Compile Include="GitCommand.cs" />
-    <Compile Include="IGitCommand.cs" />
-    <Compile Include="IGitSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
-      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
-      <Name>Foundry.SourceControl</Name>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
+      <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
+      <Name>Foundry.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy ""$(TargetPath)"" ""..\..\..\Website\bin\Addins\$(TargetFileName)""</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

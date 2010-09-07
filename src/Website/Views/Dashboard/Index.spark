@@ -3,18 +3,13 @@
 <div class="content">
 	<div id="newsfeed">
 		<ul>
-			<li>
-				<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 2 days ago.
-			</li>
-			<li>
-				<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 5 days ago.
-			</li>
-			<li>
-				<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 10 days ago.
-			</li>
-			<li>
-				<a href="craiggwilson">craiggwilson</a> pushed to something at <a href="repo">repo</a> 11 days ago.
-			</li>
+      <li each="var item in Model.NewsItems">
+        <var repoItem="item as RepositoryNewsItem" />
+        <var userItem="item as UserNewsItem" />
+        <if condition="userItem != null">
+          ${Html.ActionLink(userItem.UserDisplayName, MVC.Account.Index(userItem.Username))} ${userItem.Message} at ${userItem.DateTime.ToString()}
+        </if>
+      </li>
 		</ul>
 	</div>
 
@@ -22,7 +17,7 @@
 		<div class="box">
 			<div class="caption"><h2>Your Repositories...</h2>${Html.ActionLink("Create Repository", MVC.Repository.Create())}</div>
 			<ul>
-				<li each="var repo in Model.UserCodeRepositories">
+				<li each="var repo in Model.WritableRepositories">
           ${repo.Name}
         </li>
 			</ul>

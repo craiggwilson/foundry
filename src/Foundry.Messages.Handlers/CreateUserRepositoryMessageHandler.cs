@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundry.Messaging.Infrastructure;
-using Foundry.SourceControl;
-using Sikai.EventSourcing.Domain;
 using Foundry.Domain;
-using Sikai.EventSourcing.Infrastructure;
+using Foundry.SourceControl;
 
 namespace Foundry.Messages.Handlers
 {
     public class CreateUserRepositoryMessageHandler : IMessageHandler<CreateUserRepositoryMessage>
     {
-        private readonly IDomainSession _domainSession;
+        private readonly IBus _bus;
+        private readonly IDomainRepository<User> _userRepository;
+        private readonly IDomainRepository<Repository> _repositoryRepository;
         private readonly IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> _sourceControlProviders;
 
-        public CreateUserRepositoryMessageHandler(IDomainSession domainSession, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
+        public CreateUserRepositoryMessageHandler(IBus bus, IDomainRepository<User> userRepository, IDomainRepository<Repository> repositoryRepository, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
         {
-            _domainSession = domainSession;
+            _bus = bus;
+            _userRepository = userRepository;
+            _repositoryRepository = repositoryRepository;
             _sourceControlProviders = sourceControlProviders;
         }
 
@@ -25,17 +27,22 @@ namespace Foundry.Messages.Handlers
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == message.SourceControlProvider);
 
-            provider.Value.CreateRepository(message.RepositoryName);
+            var repo = new Repository()
+            {
+                Id = Guid.NewGuid(),
+                OwnerId = message.UserId,
+                IsPrivate = message.IsPrivate,
+                Name = message.Name,
+                SourceControlProvider = message.SourceControlProvider
+            };
 
-            var domainRepository = new DomainRepository(_domainSession);
+            _repositoryRepository.Add(repo);
 
-            var repo = new CodeRepository(message.SourceControlProvider, message.RepositoryName);
-            domainRepository.Add(repo);
+            var user = _userRepository.Single(x => x.Id == message.UserId);
 
-            var user = domainRepository.GetById<User>(message.UserId);
-            user.AddRepository(repo.Id);
+            _bus.Send(new UserRepositoryCreatedMessage { Id = repo.Id, Name = repo.Name, UserId = user.Id, UserDisplayName = user.DisplayName, Username = user.Username, SourceControlProvider = repo.SourceControlProvider, IsPrivate = repo.IsPrivate });
 
-            _domainSession.Commit();
+            provider.Value.CreateRepository(message.Name);
         }
     }
 }

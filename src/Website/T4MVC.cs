@@ -297,6 +297,247 @@ static class T4MVCHelpers {
 }
 
 
+namespace Foundry.Website.Controllers {
+    public partial class AccountController {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected AccountController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Index() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public AccountController Actions { get { return MVC.Account; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Account";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass {
+            public readonly string Index = "Index";
+            public readonly string Login = "Login";
+            public readonly string Logout = "Logout";
+            public readonly string Register = "Register";
+        }
+
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string Index = "~/Views/Account/Index.spark";
+            public readonly string Login = "~/Views/Account/Login.spark";
+            public readonly string Register = "~/Views/Account/Register.spark";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class T4MVC_AccountController: Foundry.Website.Controllers.AccountController {
+        public T4MVC_AccountController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Index(string accountName) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("accountName", accountName);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Login() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Login(Foundry.Website.Models.Account.LoginViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Logout() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Logout);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Register() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Register);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Register(Foundry.Website.Models.Account.RegisterViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Register);
+            callInfo.RouteValueDictionary.Add("model", model);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Foundry.Website.Controllers {
+    public partial class DashboardController {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected DashboardController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Index() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public DashboardController Actions { get { return MVC.Dashboard; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Dashboard";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass {
+            public readonly string Index = "Index";
+        }
+
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string Index = "~/Views/Dashboard/Index.spark";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class T4MVC_DashboardController: Foundry.Website.Controllers.DashboardController {
+        public T4MVC_DashboardController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Index(Foundry.Security.FoundryUser user) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("user", user);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Foundry.Website.Controllers {
+    public partial class RepositoryController {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RepositoryController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Index() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public RepositoryController Actions { get { return MVC.Repository; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Repository";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass {
+            public readonly string Create = "Create";
+            public readonly string Index = "Index";
+        }
+
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string Create = "~/Views/Repository/Create.spark";
+            public readonly string Index = "~/Views/Repository/Index.spark";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class T4MVC_RepositoryController: Foundry.Website.Controllers.RepositoryController {
+        public T4MVC_RepositoryController() : base(Dummy.Instance) { }
+
+        public override System.Web.Mvc.ActionResult Create() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Create(Foundry.Website.Models.Repository.CreateViewModel model, Foundry.Security.FoundryUser user) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
+            callInfo.RouteValueDictionary.Add("model", model);
+            callInfo.RouteValueDictionary.Add("user", user);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Index(string repositoryName) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("repositoryName", repositoryName);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace T4MVC {
+    public class LayoutsController {
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string Application = "~/Views/Layouts/Application.spark";
+        }
+    }
+
+}
+
+namespace T4MVC {
+    public class SharedController {
+
+        static readonly ViewNames s_views = new ViewNames();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewNames Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewNames {
+            public readonly string _global = "~/Views/Shared/_global.spark";
+            public readonly string _User = "~/Views/Shared/_User.spark";
+            public readonly string _ViewMessage = "~/Views/Shared/_ViewMessage.spark";
+        }
+    }
+
+}
+
 
 
 namespace T4MVC {
@@ -307,6 +548,15 @@ namespace T4MVC {
     }
 }
 
+	
+		
+namespace System.Web.Mvc {
+    [GeneratedCode("T4MVC", "2.0")]
+    public static class HtmlHelpersForExplicitPartials {
+    	 
+    }
+	
+}
 	
 
 #endregion T4MVC

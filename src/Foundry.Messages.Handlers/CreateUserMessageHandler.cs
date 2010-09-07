@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundry.Messaging.Infrastructure;
-using Sikai.EventSourcing.Domain;
 using Foundry.Domain;
-using Sikai.EventSourcing.Infrastructure;
 
 namespace Foundry.Messaging.MessageHandlers
 {
     public class CreateUserMessageHandler : IMessageHandler<CreateUserMessage>
     {
-        private IDomainSession _domainSession;
+        private readonly IBus _bus;
+        private readonly IDomainRepository<User> _userRepository;
 
-        public CreateUserMessageHandler(IDomainSession domainSession)
+        public CreateUserMessageHandler(IBus bus, IDomainRepository<User> userRepository)
         {
-            _domainSession = domainSession;
+            _userRepository = userRepository;
+            _bus = bus;
         }
 
         public void Handle(CreateUserMessage message)
         {
-            var user = new User(
-                new Username(message.Username), 
-                new Password(message.Password, message.PasswordSalt),
-                message.DisplayName, 
-                new Email(message.Email));
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = message.Username,
+                Email = message.Email,
+                DisplayName = message.DisplayName,
+                Password = message.Password,
+                Salt = message.PasswordSalt
+            };
 
-            var repo = new DomainRepository(_domainSession);
-            repo.Add(user);
-            _domainSession.Commit();
+            _userRepository.Add(user);
+
+            _bus.Send(new UserCreatedMessage { Id = user.Id, Username = user.Username, DisplayName = user.DisplayName, Email = user.Email });
         }
     }
 }

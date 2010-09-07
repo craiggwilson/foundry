@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Foundry.Website.Models.Repository
 {
-    public class CreateViewModel
+    public class CreateViewModel : ViewModel
     {
         public string Name { get; set; }
 

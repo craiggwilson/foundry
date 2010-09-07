@@ -83,43 +83,28 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FoundryController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
-    <Compile Include="DashboardController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
+    <Compile Include="Extensions\FoundryBasicAuthenticationModule.cs" />
+    <Compile Include="Extensions\UserFilterAttribute.cs" />
     <Compile Include="Extensions\ViewMessagesExtensions.cs" />
+    <Compile Include="Extensions\ViewModelUserFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="LayoutsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Dashboard\IndexViewModel.cs" />
     <Compile Include="Models\Repository\CreateViewModel.cs" />
-    <Compile Include="Models\FoundryUser.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T4MVC.ExplicitExtensions.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <None Include="T4MVC.settings.t4" />
@@ -127,6 +112,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <None Include="Views\Account\Index.spark" />
     <None Include="Views\Account\Register.spark" />
     <None Include="Views\Account\Login.spark" />
   </ItemGroup>
@@ -134,48 +120,34 @@
     <Content Include="Global.asax" />
     <None Include="Content\Application.less" />
     <None Include="Views\Dashboard\Index.spark" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Repository\Index.spark" />
     <None Include="Views\Repository\Create.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />
     <None Include="Views\Shared\_global.spark" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.Core\Sikai.Core.csproj">
-      <Project>{4384E569-0F95-4D28-A360-E6814BE3299C}</Project>
-      <Name>Sikai.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\sikai\src\Sikai.EventSourcing\Sikai.EventSourcing.csproj">
-      <Project>{7DC508BB-C6D9-4045-B5FB-1FB27DD3F8D7}</Project>
-      <Name>Sikai.EventSourcing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.Domain\Foundry.Domain.csproj">
-      <Project>{EC7D53FB-10CE-49E4-B1BC-20F2BE46ABB4}</Project>
-      <Name>Foundry.Domain</Name>
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj">
+      <Project>{4B1439E8-4B92-4728-9E29-1A6DB23B61DE}</Project>
+      <Name>Foundry.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Messages\Foundry.Messages.csproj">
       <Project>{F626EF48-EE2C-4971-A879-22F93F63970A}</Project>
       <Name>Foundry.Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Foundry.Reports\Foundry.Reports.csproj">
-      <Project>{6ED2F6A0-C856-47F8-ADCC-AD38C96F527B}</Project>
-      <Name>Foundry.Reports</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Foundry.Services\Foundry.Services.csproj">
       <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>
       <Name>Foundry.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Foundry.SourceControl\Foundry.SourceControl.csproj">
-      <Project>{239C77B7-93C1-4D16-8AB0-CB7F6700E42A}</Project>
-      <Name>Foundry.SourceControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Web\Foundry.Web.csproj">
       <Project>{547B4148-F89C-484F-AE98-8C11C316C05A}</Project>

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Foundry.Website.Models.Account
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : ViewModel
     {
         [Required(ErrorMessage = "Email is required to login.")]
         public string Email { get; set; }
