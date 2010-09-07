@@ -45,11 +45,6 @@ namespace Foundry.SourceControl.GitIntegration
 
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.AddHeader("WWW-Authenticate", "Basic");
-            context.Response.StatusCode = 401;
-            context.Response.Write("Unauthorized");
-            context.Response.End();
-
             var route = GetGitRoute(context);
             if (route == null)
             {
@@ -155,18 +150,18 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static void VerifyAccess(HttpContext context)
         {
-            if (!context.User.Identity.IsAuthenticated)
-            {
-                context.Response.StatusCode = 401;
-                context.Response.StatusDescription = "Access Denied";
-                context.Response.Write("401 Access Denied");
-                context.Response.End();
-            }
+            //if (!context.User.Identity.IsAuthenticated)
+            //{
+            //    context.Response.StatusCode = 401;
+            //    context.Response.StatusDescription = "Access Denied";
+            //    context.Response.Write("401 Access Denied");
+            //    context.Response.End();
+            //}
         }
 
         private static void Respond404(HttpContext context)
         {
-            context.Response.StatusCode = 400;
+            context.Response.StatusCode = 404;
             context.Response.End();
         }
 
