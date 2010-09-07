@@ -45,6 +45,11 @@ namespace Foundry.SourceControl.GitIntegration
 
         public void ProcessRequest(HttpContext context)
         {
+            context.Response.AddHeader("WWW-Authenticate", "Basic");
+            context.Response.StatusCode = 401;
+            context.Response.Write("Unauthorized");
+            context.Response.End();
+
             var route = GetGitRoute(context);
             if (route == null)
             {

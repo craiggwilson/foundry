@@ -88,6 +88,7 @@
     <Compile Include="Controllers\FoundryController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
+    <Compile Include="Extensions\FoundryBasicAuthenticationModule.cs" />
     <Compile Include="Extensions\UserFilterAttribute.cs" />
     <Compile Include="Extensions\ViewMessagesExtensions.cs" />
     <Compile Include="Extensions\ViewModelUserFilter.cs" />
