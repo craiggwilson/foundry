@@ -29,9 +29,9 @@ namespace Foundry.Website.Controllers
         {
             var auth = _authorizationService.GetAuthorizationInformation(user.Id);
 
-            var userNewsItems = auth.Filter(_userNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), SubjectType.User, "Read");
-            var repositoryNewsItems = auth.Filter(_repositoryNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), SubjectType.Repository, "Read");
-            var repos = auth.Filter(_repositoryRepository, SubjectType.Repository, Operation.Write);
+            var userNewsItems = auth.Filter(_userNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), u => u.UserId, SubjectType.User, "Read");
+            var repositoryNewsItems = auth.Filter(_repositoryNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), r => r.RepositoryId, SubjectType.Repository, "Read");
+            var repos = auth.Filter(_repositoryRepository, r => r.Id, SubjectType.Repository, Operation.Write);
 
             var model = new IndexViewModel
             {

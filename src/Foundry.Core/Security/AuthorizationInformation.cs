@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace Foundry.Security
 {
@@ -27,12 +28,12 @@ namespace Foundry.Security
             return true;
         }
 
-        public IEnumerable<T> Filter<T>(IEnumerable<T> subjects, string subjectType, string operation) where T : IAuthorizable
+        public IQueryable<T> Filter<T>(IQueryable<T> subjects, Expression<Func<T, Guid>> idSelector, string subjectType, string operation)
         {
             var auths = GetDistinct(subjectType, operation).OrderByDescending(x => x.Level);
-            
+
             if (!auths.Any())
-                return Enumerable.Empty<T>();
+                return Enumerable.Empty<T>().AsQueryable();
 
             var allowedList = new HashSet<Guid>();
             var denyList = new HashSet<Guid>();
@@ -67,14 +68,14 @@ namespace Foundry.Security
             if (allowDefault)
             {
                 if (denyList.Any())
-                    subjects = subjects.Where(s => !denyList.Contains(s.Id));
+                    subjects = subjects.Where(BuildInClause(denyList.AsQueryable(), false, idSelector));
             }
             else
             {
                 if (allowedList.Any())
-                    subjects = subjects.Where(s => allowedList.Contains(s.Id));
+                    subjects = subjects.Where(BuildInClause(allowedList.AsQueryable(), true, idSelector));
                 else
-                    return Enumerable.Empty<T>();
+                    return Enumerable.Empty<T>().AsQueryable();
             }
 
             return subjects;
@@ -85,6 +86,25 @@ namespace Foundry.Security
             return from p in _authorizations
                    where p.SubjectType == subjectType && p.Operation == operation
                    select p;
+        }
+
+        private static Expression<Func<T, bool>> BuildInClause<T>(IQueryable<Guid> guids, bool allow, Expression<Func<T, Guid>> idSelector)
+        {
+            var itemParameter = idSelector.Parameters.Single();
+
+            var lambda = idSelector.Body;
+
+            Expression expression = Expression.Call(
+                typeof(Queryable),
+                "Contains",
+                new[] { typeof(Guid) },
+                Expression.Constant(guids, typeof(IQueryable<Guid>)),
+                idSelector.Body);
+
+            if (!allow)
+                expression = Expression.Not(expression);
+
+            return Expression.Lambda<Func<T, bool>>(expression, itemParameter);
         }
     }
 }

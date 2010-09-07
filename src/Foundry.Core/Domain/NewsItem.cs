@@ -17,29 +17,19 @@ namespace Foundry.Domain
         public string Message { get; set; }
     }
 
-    public class RepositoryNewsItem : NewsItem, IAuthorizable
+    public class RepositoryNewsItem : NewsItem
     {
         public Guid RepositoryId { get; set; }
 
         public string RepositoryName { get; set; }
-
-        Guid IAuthorizable.Id
-        {
-            get { return RepositoryId; }
-        }
     }
 
-    public class UserNewsItem : NewsItem, IAuthorizable
+    public class UserNewsItem : NewsItem
     {
         public Guid UserId { get; set; }
 
         public string Username { get; set; }
 
         public string UserDisplayName { get; set; }
-
-        Guid IAuthorizable.Id
-        {
-            get { return UserId; }
-        }
     }
 }

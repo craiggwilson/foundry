@@ -12,8 +12,8 @@ namespace Foundry.Security.AuthorizationInformationSpecs
 
         Because of = () =>
         {
-            var items = new List<AuthorizableA> { new AuthorizableA { Id = _userPermissions[5].SubjectId } };
-            _filtered = _subjectUnderTest.Filter(items, "Test", "Deny");
+            var items = new List<AuthorizableA> { new AuthorizableA { Id = _userPermissions[5].SubjectId } }.AsQueryable();
+            _filtered = _subjectUnderTest.Filter(items, i => i.Id, "Test", "Deny");
         };
 
         It should_not_allow_the_item_to_go_through = () =>

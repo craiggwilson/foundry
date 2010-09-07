@@ -50,7 +50,6 @@
     <Compile Include="Domain\Repository.cs" />
     <Compile Include="Security\AuthorizationInformation.cs" />
     <Compile Include="Security\FoundryUser.cs" />
-    <Compile Include="Security\IAuthorizable.cs" />
     <Compile Include="Security\IAuthorizationService.cs" />
     <Compile Include="Security\IMembershipService.cs" />
     <Compile Include="Security\Operation.cs" />

@@ -29,7 +29,7 @@ namespace Foundry.Security.AuthorizationInformationSpecs
         };
 
 
-        protected class AuthorizableA : IAuthorizable
+        protected class AuthorizableA
         {
             public Guid Id { get; set; }
         }
