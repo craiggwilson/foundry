@@ -13,29 +13,26 @@ namespace Foundry.Website.Controllers
     public partial class DashboardController : FoundryController
     {
         private readonly IDomainRepository<Repository> _repositoryRepository;
-        private readonly IDomainRepository<UserNewsItem> _userNewsItemRepository;
-        private readonly IDomainRepository<RepositoryNewsItem> _repositoryNewsItemRepository;
+        private readonly IDomainRepository<NewsItem> _newsItems;
         private readonly IAuthorizationService _authorizationService;
 
-        public DashboardController(IAuthorizationService authorizationService, IDomainRepository<Repository> repositoryRepository, IDomainRepository<UserNewsItem> userNewsItemRepository, IDomainRepository<RepositoryNewsItem> repositoryNewsItemRepository)
+        public DashboardController(IAuthorizationService authorizationService, IDomainRepository<Repository> repositoryRepository, IDomainRepository<NewsItem> newsItems)
         {
             _authorizationService = authorizationService;
             _repositoryRepository = repositoryRepository;
-            _userNewsItemRepository = userNewsItemRepository;
-            _repositoryNewsItemRepository = repositoryNewsItemRepository;
+            _newsItems = newsItems;
         }
 
         public virtual ActionResult Index(FoundryUser user)
         {
             var auth = _authorizationService.GetAuthorizationInformation(user.Id);
 
-            var userNewsItems = auth.Filter(_userNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), u => u.UserId, SubjectType.User, "Read");
-            var repositoryNewsItems = auth.Filter(_repositoryNewsItemRepository.OrderByDescending(x => x.DateTime).Take(20), r => r.RepositoryId, SubjectType.Repository, "Read");
+            var userNewsItems = auth.Filter(_newsItems, u => u.UserId, SubjectType.User, "Read");
             var repos = auth.Filter(_repositoryRepository, r => r.Id, SubjectType.Repository, Operation.Write);
 
             var model = new IndexViewModel
             {
-                NewsItems = userNewsItems.OfType<NewsItem>().Union(repositoryNewsItems).OrderByDescending(x => x.DateTime).ToList(),
+                NewsItems = userNewsItems.OfType<NewsItem>().Take(20).OrderByDescending(x => x.DateTime).ToList(),
                 WritableRepositories = repos.ToList()
             };
             return View(model);

@@ -32,7 +32,7 @@ namespace Foundry.Messaging.MessageHandlers
 
             _userRepository.Add(user);
 
-            _bus.Send(new UserCreatedMessage { Id = user.Id, Username = user.Username, DisplayName = user.DisplayName, Email = user.Email });
+            _bus.Send(new UserCreatedMessage { UserId = user.Id, Username = user.Username, DisplayName = user.DisplayName, Email = user.Email });
         }
     }
 }

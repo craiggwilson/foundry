@@ -4,7 +4,7 @@ namespace Foundry.Messaging
 {
     public class UserCreatedMessage
     {
-        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
 
         public string Username { get; set; }
 

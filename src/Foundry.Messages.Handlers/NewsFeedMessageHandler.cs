@@ -20,12 +20,14 @@ namespace Foundry.Messages.Handlers
 
         public void Handle(UserRepositoryCreatedMessage message)
         {
-            var newsItem = new UserNewsItem
+            var newsItem = new NewsItem
             {
+                RepositoryId = message.RepositoryId,
+                RepositoryName = message.Name,
                 UserId = message.UserId,
                 Username = message.Username,
                 UserDisplayName = message.UserDisplayName,
-                Event = "Repository-Created",
+                Event = NewsItemEventType.RepositoryCreated,
                 DateTime = DateTime.UtcNow,
                 Message = string.Format("created [[Repository: {0}]]", message.Name),
             };

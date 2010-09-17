@@ -1,35 +1,38 @@
 ﻿<viewdata model="Foundry.Website.Models.Dashboard.IndexViewModel" />
 
 <div class="content">
-	<div id="newsfeed">
-		<ul>
+  <div id="newsfeed">
+    <ul>
       <li each="var item in Model.NewsItems">
-        <var repoItem="item as RepositoryNewsItem" />
-        <var userItem="item as UserNewsItem" />
-        <if condition="userItem != null">
-          ${Html.ActionLink(userItem.UserDisplayName, MVC.Account.Index(userItem.Username))} ${userItem.Message} at ${userItem.DateTime.ToString()}
-        </if>
+        ${Html.ActionLink(item.UserDisplayName, MVC.Account.Index(item.Username))}
+        ${Html.ParseMessage(item.Message)} at ${item.DateTime.ToString()}
       </li>
-		</ul>
-	</div>
-
-	<div id="repositories">
-		<div class="box">
-			<div class="caption"><h2>Your Repositories...</h2>${Html.ActionLink("Create Repository", MVC.Repository.Create())}</div>
-			<ul>
-				<li each="var repo in Model.WritableRepositories">
-          ${repo.Name}
-        </li>
-			</ul>
-		</div>
-		<div class="box">
-			<div class="caption"><h2>Watched Repositories...</h2></div>
-			<ul>
-				<li>Repo 1</li>
-				<li>Repo 2</li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="clear"></div>
+    </ul>
+  </div>
+  <div id="repositories">
+    <div class="box">
+      <div class="caption">
+        <h2>
+          Your Repositories...
+        </h2>
+        ${Html.ActionLink("Create Repository", MVC.Repository.Create())}
+      </div>
+      <ul>
+        <li each="var repo in Model.WritableRepositories">${repo.Name} </li>
+      </ul>
+    </div>
+    <div class="box">
+      <div class="caption">
+        <h2>
+          Watched Repositories...
+        </h2>
+      </div>
+      <ul>
+        <li>Repo 1</li>
+        <li>Repo 2</li>
+      </ul>
+    </div>
+  </div>
+  <div class="clear">
+  </div>
 </div>

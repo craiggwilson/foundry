@@ -17,25 +17,11 @@ namespace Foundry.Services.Domain.Configurations
             Property(x => x.Message).IsRequired().HasMaxLength(255);
             Property(x => x.Event).IsRequired().HasMaxLength(255);
             Property(x => x.DateTime);
-        }
-    }
-
-    public class RepositoryNewsItemConfiguration : EntityConfiguration<RepositoryNewsItem>
-    {
-        public RepositoryNewsItemConfiguration()
-        {
-            Property(x => x.RepositoryId);
-            Property(x => x.RepositoryName).HasMaxLength(255);
-        }
-    }
-
-    public class UserNewsItemConfiguration : EntityConfiguration<UserNewsItem>
-    {
-        public UserNewsItemConfiguration()
-        {
             Property(x => x.UserId);
             Property(x => x.Username).HasMaxLength(255);
             Property(x => x.UserDisplayName).HasMaxLength(255);
+            Property(x => x.RepositoryId);
+            Property(x => x.RepositoryName).HasMaxLength(255);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace Foundry.Messages.Handlers
 
         public void Handle(UserRepositoryCreatedMessage message)
         {
-            var permission = GetOwnerPermissions(message.UserId, message.Id, message.Name);
+            var permission = GetOwnerPermissions(message.UserId, message.RepositoryId, message.Name);
             _userPermissionRepository.Add(permission);
 
-            permission = GetEveryonePermissions(message.Id, message.Name, message.IsPrivate);
+            permission = GetEveryonePermissions(message.RepositoryId, message.Name, message.IsPrivate);
             _userPermissionRepository.Add(permission);
         }
 

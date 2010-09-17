@@ -40,7 +40,7 @@ namespace Foundry.Messages.Handlers
 
             var user = _userRepository.Single(x => x.Id == message.UserId);
 
-            _bus.Send(new UserRepositoryCreatedMessage { Id = repo.Id, Name = repo.Name, UserId = user.Id, UserDisplayName = user.DisplayName, Username = user.Username, SourceControlProvider = repo.SourceControlProvider, IsPrivate = repo.IsPrivate });
+            _bus.Send(new UserRepositoryCreatedMessage { RepositoryId = repo.Id, Name = repo.Name, UserId = user.Id, UserDisplayName = user.DisplayName, Username = user.Username, SourceControlProvider = repo.SourceControlProvider, IsPrivate = repo.IsPrivate });
 
             provider.Value.CreateRepository(message.Name);
         }

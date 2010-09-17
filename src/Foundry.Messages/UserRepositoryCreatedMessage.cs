@@ -7,18 +7,18 @@ namespace Foundry.Messages
 {
     public class UserRepositoryCreatedMessage
     {
-        public Guid Id { get; set; }
-
-        public Guid UserId { get; set; }
-
-        public string Username { get; set; }
-
-        public string UserDisplayName { get; set; }
+        public Guid RepositoryId { get; set; }
 
         public string SourceControlProvider { get; set; }
 
         public string Name { get; set; }
 
         public bool IsPrivate { get; set; }
+
+        public Guid UserId { get; set; }
+
+        public string Username { get; set; }
+
+        public string UserDisplayName { get; set; }
     }
 }
