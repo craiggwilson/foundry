@@ -9,6 +9,6 @@ namespace Foundry.SourceControl
     {
         IEnumerable<string> ProviderNames { get; }
 
-        void CreateUserRepository(Guid userId, string providerName, string repositoryName);
+        void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName);
     }
 }

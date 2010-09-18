@@ -1,3 +1,3 @@
-﻿<viewdata model="Foundry.Website.Models.ViewModel" />
+﻿<viewdata model="Foundry.Website.Models.Repository.IndexViewModel" />
 
-Repository
+${Model.RepositoryName}

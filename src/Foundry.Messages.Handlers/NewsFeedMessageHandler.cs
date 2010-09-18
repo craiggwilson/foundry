@@ -23,13 +23,13 @@ namespace Foundry.Messages.Handlers
             var newsItem = new NewsItem
             {
                 RepositoryId = message.RepositoryId,
-                RepositoryName = message.Name,
+                RepositoryName = message.AccountName + "/" + message.ProjectName,
                 UserId = message.UserId,
                 Username = message.Username,
                 UserDisplayName = message.UserDisplayName,
                 Event = NewsItemEventType.RepositoryCreated,
                 DateTime = DateTime.UtcNow,
-                Message = string.Format("created [[Repository: {0}]]", message.Name),
+                Message = string.Format("created [[Repository: {0}]]", message.AccountName + "/" + message.ProjectName),
             };
 
             _newsItemRepository.Add(newsItem);

@@ -348,9 +348,9 @@ namespace Foundry.Website.Controllers {
     public class T4MVC_AccountController: Foundry.Website.Controllers.AccountController {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(string accountName) {
+        public override System.Web.Mvc.ActionResult Index(string account) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
-            callInfo.RouteValueDictionary.Add("accountName", accountName);
+            callInfo.RouteValueDictionary.Add("account", account);
             return callInfo;
         }
 
@@ -499,9 +499,10 @@ namespace Foundry.Website.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Index(string repositoryName) {
+        public override System.Web.Mvc.ActionResult Index(string account, string project) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
-            callInfo.RouteValueDictionary.Add("repositoryName", repositoryName);
+            callInfo.RouteValueDictionary.Add("account", account);
+            callInfo.RouteValueDictionary.Add("project", project);
             return callInfo;
         }
 

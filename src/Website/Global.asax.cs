@@ -39,7 +39,9 @@ namespace Foundry.Website
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.Add("GitRepository", new Route(
-                "{account}/{project}.git/{*pathInfo}",
+                "{account}/{project}/{*pathInfo}",
+                new RouteValueDictionary(),
+                new RouteValueDictionary(new { project = @".+\.git" }),
                 new GitRouteHandler()));
 
             routes.MapRoute(
@@ -57,7 +59,7 @@ namespace Foundry.Website
             routes.MapRoute(
                 "Repository",
                 "{account}/{project}/{action}",
-                new { controller = "Repository", action = "Index", accountName = "account", projectName = "project" });
+                new { controller = "Repository", action = "Index" });
         }
 
         protected void Application_Start()
@@ -86,7 +88,7 @@ namespace Foundry.Website
 
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
-            RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
         }
 
         protected void Application_AuthenticateRequest()

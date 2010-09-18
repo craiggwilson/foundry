@@ -104,6 +104,7 @@
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Dashboard\IndexViewModel.cs" />
     <Compile Include="Models\Repository\CreateViewModel.cs" />
+    <Compile Include="Models\Repository\IndexViewModel.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

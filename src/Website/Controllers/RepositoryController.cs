@@ -40,16 +40,20 @@ namespace Foundry.Website.Controllers
                 return View(model);
             }
 
-            _sourceControlManager.CreateUserRepository(user.Id, model.SelectedProviderName, user.Name + "/" + model.Name);
+            _sourceControlManager.CreateUserRepository(user.Id, model.SelectedProviderName, user.Name, model.Name);
 
             return RedirectToAction(MVC.Dashboard.Index())
                 .WithMessage(this, "Repository successfully created", ViewMessageType.Info);
         }
 
         [HttpGet]
-        public virtual ActionResult Index(string repositoryName)
+        public virtual ActionResult Index(string account, string project)
         {
-            return View();
+            var model = new IndexViewModel()
+            {
+                RepositoryName = account + "/" + project
+            };
+            return View(model);
         }
     }
 }

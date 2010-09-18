@@ -26,9 +26,9 @@ namespace Foundry.Services.SourceControl
             _sourceControlProviders = sourceControlProviders;
         }
 
-        public void CreateUserRepository(Guid userId, string providerName, string repositoryName)
+        public void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName)
         {
-            _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, Name = repositoryName });
+            _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, ProjectName = projectName });
         }
     }
 }

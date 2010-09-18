@@ -11,7 +11,9 @@ namespace Foundry.Messages
 
         public string SourceControlProvider { get; set; }
 
-        public string Name { get; set; }
+        public string AccountName { get; set; }
+
+        public string ProjectName { get; set; }
 
         public bool IsPrivate { get; set; }
     }

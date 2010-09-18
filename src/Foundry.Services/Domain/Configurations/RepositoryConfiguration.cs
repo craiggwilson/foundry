@@ -14,7 +14,8 @@ namespace Foundry.Services.Domain.Configurations
             HasKey(x => x.Id);
 
             Property(x => x.Id);
-            Property(x => x.Name).IsRequired().HasMaxLength(255);
+            Property(x => x.AccountName).IsRequired().HasMaxLength(50);
+            Property(x => x.ProjectName).IsRequired().HasMaxLength(50);
             Property(x => x.SourceControlProvider).IsRequired().HasMaxLength(32);
             Property(x => x.OwnerId);
             Property(x => x.IsPrivate);
