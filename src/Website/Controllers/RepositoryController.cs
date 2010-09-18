@@ -7,6 +7,7 @@ using Foundry.SourceControl;
 using Foundry.Website.Models.Repository;
 using Foundry.Website.Models;
 using Foundry.Security;
+using Foundry.Domain;
 
 namespace Foundry.Website.Controllers
 {
@@ -14,10 +15,12 @@ namespace Foundry.Website.Controllers
     public partial class RepositoryController : FoundryController
     {
         private readonly ISourceControlManager _sourceControlManager;
+        private readonly IDomainRepository<Repository> _repoRepository;
 
-        public RepositoryController(ISourceControlManager sourceControlManager)
+        public RepositoryController(ISourceControlManager sourceControlManager, IDomainRepository<Repository> repoRepository)
         {
             _sourceControlManager = sourceControlManager;
+            _repoRepository = repoRepository;
         }
 
         [HttpGet]
@@ -49,11 +52,24 @@ namespace Foundry.Website.Controllers
         [HttpGet]
         public virtual ActionResult Index(string account, string project)
         {
+            var repo = _repoRepository.Single(r => r.AccountName == account && r.ProjectName == project);
+
+            var commits = _sourceControlManager.GetCommits(repo.SourceControlProvider, repo.AccountName, repo.ProjectName, 1, 20);
+
             var model = new IndexViewModel()
             {
-                RepositoryName = account + "/" + project
+                AccountName = account,
+                ProjectName = project,
+                Commits = commits
             };
+
             return View(model);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Source(string account, string project)
+        {
+            return View();
         }
     }
 }

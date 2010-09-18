@@ -10,6 +10,8 @@ namespace Foundry.Website.Controllers
     {
         public const string VIEW_MESSAGE_KEY = "Message";
 
+        public IAuthorizationService AuthorizationService { get; set; }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

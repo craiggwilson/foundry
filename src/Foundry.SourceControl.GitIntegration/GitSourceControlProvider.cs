@@ -6,6 +6,7 @@ using System.IO;
 using System.ComponentModel.Composition;
 using System.Configuration;
 using GitSharp.Commands;
+using GitSharp.Core;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -21,6 +22,24 @@ namespace Foundry.SourceControl.GitIntegration
                 Bare = true
             };
             cmd.Execute();
+        }
+
+        public IEnumerable<Commit> GetCommits(string name, int page, int pageCount)
+        {
+            var repo = Repository.Open(Path.Combine(GitSettings.RepositoriesPath, name + ".git"));
+
+            var reader = new ReflogReader(repo, "master");
+
+            var entries = reader.getReverseEntries(page * pageCount);
+
+            return entries.Select(e =>
+                new Commit
+                {
+                    Username = e.getWho().Name,
+                    DateTime = DateTime.FromFileTimeUtc(e.getWho().When),
+                    Message = e.getComment(),
+                    Version = e.getNewId().ToString()
+                });
         }
     }
 }

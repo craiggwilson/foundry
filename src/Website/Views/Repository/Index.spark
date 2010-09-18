@@ -1,3 +1,11 @@
 ﻿<viewdata model="Foundry.Website.Models.Repository.IndexViewModel" />
 
-${Model.RepositoryName}
+<div class="content">
+
+  <ul id="menu">
+    <li>${Html.ActionLink("History", MVC.Repository.Index(Model.AccountName, Model.ProjectName), new { class="selected" })}</li>
+    <li>${Html.ActionLink("Source", MVC.Repository.Source(Model.AccountName, Model.ProjectName))}</li>
+  </ul>
+
+  Hola
+</div>

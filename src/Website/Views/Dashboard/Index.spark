@@ -1,6 +1,11 @@
 ﻿<viewdata model="Foundry.Website.Models.Dashboard.IndexViewModel" />
 
 <div class="content">
+  <ul id="menu">
+    <li>${Html.ActionLink("News Feed", MVC.Dashboard.Index(), new { class="selected" })}</li>
+    <li>${Html.ActionLink("Your Actions", MVC.Dashboard.Yours())}</li>
+  </ul>
+  
   <div id="newsfeed">
     <ul>
       <li each="var item in Model.NewsItems">

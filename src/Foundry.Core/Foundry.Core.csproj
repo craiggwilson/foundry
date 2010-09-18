@@ -55,6 +55,7 @@
     <Compile Include="Security\IMembershipService.cs" />
     <Compile Include="Security\Operation.cs" />
     <Compile Include="Security\UserAuthorization.cs" />
+    <Compile Include="SourceControl\Commit.cs" />
     <Compile Include="SourceControl\ISourceControlManager.cs" />
     <Compile Include="SourceControl\ISourceControlProvider.cs" />
     <Compile Include="SourceControl\ISourceControlProviderMetadata.cs" />

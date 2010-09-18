@@ -10,5 +10,7 @@ namespace Foundry.SourceControl
         IEnumerable<string> ProviderNames { get; }
 
         void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName);
+
+        IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, int page, int pageCount);
     }
 }

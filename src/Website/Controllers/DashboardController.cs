@@ -13,21 +13,19 @@ namespace Foundry.Website.Controllers
     public partial class DashboardController : FoundryController
     {
         private readonly IDomainRepository<Repository> _repositoryRepository;
-        private readonly IDomainRepository<NewsItem> _newsItems;
-        private readonly IAuthorizationService _authorizationService;
+        private readonly IDomainRepository<NewsItem> _newsItemRepository;
 
-        public DashboardController(IAuthorizationService authorizationService, IDomainRepository<Repository> repositoryRepository, IDomainRepository<NewsItem> newsItems)
+        public DashboardController(IDomainRepository<Repository> repositoryRepository, IDomainRepository<NewsItem> newsItemRepository)
         {
-            _authorizationService = authorizationService;
             _repositoryRepository = repositoryRepository;
-            _newsItems = newsItems;
+            _newsItemRepository = newsItemRepository;
         }
 
         public virtual ActionResult Index(FoundryUser user)
         {
-            var auth = _authorizationService.GetAuthorizationInformation(user.Id);
+            var auth = this.AuthorizationService.GetAuthorizationInformation(user.Id);
 
-            var userNewsItems = auth.Filter(_newsItems, u => u.UserId, SubjectType.User, "Read");
+            var userNewsItems = auth.Filter(_newsItemRepository, u => u.UserId, SubjectType.User, "Read");
             var repos = auth.Filter(_repositoryRepository, r => r.Id, SubjectType.Repository, Operation.Write);
 
             var model = new IndexViewModel
@@ -36,6 +34,11 @@ namespace Foundry.Website.Controllers
                 WritableRepositories = repos.ToList()
             };
             return View(model);
+        }
+
+        public virtual ActionResult Yours(FoundryUser user)
+        {
+            return View();
         }
     }
 }

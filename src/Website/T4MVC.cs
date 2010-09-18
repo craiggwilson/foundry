@@ -400,6 +400,11 @@ namespace Foundry.Website.Controllers {
         public System.Web.Mvc.ActionResult Index() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Yours() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Yours);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public DashboardController Actions { get { return MVC.Dashboard; } }
@@ -414,6 +419,7 @@ namespace Foundry.Website.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string Yours = "Yours";
         }
 
 
@@ -432,6 +438,12 @@ namespace Foundry.Website.Controllers {
 
         public override System.Web.Mvc.ActionResult Index(Foundry.Security.FoundryUser user) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("user", user);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Yours(Foundry.Security.FoundryUser user) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Yours);
             callInfo.RouteValueDictionary.Add("user", user);
             return callInfo;
         }
@@ -455,6 +467,11 @@ namespace Foundry.Website.Controllers {
         public System.Web.Mvc.ActionResult Index() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult Source() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Source);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RepositoryController Actions { get { return MVC.Repository; } }
@@ -470,6 +487,7 @@ namespace Foundry.Website.Controllers {
         public class ActionNamesClass {
             public readonly string Create = "Create";
             public readonly string Index = "Index";
+            public readonly string Source = "Source";
         }
 
 
@@ -501,6 +519,13 @@ namespace Foundry.Website.Controllers {
 
         public override System.Web.Mvc.ActionResult Index(string account, string project) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            callInfo.RouteValueDictionary.Add("account", account);
+            callInfo.RouteValueDictionary.Add("project", project);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Source(string account, string project) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Source);
             callInfo.RouteValueDictionary.Add("account", account);
             callInfo.RouteValueDictionary.Add("project", project);
             return callInfo;

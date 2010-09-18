@@ -20,14 +20,7 @@
 			</ul>
         </div>
         <div id="banner">
-            <use content="banner">
-				<ul id="menu">
-					<li class="selected">${Html.ActionLink("Dashboard", MVC.Dashboard.Index())}</li>
-					<li>${Html.ActionLink("Register", MVC.Account.Register())}</li>
-					<li>${Html.ActionLink("Logout", MVC.Account.Logout())}</li>
-					<use content="menu" />
-				</ul>
-			</use>
+            <use content="banner" />
         </div>
       </div>
 

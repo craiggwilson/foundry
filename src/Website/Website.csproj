@@ -90,6 +90,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FoundryController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
+    <Compile Include="Extensions\AuthorizationInformationModelBinder.cs" />
     <Compile Include="Extensions\ControllerRouteConstraint.cs" />
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
     <Compile Include="Extensions\FoundryBasicAuthenticationModule.cs" />
@@ -138,7 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
-    <None Include="Views\Repository\Index.spark" />
+    <None Include="Views\Repository\Index.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Repository\Create.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />
