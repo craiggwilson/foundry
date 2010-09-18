@@ -46,6 +46,9 @@
       <HintPath>..\..\libs\dotless\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RouteDebug">
+      <HintPath>..\..\libs\RouteDebug.dll</HintPath>
+    </Reference>
     <Reference Include="Spark">
       <HintPath>..\..\libs\Spark\Spark.dll</HintPath>
     </Reference>
@@ -87,6 +90,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FoundryController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
+    <Compile Include="Extensions\ControllerRouteConstraint.cs" />
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
     <Compile Include="Extensions\FoundryBasicAuthenticationModule.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -151,6 +155,10 @@
     <ProjectReference Include="..\Foundry.Services\Foundry.Services.csproj">
       <Project>{001930EA-DD77-49B4-BF79-2D44E5ACF335}</Project>
       <Name>Foundry.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foundry.SourceControl.GitIntegration\Foundry.SourceControl.GitIntegration.csproj">
+      <Project>{743FBE26-D35A-4F78-9FB2-17C56D7F2D1C}</Project>
+      <Name>Foundry.SourceControl.GitIntegration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Foundry.Web\Foundry.Web.csproj">
       <Project>{547B4148-F89C-484F-AE98-8C11C316C05A}</Project>

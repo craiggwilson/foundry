@@ -20,6 +20,8 @@ using System.Security.Principal;
 using Foundry.SourceControl;
 using Foundry.Security;
 using Foundry.Domain.Infrastructure;
+using Foundry.SourceControl.GitIntegration;
+using Foundry.Website.Extensions;
 
 namespace Foundry.Website
 {
@@ -35,23 +37,27 @@ namespace Foundry.Website
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("{account}/{repo}.git/{*pathInfo}");
+
+            routes.Add("GitRepository", new Route(
+                "{account}/{project}.git/{*pathInfo}",
+                new GitRouteHandler()));
 
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional },
+                new { controller = new ControllerRouteConstraint() }
             );
 
             routes.MapRoute(
                 "Account",
-                "account/{accountName}",
-                new { controller = "Account", action = "Index", accountName = "accountName" });
+                "{account}",
+                new { controller = "Account", action = "Index", accountName = "account" });
 
             routes.MapRoute(
                 "Repository",
-                "repository/{*repositoryName}",
-                new { controller = "Account", action = "Index", repositoryName = "repositoryName" });
+                "{account}/{project}/{action}",
+                new { controller = "Repository", action = "Index", accountName = "account", projectName = "project" });
         }
 
         protected void Application_Start()
@@ -66,7 +72,7 @@ namespace Foundry.Website
 
             _containerProvider = new ContainerProvider(builder.Build());
 
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(ContainerProvider));
+            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(_containerProvider));
 
             var batch = new SparkBatchDescriptor();
             batch.For<AccountController>()
@@ -80,6 +86,7 @@ namespace Foundry.Website
 
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
+            RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
         }
 
         protected void Application_AuthenticateRequest()

@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitRouteHandler.cs" />
     <Compile Include="GitHttpHandler.cs" />
     <Compile Include="GitSettings.cs" />
     <Compile Include="GitSourceControlProvider.cs" />
