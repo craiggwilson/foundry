@@ -9,6 +9,6 @@ namespace Foundry.SourceControl
     {
         void CreateRepository(string name);
 
-        IEnumerable<Commit> GetCommits(string name, int page, int pageCount);
+        IEnumerable<Commit> GetCommits(string repositoryName, string path, int page, int pageCount);
     }
 }

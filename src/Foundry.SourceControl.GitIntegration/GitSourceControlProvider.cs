@@ -5,8 +5,8 @@ using System.Text;
 using System.IO;
 using System.ComponentModel.Composition;
 using System.Configuration;
+using GitSharp;
 using GitSharp.Commands;
-using GitSharp.Core;
 
 namespace Foundry.SourceControl.GitIntegration
 {
@@ -24,22 +24,30 @@ namespace Foundry.SourceControl.GitIntegration
             cmd.Execute();
         }
 
-        public IEnumerable<Commit> GetCommits(string name, int page, int pageCount)
+        public IEnumerable<Commit> GetCommits(string repositoryName, string path, int page, int pageCount)
         {
-            var repo = Repository.Open(Path.Combine(GitSettings.RepositoriesPath, name + ".git"));
+            var repo = new Repository(Path.Combine(GitSettings.RepositoriesPath, repositoryName + ".git"));
 
-            var reader = new ReflogReader(repo, "master");
+            var branch = repo.Branches[path];
 
-            var entries = reader.getReverseEntries(page * pageCount);
-
-            return entries.Select(e =>
-                new Commit
+            var commits = branch.CurrentCommit.Ancestors
+                .Skip((page - 1) * pageCount)
+                .Take(pageCount)
+                .Select(x => new Commit
                 {
-                    Username = e.getWho().Name,
-                    DateTime = DateTime.FromFileTimeUtc(e.getWho().When),
-                    Message = e.getComment(),
-                    Version = e.getNewId().ToString()
+                    Username = x.Author.Name,
+                    DateTime = x.CommitDate.DateTime,
+                    Comment = x.Message,
+                    Version = x.Tree.Hash
                 });
+            return new[] { new Commit
+            {
+                Username = branch.CurrentCommit.Author.Name,
+                DateTime = branch.CurrentCommit.CommitDate.DateTime,
+                Comment = branch.CurrentCommit.Message,
+                Version = branch.CurrentCommit.Tree.Hash
+            }}
+            .Union(commits);
         }
     }
 }

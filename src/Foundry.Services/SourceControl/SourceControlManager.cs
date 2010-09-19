@@ -31,10 +31,10 @@ namespace Foundry.Services.SourceControl
             _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, ProjectName = projectName });
         }
 
-        public IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, int page, int pageCount)
+        public IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, string path, int page, int pageCount)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == providerName);
-            return provider.Value.GetCommits(accountName + "/" + projectName, page, pageCount);
+            return provider.Value.GetCommits(accountName + "/" + projectName, path, page, pageCount);
         }
     }
 }

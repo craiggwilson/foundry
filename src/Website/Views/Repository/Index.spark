@@ -7,5 +7,9 @@
     <li>${Html.ActionLink("Source", MVC.Repository.Source(Model.AccountName, Model.ProjectName))}</li>
   </ul>
 
-  Hola
+  <ul>
+    <li each="var commit in Model.Commits">
+      ${commit.Comment}
+    </li>
+  </ul>
 </div>

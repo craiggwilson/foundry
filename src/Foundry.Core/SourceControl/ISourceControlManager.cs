@@ -11,6 +11,6 @@ namespace Foundry.SourceControl
 
         void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName);
 
-        IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, int page, int pageCount);
+        IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, string path, int page, int pageCount);
     }
 }

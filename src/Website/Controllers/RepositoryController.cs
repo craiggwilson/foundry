@@ -54,7 +54,7 @@ namespace Foundry.Website.Controllers
         {
             var repo = _repoRepository.Single(r => r.AccountName == account && r.ProjectName == project);
 
-            var commits = _sourceControlManager.GetCommits(repo.SourceControlProvider, repo.AccountName, repo.ProjectName, 1, 20);
+            var commits = _sourceControlManager.GetCommits(repo.SourceControlProvider, repo.AccountName, repo.ProjectName, "master", 1, 20);
 
             var model = new IndexViewModel()
             {
