@@ -4,23 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Foundry.SourceControl;
-using Foundry.Website.Models.Repository;
 using Foundry.Website.Models;
 using Foundry.Security;
 using Foundry.Domain;
+using Foundry.Website.Models.Project;
 
 namespace Foundry.Website.Controllers
 {
     [Authorize]
-    public partial class RepositoryController : FoundryController
+    public partial class ProjectController : FoundryController
     {
         private readonly ISourceControlManager _sourceControlManager;
-        private readonly IDomainRepository<Repository> _repoRepository;
+        private readonly IDomainRepository<Project> _projectRepository;
 
-        public RepositoryController(ISourceControlManager sourceControlManager, IDomainRepository<Repository> repoRepository)
+        public ProjectController(ISourceControlManager sourceControlManager, IDomainRepository<Project> projectRepository)
         {
             _sourceControlManager = sourceControlManager;
-            _repoRepository = repoRepository;
+            _projectRepository = projectRepository;
         }
 
         [HttpGet]
@@ -43,23 +43,30 @@ namespace Foundry.Website.Controllers
                 return View(model);
             }
 
-            _sourceControlManager.CreateUserRepository(user.Id, model.SelectedProviderName, user.Name, model.Name);
+            _sourceControlManager.CreateUserProject(user.Id, model.SelectedProviderName, user.Name, model.Name, false);
 
             return RedirectToAction(MVC.Dashboard.Index())
-                .WithMessage(this, "Repository successfully created", ViewMessageType.Info);
+                .WithMessage(this, "Project successfully created", ViewMessageType.Info);
         }
 
         [HttpGet]
-        public virtual ActionResult Index(string account, string project)
+        public virtual ActionResult Index(string account, string repository)
         {
-            var repo = _repoRepository.Single(r => r.AccountName == account && r.ProjectName == project);
+            var project = _projectRepository.Single(r => r.AccountName == account && r.RepositoryName == repository);
 
-            var commits = _sourceControlManager.GetCommits(repo.SourceControlProvider, repo.AccountName, repo.ProjectName, "master", 1, 20);
+            var branches = _sourceControlManager.GetBranches(project);
+
+            IEnumerable<Commit> commits = Enumerable.Empty<Commit>();
+            
+            var defaultBranch = branches.FirstOrDefault(b => b.IsCurrent);
+
+            if(defaultBranch != null)
+                commits = _sourceControlManager.GetCommits(project, defaultBranch.Name, 1, 20);
 
             var model = new IndexViewModel()
             {
-                AccountName = account,
-                ProjectName = project,
+                Project = project,
+                Branches = branches,
                 Commits = commits
             };
 

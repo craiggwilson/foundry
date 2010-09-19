@@ -1,7 +1,7 @@
-﻿<viewdata model="Foundry.Website.Models.Repository.CreateViewModel" />
+﻿<viewdata model="Foundry.Website.Models.Project.CreateViewModel" />
 
 <content name="banner">
-  <h1>Create Repository.</h1>
+  <h1>Create Project.</h1>
 </content>
 
   <% using(Html.BeginForm()) { %>

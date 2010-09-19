@@ -19,8 +19,12 @@
 				<li>Help</li>
 			</ul>
         </div>
-        <div id="banner">
-            <use content="banner" />
+		<div id="banner">
+            <use content="banner">
+				<ul id="menu">
+					<use content="menu" />
+				</ul>
+			</use>
         </div>
       </div>
 

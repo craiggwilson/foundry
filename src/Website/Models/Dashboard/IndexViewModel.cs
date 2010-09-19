@@ -10,6 +10,6 @@ namespace Foundry.Website.Models.Dashboard
     {
         public IEnumerable<NewsItem> NewsItems { get; set; }
 
-        public IEnumerable<Foundry.Domain.Repository> WritableRepositories { get; set; }
+        public IEnumerable<Domain.Project> WritableProjects { get; set; }
     }
 }

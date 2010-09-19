@@ -8,42 +8,42 @@ using Foundry.SourceControl;
 
 namespace Foundry.Messages.Handlers
 {
-    public class CreateUserRepositoryMessageHandler : IMessageHandler<CreateUserRepositoryMessage>
+    public class CreateUserRepositoryMessageHandler : IMessageHandler<CreateUserProjectMessage>
     {
         private readonly IBus _bus;
         private readonly IDomainRepository<User> _userRepository;
-        private readonly IDomainRepository<Repository> _repositoryRepository;
+        private readonly IDomainRepository<Project> _projectRepository;
         private readonly IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> _sourceControlProviders;
 
-        public CreateUserRepositoryMessageHandler(IBus bus, IDomainRepository<User> userRepository, IDomainRepository<Repository> repositoryRepository, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
+        public CreateUserRepositoryMessageHandler(IBus bus, IDomainRepository<User> userRepository, IDomainRepository<Project> projectRepository, IEnumerable<Lazy<ISourceControlProvider, ISourceControlProviderMetadata>> sourceControlProviders)
         {
             _bus = bus;
             _userRepository = userRepository;
-            _repositoryRepository = repositoryRepository;
+            _projectRepository = projectRepository;
             _sourceControlProviders = sourceControlProviders;
         }
 
-        public void Handle(CreateUserRepositoryMessage message)
+        public void Handle(CreateUserProjectMessage message)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == message.SourceControlProvider);
 
-            var repo = new Repository()
+            var project = new Project()
             {
                 Id = Guid.NewGuid(),
-                OwnerId = message.UserId,
+                AccountId = message.UserId,
                 IsPrivate = message.IsPrivate,
                 AccountName = message.AccountName,
-                ProjectName = message.ProjectName,
+                RepositoryName = message.RepositoryName,
                 SourceControlProvider = message.SourceControlProvider
             };
 
-            _repositoryRepository.Add(repo);
+            _projectRepository.Add(project);
 
             var user = _userRepository.Single(x => x.Id == message.UserId);
 
-            _bus.Send(new UserRepositoryCreatedMessage { RepositoryId = repo.Id, AccountName = repo.AccountName, ProjectName = repo.ProjectName, UserId = user.Id, UserDisplayName = user.DisplayName, Username = user.Username, SourceControlProvider = repo.SourceControlProvider, IsPrivate = repo.IsPrivate });
+            provider.Value.CreateRepository(project);
 
-            provider.Value.CreateRepository(repo.Name);
+            _bus.Send(new UserProjectCreatedMessage { ProjectId = project.Id, AccountName = project.AccountName, RepositoryName = project.RepositoryName, UserId = user.Id, UserDisplayName = user.DisplayName, Username = user.Username, SourceControlProvider = project.SourceControlProvider, IsPrivate = project.IsPrivate });
         }
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using Foundry.SourceControl;
 using Foundry.Messaging.Infrastructure;
 using Foundry.Messages;
+using Foundry.Domain;
 
 namespace Foundry.Services.SourceControl
 {
@@ -26,15 +27,21 @@ namespace Foundry.Services.SourceControl
             _sourceControlProviders = sourceControlProviders;
         }
 
-        public void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName)
+        public void CreateUserProject(Guid userId, string providerName, string accountName, string repositoryName, bool isPrivate)
         {
-            _bus.Send(new CreateUserRepositoryMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, ProjectName = projectName });
+            _bus.Send(new CreateUserProjectMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, RepositoryName = repositoryName, IsPrivate = isPrivate });
         }
 
-        public IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, string path, int page, int pageCount)
+        public IEnumerable<Branch> GetBranches(Project project)
         {
-            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == providerName);
-            return provider.Value.GetCommits(accountName + "/" + projectName, path, page, pageCount);
+            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
+            return provider.Value.GetBranches(project);
+        }
+
+        public IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount)
+        {
+            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
+            return provider.Value.GetCommits(project, branchName, page, pageCount);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Foundry.SourceControl
     {
         public string Username { get; set; }
 
-        public string Comment { get; set; }
+        public string Message { get; set; }
 
         public DateTime DateTime { get; set; }
 

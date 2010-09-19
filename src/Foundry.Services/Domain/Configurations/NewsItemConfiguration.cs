@@ -20,8 +20,8 @@ namespace Foundry.Services.Domain.Configurations
             Property(x => x.UserId);
             Property(x => x.Username).HasMaxLength(255);
             Property(x => x.UserDisplayName).HasMaxLength(255);
-            Property(x => x.RepositoryId);
-            Property(x => x.RepositoryName).HasMaxLength(255);
+            Property(x => x.ProjectId);
+            Property(x => x.ProjectFullName).HasMaxLength(255);
         }
     }
 }

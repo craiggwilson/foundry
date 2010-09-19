@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Foundry.Domain;
 
 namespace Foundry.SourceControl
 {
@@ -9,8 +10,10 @@ namespace Foundry.SourceControl
     {
         IEnumerable<string> ProviderNames { get; }
 
-        void CreateUserRepository(Guid userId, string providerName, string accountName, string projectName);
+        void CreateUserProject(Guid userId, string providerName, string accountName, string repositoryName, bool isPrivate);
 
-        IEnumerable<Commit> GetCommits(string providerName, string accountName, string projectName, string path, int page, int pageCount);
+        IEnumerable<Branch> GetBranches(Project project);
+
+        IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount);
     }
 }

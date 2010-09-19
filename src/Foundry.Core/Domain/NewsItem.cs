@@ -16,9 +16,9 @@ namespace Foundry.Domain
 
         public string UserDisplayName { get; set; }
 
-        public Guid RepositoryId { get; set; }
+        public Guid ProjectId { get; set; }
 
-        public string RepositoryName { get; set; }
+        public string ProjectFullName { get; set; }
 
         public string Event { get; set; }
 

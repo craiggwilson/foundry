@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Foundry.Website.Models.Repository
+namespace Foundry.Website.Models.Project
 {
     public class CreateViewModel : ViewModel
     {

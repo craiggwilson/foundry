@@ -7,7 +7,7 @@ using Foundry.Domain;
 
 namespace Foundry.Messages.Handlers
 {
-    public class UserPermissionMessageHandler : IMessageHandler<UserRepositoryCreatedMessage>
+    public class UserPermissionMessageHandler : IMessageHandler<UserProjectCreatedMessage>
     {
         private IBus _bus;
         private readonly IDomainRepository<UserPermission> _userPermissionRepository;
@@ -18,12 +18,12 @@ namespace Foundry.Messages.Handlers
             _userPermissionRepository = userPermissionsRepository;
         }
 
-        public void Handle(UserRepositoryCreatedMessage message)
+        public void Handle(UserProjectCreatedMessage message)
         {
-            var permission = GetOwnerPermissions(message.UserId, message.RepositoryId, message.AccountName + "/" + message.ProjectName);
+            var permission = GetOwnerPermissions(message.UserId, message.ProjectId, message.AccountName + "/" + message.RepositoryName);
             _userPermissionRepository.Add(permission);
 
-            permission = GetEveryonePermissions(message.RepositoryId, message.AccountName + "/" + message.ProjectName, message.IsPrivate);
+            permission = GetEveryonePermissions(message.ProjectId, message.AccountName + "/" + message.RepositoryName, message.IsPrivate);
             _userPermissionRepository.Add(permission);
         }
 
@@ -32,9 +32,9 @@ namespace Foundry.Messages.Handlers
             return new UserPermission
             {
                 UserId = userId,
-                SubjectType = SubjectType.Repository,
+                SubjectType = SubjectType.Project,
                 SubjectId = repositoryId,
-                Level = 99,
+                Level = 50,
                 Operation = Security.Operation.All,
                 Allow = true
             };
@@ -45,11 +45,11 @@ namespace Foundry.Messages.Handlers
             return new UserPermission
             {
                 UserId = Guid.Empty,
-                SubjectType = SubjectType.Repository,
+                SubjectType = SubjectType.Project,
                 SubjectId = repositoryId,
                 Level = 1,
                 Operation = Security.Operation.Read,
-                Allow = isPrivate
+                Allow = !isPrivate
             };
         }
     }

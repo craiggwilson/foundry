@@ -7,7 +7,7 @@ using Foundry.Domain;
 
 namespace Foundry.Messages.Handlers
 {
-    public class NewsFeedMessageHandler : IMessageHandler<UserRepositoryCreatedMessage>
+    public class NewsFeedMessageHandler : IMessageHandler<UserProjectCreatedMessage>
     {
         private IBus _bus;
         private readonly IDomainRepository<NewsItem> _newsItemRepository;
@@ -18,18 +18,18 @@ namespace Foundry.Messages.Handlers
             _newsItemRepository = newsItemRepository;
         }
 
-        public void Handle(UserRepositoryCreatedMessage message)
+        public void Handle(UserProjectCreatedMessage message)
         {
             var newsItem = new NewsItem
             {
-                RepositoryId = message.RepositoryId,
-                RepositoryName = message.AccountName + "/" + message.ProjectName,
+                ProjectId = message.ProjectId,
+                ProjectFullName = message.AccountName + "/" + message.RepositoryName,
                 UserId = message.UserId,
                 Username = message.Username,
                 UserDisplayName = message.UserDisplayName,
-                Event = NewsItemEventType.RepositoryCreated,
+                Event = NewsItemEventType.ProjectCreated,
                 DateTime = DateTime.UtcNow,
-                Message = string.Format("created [[Repository: {0}]]", message.AccountName + "/" + message.ProjectName),
+                Message = string.Format("created [[Project: {0}]]", message.AccountName + "/" + message.RepositoryName),
             };
 
             _newsItemRepository.Add(newsItem);

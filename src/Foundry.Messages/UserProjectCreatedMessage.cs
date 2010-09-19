@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Foundry.Messages
 {
-    public class UserRepositoryCreatedMessage
+    public class UserProjectCreatedMessage
     {
-        public Guid RepositoryId { get; set; }
+        public Guid ProjectId { get; set; }
 
         public string SourceControlProvider { get; set; }
 
         public string AccountName { get; set; }
 
-        public string ProjectName { get; set; }
+        public string RepositoryName { get; set; }
 
         public bool IsPrivate { get; set; }
 

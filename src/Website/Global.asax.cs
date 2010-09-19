@@ -38,8 +38,8 @@ namespace Foundry.Website
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.Add("GitRepository", new Route(
-                "{account}/{project}/{*pathInfo}",
+            routes.Add("GitProject", new Route(
+                "{account}/{repository}/{*pathInfo}",
                 new RouteValueDictionary(),
                 new RouteValueDictionary(new { project = @".+\.git" }),
                 new GitRouteHandler()));
@@ -54,12 +54,12 @@ namespace Foundry.Website
             routes.MapRoute(
                 "Account",
                 "{account}",
-                new { controller = "Account", action = "Index", accountName = "account" });
+                new { controller = "Account", action = "Index" });
 
             routes.MapRoute(
-                "Repository",
-                "{account}/{project}/{action}",
-                new { controller = "Repository", action = "Index" });
+                "Project",
+                "{account}/{repository}/{action}",
+                new { controller = "Project", action = "Index" });
         }
 
         protected void Application_Start()
@@ -79,7 +79,7 @@ namespace Foundry.Website
             var batch = new SparkBatchDescriptor();
             batch.For<AccountController>()
                 .For<DashboardController>()
-                .For<RepositoryController>();
+                .For<ProjectController>();
 
             var viewFactory = new SparkViewFactory();
             viewFactory.Precompile(batch);

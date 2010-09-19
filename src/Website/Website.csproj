@@ -89,7 +89,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FoundryController.cs" />
-    <Compile Include="Controllers\RepositoryController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Extensions\AuthorizationInformationModelBinder.cs" />
     <Compile Include="Extensions\ControllerRouteConstraint.cs" />
     <Compile Include="Extensions\FormsAuthenticationResult.cs" />
@@ -104,8 +104,8 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Dashboard\IndexViewModel.cs" />
-    <Compile Include="Models\Repository\CreateViewModel.cs" />
-    <Compile Include="Models\Repository\IndexViewModel.cs" />
+    <Compile Include="Models\Project\CreateViewModel.cs" />
+    <Compile Include="Models\Project\IndexViewModel.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,10 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
-    <None Include="Views\Repository\Index.spark">
+    <None Include="Views\Project\Index.spark">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Repository\Create.spark" />
+    <None Include="Views\Project\Create.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />
     <None Include="Views\Shared\_global.spark" />

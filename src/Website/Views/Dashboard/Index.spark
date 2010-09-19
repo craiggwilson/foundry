@@ -1,15 +1,15 @@
 ﻿<viewdata model="Foundry.Website.Models.Dashboard.IndexViewModel" />
 
+<content name="menu">
+  <li class="selected">${Html.ActionLink("News Feed", MVC.Dashboard.Index())}</li>
+  <li>${Html.ActionLink("Your Actions", MVC.Dashboard.Yours())}</li>
+</content>
+
 <div class="content">
-  <ul id="menu">
-    <li>${Html.ActionLink("News Feed", MVC.Dashboard.Index(), new { class="selected" })}</li>
-    <li>${Html.ActionLink("Your Actions", MVC.Dashboard.Yours())}</li>
-  </ul>
-  
   <div id="newsfeed">
     <ul>
       <li each="var item in Model.NewsItems">
-        ${Html.ActionLink(item.UserDisplayName, MVC.Account.Index(item.Username))}
+        ${Html.ActionLink(item.UserDisplayName, "Profile", "Account")}
         ${Html.ParseMessage(item.Message)} at ${item.DateTime.ToString()}
       </li>
     </ul>
@@ -18,25 +18,14 @@
     <div class="box">
       <div class="caption">
         <h2>
-          Your Repositories...
+          Your Projects...
         </h2>
-        ${Html.ActionLink("Create Repository", MVC.Repository.Create())}
+        ${Html.ActionLink("Create Project", MVC.Project.Create())}
       </div>
       <ul>
-        <li each="var repo in Model.WritableRepositories">
-          ${Html.ActionLink(repo.Name, MVC.Repository.Index(repo.AccountName, repo.ProjectName))}
+        <li each="var project in Model.WritableProjects">
+          ${Html.ActionLink(project.Name, MVC.Project.Index(project.AccountName, project.RepositoryName))}
         </li>
-      </ul>
-    </div>
-    <div class="box">
-      <div class="caption">
-        <h2>
-          Watched Repositories...
-        </h2>
-      </div>
-      <ul>
-        <li>Repo 1</li>
-        <li>Repo 2</li>
       </ul>
     </div>
   </div>

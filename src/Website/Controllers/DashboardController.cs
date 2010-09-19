@@ -12,12 +12,12 @@ namespace Foundry.Website.Controllers
     [Authorize]
     public partial class DashboardController : FoundryController
     {
-        private readonly IDomainRepository<Repository> _repositoryRepository;
+        private readonly IDomainRepository<Project> _projectRepository;
         private readonly IDomainRepository<NewsItem> _newsItemRepository;
 
-        public DashboardController(IDomainRepository<Repository> repositoryRepository, IDomainRepository<NewsItem> newsItemRepository)
+        public DashboardController(IDomainRepository<Project> projectRepository, IDomainRepository<NewsItem> newsItemRepository)
         {
-            _repositoryRepository = repositoryRepository;
+            _projectRepository = projectRepository;
             _newsItemRepository = newsItemRepository;
         }
 
@@ -26,12 +26,12 @@ namespace Foundry.Website.Controllers
             var auth = this.AuthorizationService.GetAuthorizationInformation(user.Id);
 
             var userNewsItems = auth.Filter(_newsItemRepository, u => u.UserId, SubjectType.User, "Read");
-            var repos = auth.Filter(_repositoryRepository, r => r.Id, SubjectType.Repository, Operation.Write);
+            var projects = auth.Filter(_projectRepository, r => r.Id, SubjectType.Project, Operation.Write);
 
             var model = new IndexViewModel
             {
                 NewsItems = userNewsItems.OfType<NewsItem>().Take(20).OrderByDescending(x => x.DateTime).ToList(),
-                WritableRepositories = repos.ToList()
+                WritableProjects = projects.ToList()
             };
             return View(model);
         }

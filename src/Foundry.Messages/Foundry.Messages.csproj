@@ -41,14 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UserCreatedMessage.cs" />
-    <Compile Include="CreateUserRepositoryMessage.cs" />
+    <Compile Include="CreateUserProjectMessage.cs" />
     <Compile Include="Infrastructure\IBus.cs" />
     <Compile Include="Infrastructure\IMessageHandler.cs" />
     <Compile Include="UserLoggedInMessage.cs" />
     <Compile Include="UserAuthenticationFailedMessage.cs" />
     <Compile Include="CreateUserMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserRepositoryCreatedMessage.cs" />
+    <Compile Include="UserProjectCreatedMessage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,28 @@
+﻿<viewdata model="Foundry.Website.Models.Project.IndexViewModel" />
+
+<content name="menu">
+  <li class="selected">${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
+  <li>${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
+</content>
+
+<div class="content">
+
+  <table>
+    <tr>
+      <th>Time</th>
+      <th>Author</th>
+      <th>Message</th>
+    </tr>
+    <tr if="!Model.Commits.Any()">
+      <td colspan="3">
+        This is an empty repository.
+      </td>
+    </tr>
+    <tr each="var commit in Model.Commits">
+      <td>${commit.DateTime}</td>
+      <td>${commit.Username}</td>
+      <td>${commit.Message}</td>
+    </tr>
+  </table>
+</div>

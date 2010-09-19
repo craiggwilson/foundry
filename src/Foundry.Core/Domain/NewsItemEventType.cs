@@ -7,6 +7,6 @@ namespace Foundry.Domain
 {
     public static class NewsItemEventType
     {
-        public static readonly string RepositoryCreated = "Repository-Created";
+        public static readonly string ProjectCreated = "Project Created";
     }
 }

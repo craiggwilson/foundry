@@ -23,7 +23,7 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult Index(string account)
+        public virtual ActionResult Index()
         {
             return View();
         }
