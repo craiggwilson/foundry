@@ -27,7 +27,13 @@ namespace Foundry.SourceControl.GitIntegration
 
         public IEnumerable<Branch> GetBranches(Project project)
         {
-            return Enumerable.Empty<Branch>();
+            var repo = GetRepository(project);
+
+            return repo.Branches.Select(b => new Branch
+            {
+                Name = b.Key,
+                IsCurrent = b.Value.IsCurrent
+            });
         }
 
         public IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount)
