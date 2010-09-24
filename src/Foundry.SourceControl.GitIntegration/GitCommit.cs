@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommit : ICommit
+    public class GitCommit : ICommit, IHasParents
     {
         public string Username { get; set; }
 
@@ -14,5 +14,7 @@ namespace Foundry.SourceControl.GitIntegration
         public DateTime DateTime { get; set; }
 
         public string Version { get; set; }
+
+        public IEnumerable<string> ParentVersions { get; set; }
     }
 }

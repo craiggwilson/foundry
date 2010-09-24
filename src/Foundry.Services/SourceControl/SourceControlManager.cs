@@ -27,6 +27,11 @@ namespace Foundry.Services.SourceControl
             _sourceControlProviders = sourceControlProviders;
         }
 
+        public ISourceControlProviderMetadata GetProviderMetadata(Project project)
+        {
+            return _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider).Metadata;
+        }
+
         public void CreateUserProject(Guid userId, string providerName, string accountName, string repositoryName, bool isPrivate)
         {
             _bus.Send(new CreateUserProjectMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, RepositoryName = repositoryName, IsPrivate = isPrivate });
@@ -42,6 +47,19 @@ namespace Foundry.Services.SourceControl
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
             return provider.Value.GetCommits(project, branchName, page, pageCount);
+        }
+
+        public ITree GetTree(Project project, string id, string path)
+        {
+            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
+            return provider.Value.GetTree(project, id, path);
+        }
+
+        public ILeaf GetLeaf(Project project, string id, string path)
+        {
+            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
+            throw new NotImplementedException();
+            return provider.Value.GetLeaf(project, id, path);
         }
     }
 }

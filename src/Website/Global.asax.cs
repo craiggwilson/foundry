@@ -57,6 +57,11 @@ namespace Foundry.Website
                 new { controller = "Account", action = "Index" });
 
             routes.MapRoute(
+                "Tree",
+                "{account}/{repository}/Tree/{id}/{*path}",
+                new { controller = "Project", action = "Tree" });
+
+            routes.MapRoute(
                 "Project",
                 "{account}/{repository}/{action}",
                 new { controller = "Project", action = "Index" });

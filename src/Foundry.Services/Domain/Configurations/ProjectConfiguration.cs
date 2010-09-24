@@ -7,15 +7,15 @@ using Foundry.Domain;
 
 namespace Foundry.Services.Domain.Configurations
 {
-    public class RepositoryConfiguration : EntityConfiguration<Project>
+    public class ProjectConfiguration : EntityConfiguration<Project>
     {
-        public RepositoryConfiguration()
+        public ProjectConfiguration()
         {
             HasKey(x => x.Id);
 
             Property(x => x.Id);
-            Property(x => x.AccountName).IsRequired().HasMaxLength(50);
-            Property(x => x.RepositoryName).IsRequired().HasMaxLength(50);
+            Property(x => x.AccountName).IsRequired().HasMaxLength(32);
+            Property(x => x.RepositoryName).IsRequired().HasMaxLength(100);
             Property(x => x.SourceControlProvider).IsRequired().HasMaxLength(32);
             Property(x => x.AccountId);
             Property(x => x.IsPrivate);

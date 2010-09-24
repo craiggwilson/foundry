@@ -4,4 +4,5 @@
 <use namespace="System.Web.Mvc"/>
 <use namespace="System.Web.Mvc.Html"/>
 <use namespace="Foundry.Domain "/>
-<use namespace="Foundry.Website.Extensions "/>
+<use namespace="Foundry.SourceControl"/>
+<use namespace="Foundry.Website.Extensions"/>

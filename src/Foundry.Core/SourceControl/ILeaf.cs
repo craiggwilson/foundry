@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ISourceControlProviderMetadata
+    public interface ILeaf
     {
-        string Name { get; }
+        string Id { get; }
 
-        bool CommitsHaveParents { get; }
+        ITree Parent { get; }
     }
 }

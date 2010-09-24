@@ -12,6 +12,8 @@ namespace Foundry.SourceControl
     {
         public string Name { get; private set; }
 
+        public bool CommitsHaveParents { get; set; }
+
         public SourceControlProviderAttribute(string name)
             : base(typeof(ISourceControlProvider))
         {

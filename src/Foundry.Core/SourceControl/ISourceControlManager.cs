@@ -15,5 +15,11 @@ namespace Foundry.SourceControl
         IEnumerable<IBranch> GetBranches(Project project);
 
         IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount);
+
+        ISourceControlProviderMetadata GetProviderMetadata(Project project);
+
+        ITree GetTree(Project project, string id, string path);
+
+        ILeaf GetLeaf(Project project, string id, string path);
     }
 }

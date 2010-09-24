@@ -52,31 +52,37 @@ namespace Foundry.Website.Controllers
         [HttpGet]
         public virtual ActionResult Index(string account, string repository)
         {
-            var project = _projectRepository.Single(r => r.AccountName == account && r.RepositoryName == repository);
+            var model = new IndexViewModel();
+            PopulateCommon(model, account, repository);
 
-            var branches = _sourceControlManager.GetBranches(project);
-
-            IEnumerable<ICommit> commits = Enumerable.Empty<ICommit>();
-            
-            var defaultBranch = branches.FirstOrDefault(b => b.IsCurrent);
-
-            if(defaultBranch != null)
-                commits = _sourceControlManager.GetCommits(project, defaultBranch.Name, 1, 20);
-
-            var model = new IndexViewModel()
-            {
-                Project = project,
-                Branches = branches,
-                Commits = commits
-            };
+            if(model.DefaultBranch == null)
+                model.Commits = Enumerable.Empty<ICommit>();
+            else
+                model.Commits = _sourceControlManager.GetCommits(model.Project, model.DefaultBranch.Name, 1, 20);
 
             return View(model);
         }
 
         [HttpGet]
-        public virtual ActionResult Source(string account, string project)
+        public virtual ActionResult Tree(string account, string repository, string id, string path)
         {
-            return View();
+            var model = new TreeViewModel();
+            PopulateCommon(model, account, repository);
+
+            model.Tree = _sourceControlManager.GetTree(model.Project, id, path);
+
+            return View(model);
+        }
+
+        private void PopulateCommon(ProjectViewModel model, string account, string repository)
+        {
+            model.Project = _projectRepository.Single(r => r.AccountName == account && r.RepositoryName == repository);
+
+            var providerMetadata = _sourceControlManager.GetProviderMetadata(model.Project);
+
+            model.Branches = _sourceControlManager.GetBranches(model.Project);
+            model.DefaultBranch = model.Branches.FirstOrDefault(b => b.IsCurrent);
+            model.CommitsHaveParents = providerMetadata.CommitsHaveParents;
         }
     }
 }

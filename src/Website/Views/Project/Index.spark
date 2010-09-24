@@ -2,17 +2,23 @@
 
 <content name="menu">
   <li class="selected">${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
-  <li>${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
-  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
+  <li>${Html.ActionLink("Source", MVC.Project.Tree(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Tree(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
 </content>
 
 <div class="content">
 
+  <div>
+    <h2>${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
+  </div>
+  
   <table>
     <tr>
       <th>Time</th>
       <th>Author</th>
       <th>Message</th>
+      <th>Commit</th>
+      <th if="Model.CommitsHaveParents">Parent</th>
     </tr>
     <tr if="!Model.Commits.Any()">
       <td colspan="3">
@@ -23,6 +29,8 @@
       <td>${commit.DateTime}</td>
       <td>${commit.Username}</td>
       <td>${commit.Message}</td>
+      <td>${commit.Version}</td>
+      <td if="Model.CommitsHaveParents">${((IHasParents)commit).ParentVersions.FirstOrDefault()}</td>
     </tr>
   </table>
 </div>

@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ISourceControlProviderMetadata
+    public interface IHasParents
     {
-        string Name { get; }
-
-        bool CommitsHaveParents { get; }
+        IEnumerable<string> ParentVersions { get; }
     }
 }

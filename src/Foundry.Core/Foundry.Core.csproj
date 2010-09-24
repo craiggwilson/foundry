@@ -57,9 +57,12 @@
     <Compile Include="Security\UserAuthorization.cs" />
     <Compile Include="SourceControl\IBranch.cs" />
     <Compile Include="SourceControl\ICommit.cs" />
+    <Compile Include="SourceControl\IHasParents.cs" />
+    <Compile Include="SourceControl\ILeaf.cs" />
     <Compile Include="SourceControl\ISourceControlManager.cs" />
     <Compile Include="SourceControl\ISourceControlProvider.cs" />
     <Compile Include="SourceControl\ISourceControlProviderMetadata.cs" />
+    <Compile Include="SourceControl\ITree.cs" />
     <Compile Include="SourceControl\SourceControlProviderAttribute.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\UserPermission.cs" />

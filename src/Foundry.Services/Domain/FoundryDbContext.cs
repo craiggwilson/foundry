@@ -37,7 +37,7 @@ namespace Foundry.Domain.Infrastructure
 
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new UserPermissionConfiguration());
-            modelBuilder.Configurations.Add(new RepositoryConfiguration());
+            modelBuilder.Configurations.Add(new ProjectConfiguration());
             modelBuilder.Configurations.Add(new NewsItemConfiguration());
         }
     }
