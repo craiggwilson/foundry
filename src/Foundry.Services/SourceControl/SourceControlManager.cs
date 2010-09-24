@@ -32,13 +32,13 @@ namespace Foundry.Services.SourceControl
             _bus.Send(new CreateUserProjectMessage { UserId = userId, SourceControlProvider = providerName, AccountName = accountName, RepositoryName = repositoryName, IsPrivate = isPrivate });
         }
 
-        public IEnumerable<Branch> GetBranches(Project project)
+        public IEnumerable<IBranch> GetBranches(Project project)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
             return provider.Value.GetBranches(project);
         }
 
-        public IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount)
+        public IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
             return provider.Value.GetCommits(project, branchName, page, pageCount);

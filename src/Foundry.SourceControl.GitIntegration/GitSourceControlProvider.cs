@@ -25,18 +25,18 @@ namespace Foundry.SourceControl.GitIntegration
             cmd.Execute();
         }
 
-        public IEnumerable<Branch> GetBranches(Project project)
+        public IEnumerable<IBranch> GetBranches(Project project)
         {
             var repo = GetRepository(project);
 
-            return repo.Branches.Select(b => new Branch
+            return repo.Branches.Select(b => new GitBranch
             {
                 Name = b.Key,
                 IsCurrent = b.Value.IsCurrent
             });
         }
 
-        public IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount)
+        public IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount)
         {
             var repo = GetRepository(project);
 
@@ -45,14 +45,14 @@ namespace Foundry.SourceControl.GitIntegration
             var commits = branch.CurrentCommit.Ancestors
                 .Skip((page - 1) * pageCount)
                 .Take(pageCount)
-                .Select(x => new Commit
+                .Select(x => new GitCommit
                 {
                     Username = x.Author.Name,
                     DateTime = x.CommitDate.DateTime,
                     Message = x.Message,
                     Version = x.Tree.Hash
                 });
-            return new[] { new Commit
+            return new[] { new GitCommit
             {
                 Username = branch.CurrentCommit.Author.Name,
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,

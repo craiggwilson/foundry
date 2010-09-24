@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Foundry.SourceControl
+namespace Foundry.SourceControl.GitIntegration
 {
-    public class Branch
+    public class GitBranch : IBranch
     {
         public string Name { get; set; }
 

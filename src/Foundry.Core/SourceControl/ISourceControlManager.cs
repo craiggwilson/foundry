@@ -12,8 +12,8 @@ namespace Foundry.SourceControl
 
         void CreateUserProject(Guid userId, string providerName, string accountName, string repositoryName, bool isPrivate);
 
-        IEnumerable<Branch> GetBranches(Project project);
+        IEnumerable<IBranch> GetBranches(Project project);
 
-        IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount);
+        IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount);
     }
 }

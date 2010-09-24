@@ -10,8 +10,8 @@ namespace Foundry.SourceControl
     {
         void CreateRepository(Project project);
 
-        IEnumerable<Branch> GetBranches(Project project);
+        IEnumerable<IBranch> GetBranches(Project project);
 
-        IEnumerable<Commit> GetCommits(Project project, string branchName, int page, int pageCount);
+        IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount);
     }
 }

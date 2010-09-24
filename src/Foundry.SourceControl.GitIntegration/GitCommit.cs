@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Foundry.SourceControl
+namespace Foundry.SourceControl.GitIntegration
 {
-    public class Commit
+    public class GitCommit : ICommit
     {
         public string Username { get; set; }
 

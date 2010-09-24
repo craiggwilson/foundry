@@ -56,7 +56,7 @@ namespace Foundry.Website.Controllers
 
             var branches = _sourceControlManager.GetBranches(project);
 
-            IEnumerable<Commit> commits = Enumerable.Empty<Commit>();
+            IEnumerable<ICommit> commits = Enumerable.Empty<ICommit>();
             
             var defaultBranch = branches.FirstOrDefault(b => b.IsCurrent);
 

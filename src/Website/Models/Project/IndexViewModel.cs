@@ -11,8 +11,8 @@ namespace Foundry.Website.Models.Project
     {
         public Domain.Project Project { get; set; }
 
-        public IEnumerable<Branch> Branches { get; set; }
+        public IEnumerable<IBranch> Branches { get; set; }
 
-        public IEnumerable<Commit> Commits { get; set; }
+        public IEnumerable<ICommit> Commits { get; set; }
     }
 }
