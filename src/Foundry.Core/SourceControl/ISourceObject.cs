@@ -5,14 +5,12 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ITree
+    public interface ISourceObject
     {
         string Id { get; }
 
-        IEnumerable<ITree> Trees { get; }
+        bool IsTree { get; }
 
-        IEnumerable<ILeaf> Leaves { get; }
-
-        ITree Parent { get; }
+        string Path { get; }
     }
 }

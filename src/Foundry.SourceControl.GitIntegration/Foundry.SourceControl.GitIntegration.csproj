@@ -55,14 +55,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitSourceTree.cs" />
     <Compile Include="GitBranch.cs" />
     <Compile Include="GitCommit.cs" />
-    <Compile Include="GitLeaf.cs" />
     <Compile Include="GitRouteHandler.cs" />
     <Compile Include="GitHttpHandler.cs" />
     <Compile Include="GitSettings.cs" />
     <Compile Include="GitSourceControlProvider.cs" />
-    <Compile Include="GitTree.cs" />
+    <Compile Include="GitSourceObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

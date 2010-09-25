@@ -64,38 +64,62 @@ namespace Foundry.SourceControl.GitIntegration
             .Union(commits);
         }
 
-        public ITree GetTree(Project project, string id, string path)
+        public ISourceObject GetSourceObject(Project project, string id, string path)
         {
             var repo = GetRepository(project);
 
-            Tree tree;
+            AbstractTreeNode node;
+            if (!TryGetTreeNode(repo, id, out node))
+                return null;
 
-            var branch = repo.Branches.ContainsKey(id) ? repo.Branches[id] : null;
-            if (branch != null)
-                tree = branch.CurrentCommit.Tree;
-            else
-                tree = repo.Get<Tree>(id);
-
-            return GetTreeRecursive(null, tree);
+            return GetSourceObject(repo, node, string.IsNullOrWhiteSpace(path) ? Enumerable.Empty<string>() : path.Split('/'));
         }
 
-        public ILeaf GetLeaf(Project project, string id, string path)
+        public static bool TryGetTreeNode(Repository repo, string id, out AbstractTreeNode node)
         {
-            throw new NotImplementedException();
+            node = null;
+            if (repo.Branches.ContainsKey(id))
+                node = repo.Branches[id].CurrentCommit.Tree;
+
+            return node != null;
         }
 
-        private static GitTree GetTreeRecursive(GitTree parent, Tree tree)
+        private static ISourceObject GetSourceObject(Repository repo, AbstractTreeNode node, IEnumerable<string> path)
         {
-            var gt = new GitTree
+            if (node.IsTree)
+                return GetSourceObjectFromTree(repo, (Tree)node, path);
+
+            return null;
+        }
+
+        private static ISourceObject GetSourceObjectFromTree(Repository repo, Tree tree, IEnumerable<string> path)
+        {
+            if (path.Any())
+            {
+                AbstractTreeNode node = tree.Trees.SingleOrDefault(x => x.Name == path.ElementAt(0));
+                if (node != null)
+                    return GetSourceObjectFromTree(repo, (Tree)node, path.Skip(1));
+
+                node = tree.Leaves.SingleOrDefault(x => x.Name == path.ElementAt(0));
+                if(node != null)
+                    return CreateGitSourceObject(node);
+
+                return null;
+            }
+
+            return new GitSourceTree
             {
                 Id = tree.Name,
-                Parent = parent
+                IsTree = true,
+                Path = tree.Path,
+                Children = tree.Trees.Select(x => CreateGitSourceObject(x))
+                    .Union(tree.Leaves.Select(x => CreateGitSourceObject(x)))
             };
+        }
 
-            gt.Leaves = tree.Leaves.Select(x => new GitLeaf { Id = x.Name, Parent = gt });
-            gt.Trees = tree.Trees.Select(x => GetTreeRecursive(gt, x));
-
-            return gt;                       
+        private static GitSourceObject CreateGitSourceObject(AbstractTreeNode node)
+        {
+            return new GitSourceObject { Id = node.Name, Path = node.Path, IsTree = node.IsTree };
         }
 
         private static Repository GetRepository(Project project)

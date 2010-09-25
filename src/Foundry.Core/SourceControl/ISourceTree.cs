@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ILeaf
+    public interface ISourceTree : ISourceObject
     {
-        string Id { get; }
-
-        ITree Parent { get; }
+        IEnumerable<ISourceObject> Children { get; }
     }
 }

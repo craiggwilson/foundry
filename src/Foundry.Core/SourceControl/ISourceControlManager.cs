@@ -18,8 +18,6 @@ namespace Foundry.SourceControl
 
         ISourceControlProviderMetadata GetProviderMetadata(Project project);
 
-        ITree GetTree(Project project, string id, string path);
-
-        ILeaf GetLeaf(Project project, string id, string path);
+        ISourceObject GetSourceObject(Project project, string id, string path);
     }
 }

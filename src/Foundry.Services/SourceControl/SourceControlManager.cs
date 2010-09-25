@@ -49,17 +49,10 @@ namespace Foundry.Services.SourceControl
             return provider.Value.GetCommits(project, branchName, page, pageCount);
         }
 
-        public ITree GetTree(Project project, string id, string path)
+        public ISourceObject GetSourceObject(Project project, string id, string path)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetTree(project, id, path);
-        }
-
-        public ILeaf GetLeaf(Project project, string id, string path)
-        {
-            var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            throw new NotImplementedException();
-            return provider.Value.GetLeaf(project, id, path);
+            return provider.Value.GetSourceObject(project, id, path);
         }
     }
 }

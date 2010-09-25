@@ -107,7 +107,7 @@
     <Compile Include="Models\Project\CreateViewModel.cs" />
     <Compile Include="Models\Project\IndexViewModel.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
-    <Compile Include="Models\Project\TreeViewModel.cs" />
+    <Compile Include="Models\Project\SourceViewModel.cs" />
     <Compile Include="Models\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -66,10 +66,10 @@ namespace Foundry.Website.Controllers
         [HttpGet]
         public virtual ActionResult Tree(string account, string repository, string id, string path)
         {
-            var model = new TreeViewModel();
+            var model = new SourceViewModel();
             PopulateCommon(model, account, repository);
 
-            model.Tree = _sourceControlManager.GetTree(model.Project, id, path);
+            model.Source = _sourceControlManager.GetSourceObject(model.Project, id, path);
 
             return View(model);
         }

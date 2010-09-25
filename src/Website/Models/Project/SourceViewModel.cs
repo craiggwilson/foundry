@@ -6,8 +6,8 @@ using Foundry.SourceControl;
 
 namespace Foundry.Website.Models.Project
 {
-    public class TreeViewModel : ProjectViewModel
+    public class SourceViewModel : ProjectViewModel
     {
-        public ITree Tree { get; set; }
+        public ISourceObject Source { get; set; }
     }
 }

@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitLeaf : ILeaf
+    public class GitSourceTree : GitSourceObject, ISourceTree
     {
-        public string Id { get; set; }
-
-        public ITree Parent { get; set; }
+        public IEnumerable<ISourceObject> Children { get; set; }
     }
 }
