@@ -463,8 +463,8 @@ namespace Foundry.Website.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Tree() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Tree);
+        public System.Web.Mvc.ActionResult Source() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.Source);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -481,7 +481,7 @@ namespace Foundry.Website.Controllers {
         public class ActionNamesClass {
             public readonly string Create = "Create";
             public readonly string Index = "Index";
-            public readonly string Tree = "Tree";
+            public readonly string Source = "Source";
         }
 
 
@@ -492,6 +492,7 @@ namespace Foundry.Website.Controllers {
         public class ViewNames {
             public readonly string Create = "~/Views/Project/Create.spark";
             public readonly string Index = "~/Views/Project/Index.spark";
+            public readonly string Source = "~/Views/Project/Source.spark";
         }
     }
 
@@ -518,11 +519,10 @@ namespace Foundry.Website.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Tree(string account, string repository, string id, string path) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Tree);
+        public override System.Web.Mvc.ActionResult Source(string account, string repository, string path) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Source);
             callInfo.RouteValueDictionary.Add("account", account);
             callInfo.RouteValueDictionary.Add("repository", repository);
-            callInfo.RouteValueDictionary.Add("id", id);
             callInfo.RouteValueDictionary.Add("path", path);
             return callInfo;
         }

@@ -7,10 +7,14 @@ namespace Foundry.SourceControl
 {
     public interface ISourceObject
     {
-        string Id { get; }
+        string Name { get; }
 
         bool IsTree { get; }
 
         string Path { get; }
+
+        DateTime LastModified { get; }
+
+        string Message { get; }
     }
 }

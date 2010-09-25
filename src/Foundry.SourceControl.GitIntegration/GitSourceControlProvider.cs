@@ -36,43 +36,44 @@ namespace Foundry.SourceControl.GitIntegration
             });
         }
 
-        public IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount)
+        public IEnumerable<ICommit> GetHistory(Project project, string path)
         {
             var repo = GetRepository(project);
 
-            var branch = repo.Branches[branchName];
-
-            var commits = branch.CurrentCommit.Ancestors
-                .Skip((page - 1) * pageCount)
-                .Take(pageCount)
-                .Select(x => new GitCommit
-                {
-                    Username = x.Author.Name,
-                    DateTime = x.CommitDate.DateTime,
-                    Message = x.Message,
-                    Version = x.Tree.ShortHash,
-                    ParentVersions = x.HasParents ? x.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
-                });
-            return new[] { new GitCommit
+            var branch = repo.Branches[path];
+            yield return new GitCommit
             {
                 Username = branch.CurrentCommit.Author.Name,
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,
                 Message = branch.CurrentCommit.Message,
                 Version = branch.CurrentCommit.ShortHash,
                 ParentVersions = branch.CurrentCommit.HasParents ? branch.CurrentCommit.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
-            }}
-            .Union(commits);
+            };
+
+            foreach (var ancestor in branch.CurrentCommit.Ancestors)
+            {
+                yield return new GitCommit
+                {
+                    Username = ancestor.Author.Name,
+                    DateTime = ancestor.CommitDate.DateTime,
+                    Message = ancestor.Message,
+                    Version = ancestor.Tree.ShortHash,
+                    ParentVersions = ancestor.HasParents ? ancestor.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
+                };
+            }
         }
 
-        public ISourceObject GetSourceObject(Project project, string id, string path)
+        public ISourceObject GetSourceObject(Project project, string path)
         {
             var repo = GetRepository(project);
 
+            var parts = path.Split('/');
+
             AbstractTreeNode node;
-            if (!TryGetTreeNode(repo, id, out node))
+            if (!TryGetTreeNode(repo, parts[0], out node))
                 return null;
 
-            return GetSourceObject(repo, node, string.IsNullOrWhiteSpace(path) ? Enumerable.Empty<string>() : path.Split('/'));
+            return GetSourceObject(repo, node, parts.Skip(1));
         }
 
         public static bool TryGetTreeNode(Repository repo, string id, out AbstractTreeNode node)
@@ -109,9 +110,11 @@ namespace Foundry.SourceControl.GitIntegration
 
             return new GitSourceTree
             {
-                Id = tree.Name,
+                Name = tree.Name,
                 IsTree = true,
                 Path = tree.Path,
+                LastModified = tree.GetLastCommit().CommitDate.DateTime,
+                Message = tree.GetLastCommit().Message,
                 Children = tree.Trees.Select(x => CreateGitSourceObject(x))
                     .Union(tree.Leaves.Select(x => CreateGitSourceObject(x)))
             };
@@ -119,7 +122,7 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static GitSourceObject CreateGitSourceObject(AbstractTreeNode node)
         {
-            return new GitSourceObject { Id = node.Name, Path = node.Path, IsTree = node.IsTree };
+            return new GitSourceObject { Name = node.Name, Path = node.Path, IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
         }
 
         private static Repository GetRepository(Project project)

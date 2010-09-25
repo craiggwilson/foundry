@@ -141,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Project\Source.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Project\Index.spark">
       <SubType>Designer</SubType>
     </None>

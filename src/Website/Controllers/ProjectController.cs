@@ -55,21 +55,21 @@ namespace Foundry.Website.Controllers
             var model = new IndexViewModel();
             PopulateCommon(model, account, repository);
 
-            if(model.DefaultBranch == null)
+            if (model.DefaultBranch == null)
                 model.Commits = Enumerable.Empty<ICommit>();
             else
-                model.Commits = _sourceControlManager.GetCommits(model.Project, model.DefaultBranch.Name, 1, 20);
+                model.Commits = _sourceControlManager.GetHistory(model.Project, model.DefaultBranch.Name).Take(20);
 
             return View(model);
         }
 
         [HttpGet]
-        public virtual ActionResult Tree(string account, string repository, string id, string path)
+        public virtual ActionResult Source(string account, string repository, string path)
         {
             var model = new SourceViewModel();
             PopulateCommon(model, account, repository);
 
-            model.Source = _sourceControlManager.GetSourceObject(model.Project, id, path);
+            model.Source = _sourceControlManager.GetSourceObject(model.Project, path);
 
             return View(model);
         }

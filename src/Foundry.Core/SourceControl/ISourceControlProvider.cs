@@ -12,8 +12,8 @@ namespace Foundry.SourceControl
 
         IEnumerable<IBranch> GetBranches(Project project);
 
-        IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount);
+        IEnumerable<ICommit> GetHistory(Project project, string path);
 
-        ISourceObject GetSourceObject(Project project, string id, string path);
+        ISourceObject GetSourceObject(Project project, string path);
     }
 }

@@ -43,16 +43,16 @@ namespace Foundry.Services.SourceControl
             return provider.Value.GetBranches(project);
         }
 
-        public IEnumerable<ICommit> GetCommits(Project project, string branchName, int page, int pageCount)
+        public IEnumerable<ICommit> GetHistory(Project project, string path)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetCommits(project, branchName, page, pageCount);
+            return provider.Value.GetHistory(project, path);
         }
 
-        public ISourceObject GetSourceObject(Project project, string id, string path)
+        public ISourceObject GetSourceObject(Project project, string path)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetSourceObject(project, id, path);
+            return provider.Value.GetSourceObject(project, path);
         }
     }
 }

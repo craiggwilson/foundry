@@ -1,0 +1,41 @@
+﻿<viewdata model="Foundry.Website.Models.Project.SourceViewModel" />
+
+<content name="menu">
+  <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
+  <li class="selected">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+</content>
+
+<div class="content">
+
+  <div>
+    <h2>${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
+  </div>
+
+  <if condition="Model.Source.IsTree">
+    <var tree="(ISourceTree)Model.Source" />
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Message</th>
+      </tr>
+
+      <tr if="tree.Children.Any()">
+        <td colspan="3">
+          This is an empty directory.
+        </td>
+      </tr>
+      <tr each="var child in tree.Children">
+        <td>${child.Name}</td>
+        <td>${child.LastModified}</td>
+        <td>${child.Message}</td>
+      </tr>
+    </table>
+  </if>
+  <else>
+
+  </else>
+
+
+</div>

@@ -2,8 +2,8 @@
 
 <content name="menu">
   <li class="selected">${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
-  <li>${Html.ActionLink("Source", MVC.Project.Tree(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
-  <li>${Html.ActionLink("Commits", MVC.Project.Tree(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
+  <li>${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
 </content>
 
 <div class="content">
