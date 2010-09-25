@@ -21,7 +21,7 @@
         <th>Message</th>
       </tr>
 
-      <tr if="tree.Children.Any()">
+      <tr if="!tree.Children.Any()">
         <td colspan="3">
           This is an empty directory.
         </td>
