@@ -1,11 +1,12 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.LoginViewModel" />
 
+<content name="location">
+  <li class="current">Login</li>
+</content>
+
 <% using(Html.BeginForm()) { %>
-<div id="login" class="content">
+<div id="login">
   <fieldset>
-    <legend>
-      Login
-    </legend>
     <div>
       ${Html.LabelFor(x => x.Username)}
       ${Html.TextBoxFor(x => x.Username)}

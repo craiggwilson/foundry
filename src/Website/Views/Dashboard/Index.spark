@@ -1,34 +1,31 @@
 ﻿<viewdata model="Foundry.Website.Models.Dashboard.IndexViewModel" />
 
-<content name="menu">
-  <li class="selected">${Html.ActionLink("News Feed", MVC.Dashboard.Index())}</li>
+<content name="location">
+  <li class="current">${Html.ActionLink("News Feed", MVC.Dashboard.Index())}</li>
   <li>${Html.ActionLink("Your Actions", MVC.Dashboard.Yours())}</li>
 </content>
 
-<div class="content">
-  <div id="newsfeed">
+<div id="newsitems">
+  <ul>
+    <li if="!Model.NewsItems.Any()">
+      There are no news items to display at this time.
+    </li>
+    <li each="var item in Model.NewsItems">
+      ${Html.ActionLink(item.UserDisplayName, "Profile", "Account")}
+      ${Html.ParseMessage(item.Message)} at ${item.DateTime.ToString()}
+    </li>
+  </ul>
+</div>
+<div id="repositories">
+  <div class="box">
+    <h2>
+      Your Projects
+    </h2>
     <ul>
-      <li each="var item in Model.NewsItems">
-        ${Html.ActionLink(item.UserDisplayName, "Profile", "Account")}
-        ${Html.ParseMessage(item.Message)} at ${item.DateTime.ToString()}
+      <li each="var project in Model.WritableProjects">
+        ${Html.ActionLink(project.Name, MVC.Project.Index(project.AccountName, project.RepositoryName))}
       </li>
     </ul>
   </div>
-  <div id="repositories">
-    <div class="box">
-      <div class="caption">
-        <h2>
-          Your Projects...
-        </h2>
-        ${Html.ActionLink("Create Project", MVC.Project.Create())}
-      </div>
-      <ul>
-        <li each="var project in Model.WritableProjects">
-          ${Html.ActionLink(project.Name, MVC.Project.Index(project.AccountName, project.RepositoryName))}
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="clear">
-  </div>
 </div>
+<div id="clear"></div>

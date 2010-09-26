@@ -1,7 +1,5 @@
 ﻿<if condition="Model != null && Model.User.IsAuthenticated">
-  <li>
-    <a href="#">${Model.User.DisplayName}</a>
-  </li>
+  <li>${Html.ActionLink(Model.User.DisplayName, MVC.Dashboard.Index())}</li>
   <li>${Html.ActionLink("Profile", "Profile", "Account")}</li>
   <li>
     <a href="#">Help</a>

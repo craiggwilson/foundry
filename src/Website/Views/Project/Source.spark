@@ -1,8 +1,8 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.SourceViewModel" />
 
-<content name="menu">
+<content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
-  <li class="selected">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li class="current">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
   <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
 </content>
 

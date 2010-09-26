@@ -1,12 +1,9 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.CreateViewModel" />
 
-<content name="banner">
-  <h1>Create Project.</h1>
-</content>
-
   <% using(Html.BeginForm()) { %>
-  <div id="register" class="content">
+  <div id="register">
     <fieldset>
+      <legend>Create Project</legend>
       <div>
         ${Html.LabelFor(x => x.Name)}
         ${Html.TextBoxFor(x => x.Name)}

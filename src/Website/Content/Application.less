@@ -11,6 +11,7 @@
 @color1: #20262b;
 @color2: #738C9E;
 @color3: #fff;
+@color4: #ccc;
 
 .rounded(@radius: 6px) 
 {
@@ -33,8 +34,8 @@
 
 html, body
 {
-    background-color: @color1;
-    color: @color3;
+    background-color: #ccc;
+    color: @color1;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
     margin: 0;
@@ -54,6 +55,7 @@ img
 a, a:visited
 {
     color: @color3;
+	text-decoration: none;
 }
 
 span.user
@@ -61,43 +63,24 @@ span.user
     font-weight: bold;
 }
 
-fieldset
+#clear
 {
-	.rounded(1em);
-
-	padding: 5px;
-	width: 90%;
-
-	legend
-	{
-		.rounded(1em);
-		font-size: @font_size + 1;
-		font-weight: bold;
-		padding: 5px 30px;
-		text-align: right;
-	}
-
-	label
-	{
-		display: block;
-		margin: 0 0 5px 5px;
-	}
-
-	input[type="text"], input[type="password"]
-	{
-		margin: 0 0 15px 5px;
-		width: 90%;
-	}
+	clear: both;
 }
 
 /**************************************/
 /* Application */
 /**************************************/
 
+#headerContainer
+{
+
+}
+
 #header
 {
 	.background-gradient(@color1, @color1 + #222);
-	border-bottom: 1px solid @color1 - #111;
+	height: 60px;
 	padding: 20px 100px 50px 100px;
 
 	#logo
@@ -155,45 +138,168 @@ fieldset
 	}
 }
 
-#main
+#locationContainer
 {
-	margin: 30px auto;
-	width: 900px;
 
-	fieldset
+}
+
+#location
+{
+	background-color: @color1 + #333;
+	color: @color4;
+	height: 30px;
+	margin: -30px auto 0 auto;
+	width: 800px;
+
+	h2
 	{
-		background-color: @color2;
-		border: 5px solid @color2 + #222;
+		background-color: @color3;
+		margin: 0;
+		padding: 8px 0;
+	}
 
-		legend
+	ul
+	{
+		margin: 0;
+		padding: 0;
+
+		li
 		{
-			background-color: @color2;
-			border: 5px solid @color2 + #222;
+			color: @color4;
+			display: inline;
+			line-height: 30px;
+			padding: 8px 20px 8px 20px;
 		}
 
-		input[type="text"], input[type="password"]
+		li > a
 		{
-			border: 1px solid @color1;
+			color: @color4;
+			display: block;
+			float: left;
+			font-size: @font_size + .1;
+			font-weight: bold;
+			padding: 0 20px;
+		}
+
+		li:hover > a
+		{
+			background-color: @color3;
+		}
+
+		li.current
+		{
+			background-color: @color3;
+			font-size: @font_size + .1;
+			font-weight: bold;
+		}
+
+		li.current > a
+		{
+			background-color: @color3;
 		}
 	}
 }
 
-/**************************************/
-/* Login */
-/**************************************/
-
-#login
+#mainContainer
 {
+	background-color: @color3;
 	margin: 0 auto;
-	width: 400px;
+	width: 800px;
+}
+
+#main
+{
+	padding: 10px 0 0 10px;
+	fieldset
+	{
+		border: 0;
+		label
+		{
+			color: @color2;
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+
+		input[type="text"], input[type="password"]
+		{
+			border: 1px solid @color4;
+			margin-bottom: 10px;
+			width: 200px;
+		}
+	}
+
+	.box
+	{
+		.rounded(1em);
+		background-color: @color4 + #111;
+		border: 1px solid @color4 - #111;
+		margin: 5px 0 10px 0;
+		padding: 0 0 10px 0;
+
+		width: 250px;
+
+		h2
+		{
+			border-bottom: 1px solid @color4 - #111;
+			margin: 0;
+			padding: 5px;
+		}
+
+		ul
+		{
+			background-color: @color3;
+			border-bottom: 1px solid @color4 - #111;
+			margin: 0;
+			padding: 0;
+
+			li
+			{
+				list-style: none;
+			}
+
+			li > a
+			{
+				color: @color2;
+				display: block;
+				padding: 3px 10px;
+			}
+		}
+	}
+}
+
+#main:after
+{
+	clear: both;
+}
+
+#footer
+{
+	clear: both;
 }
 
 /**************************************/
-/* Register */
+/* Dashboard */
 /**************************************/
-
-#register
+#newsitems
 {
-	margin: 0 auto;
-	width: 400px;
+	float: left;
+	ul
+	{
+		padding: 0;
+		li
+		{
+			border-bottom: 1px solid @color4;
+			list-style: none;
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+		}
+	}
 }
+
+#repositories
+{
+	float: right;
+	margin-right: 5px;
+}
+
