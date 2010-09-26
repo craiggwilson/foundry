@@ -1,44 +1,16 @@
 @font_size: .9em;
 
-@background_color1: #ececec;
-@border_color1: @background_color1 - #222;
-@text_color1: #000;
-@link_color1: #00f;
+/*
+@color-1: #20262b;
+@color-2: #fff2c1;
+@color-3: #80a894;
+@color-4: #52736b;
+@color-5: #093844;
+*/
 
-
-@background_color2: #fff;
-@text_color2: #000;
-@text_alt_color2: #727272;
-@border_color2: @background_color2 - #222;
-@button_color2: #ae3900;
-@button_hover_color2: #7F7E7D;
-@button_border_color2: @button_color2 + #222;
-@button_border_hover_color2: @button_hover_color2 - #222;
-@button_text_color2: #fff;
-@button_text_hover_color2: #fff;
-
-@background_color3: #f4f4f4;
-
-
-@background_color4: #201816;
-@border_color4: #473A2E;
-@text_color4: #635644;
-@link_color4: #635644;
-@link_hover_color4: #fff;
-
-@background_color5: #2E241D;
-@text_color5: #fff;
-@link_color5: #A1917B;
-@link_hover_color5: #fff;
-@button_color5: #ae3900;
-@button_hover_color5: #7F7E7D;
-@button_border_color5: @button_color2 + #222;
-@button_border_hover_color5: @button_hover_color2 - #222;
-@button_text_color5: #fff;
-@button_text_hover_color5: #fff;
-
-@error_color: #ff0000;
-@message_color: #C9C919;
+@color1: #20262b;
+@color2: #738C9E;
+@color3: #fff;
 
 .rounded(@radius: 6px) 
 {
@@ -47,14 +19,22 @@
     border-radius: @radius;
 }
 
+.background-gradient(@from, @to)
+{
+	background: @from;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='@from', endColorstr='@to')"; /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(@from), to(@to)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  @from,  @to); /* for firefox 3.6+ */
+}
+
 /**************************************/
 /* Global */
 /**************************************/
 
 html, body
 {
-    background-color: @background_color1;
-    color: @text_color1;
+    background-color: @color1;
+    color: @color3;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
     margin: 0;
@@ -63,7 +43,7 @@ html, body
 
 h1
 {
-    font-size: @font_size + .2;
+    font-size: @font_size + 1;
 }
 
 img
@@ -71,14 +51,9 @@ img
     border: 0;
 }
 
-a
+a, a:visited
 {
-    color: @link_color1;
-}
-
-a:visited
-{
-    color: @link_color1;
+    color: @color3;
 }
 
 span.user
@@ -86,22 +61,33 @@ span.user
     font-weight: bold;
 }
 
-.field-validation-error
-{
-    color: @error_color;
-}
-
 fieldset
 {
-    border: 0;
-}
+	.rounded(1em);
 
-input[type="text"], input[type="password"]
-{
-    background-color: @background_color3;
-    border: 1px @border_color2 solid;
-    font-size: @font_size + .6em;
-    padding: 10px 5px;
+	padding: 5px;
+	width: 90%;
+
+	legend
+	{
+		.rounded(1em);
+		font-size: @font_size + 1;
+		font-weight: bold;
+		padding: 5px 30px;
+		text-align: right;
+	}
+
+	label
+	{
+		display: block;
+		margin: 0 0 5px 5px;
+	}
+
+	input[type="text"], input[type="password"]
+	{
+		margin: 0 0 15px 5px;
+		width: 90%;
+	}
 }
 
 /**************************************/
@@ -110,294 +96,104 @@ input[type="text"], input[type="password"]
 
 #header
 {
-    background-color: @background_color4;
-    color: @text_color4;
+	.background-gradient(@color1, @color1 + #222);
+	border-bottom: 1px solid @color1 - #111;
+	padding: 20px 100px 50px 100px;
 
-    a
-    {
-        color: @link_color4;
-        text-decoration: none;
-    }
-    a:hover
-    {
-        color: @link_hover_color4;
-    }
-    a:visited
-    {
-        color: @link_color4;
-    }
-}
+	#logo
+	{
+		color: @color3;
+		font-size: @font_size + 1.6;
+		font-weight: bold;
+		float: left;
+	}
 
-#message
-{
-    .rounded;
-    
-    text-align: center;
-    
-    background-color: @message_color + #bbb;
-    color: @message_color;
-    
-    padding-top: .1em;
-    padding-bottom: .1em;
-    margin-bottom: 10px;
-}
+	#account
+	{
+		float: right;
+		font-size: @font_size + .1;
 
-#message.Error
-{
-    background-color: @error_color + #eee;
-    color: @error_color;
-}
+		ul
+		{
+			.background-gradient(@color1 + #111, @color1);
+			.rounded(2em);
 
-#accountContainer
-{
-    ul 
-    {
-        border-bottom: 1px @border_color4 solid;
-        list-style: none;
-        margin: 0;
-        padding: .5em;
-        text-align: right;
+			line-height: 100%;
 
-        li
-        {
-            display: inline;
-            font-size: @font_size + .1;
-        }
-    }
-}
+			border-top: 1px solid @color1 - #111;
+			margin: 0;
+			padding: 12px 5px;
 
-#banner
-{
-    background-color: @background_color5;
-    color: @text_color5;
+			a
+			{
+				color: @color2 + #222;
+				font-weight: bold;
+				margin: 0;
+				padding: 8px 20px;
+				text-decoration: none;
+			}
 
-	ul
-    {
-        margin: 0 0 0 100px;
-        border-bottom: 1px @border_color4 solid;
-        list-style: none;
-        li
-        {
-            display: inline;
-            font-size: @font_size + .3;
-            margin-left: 30px;
-            line-height: 50px;
-            a
-            {
-                border: 1px transparent solid;
-                border-bottom: 0px;
-                color: @link_color5;
-                padding: 19px;
-            }
-            a:hover
-            {
-                color: @link_hover_color5;
-            }
-        }
-        
-        li.selected, li:hover
-        {
-            a
-            {
-                background-color: @button_color5;
-                border: 1px @button_border_color5 solid;
-                border-bottom: 0px;
-                color: @button_text_color5;
-            }
-        }
-    }
+			li
+			{
+				display: inline;
+				list-style: none;
+				margin: 0 5px;
+				padding: 0 0 8px;
+				position: relative;
+			}
+
+			li:hover > a 
+			{
+				.rounded(1.6em);
+				.background-gradient(@color2, @color2 - #333);
+
+				border-top: 1px solid @color2 + #333;
+				color: @color3;
+
+			}
+		}
+	}
 }
 
 #main
 {
-    margin: 20px 100px;
-}
+	margin: 30px auto;
+	width: 900px;
 
-#footer
-{
-    clear: both;
-    background-color: @background_color5;
-    height: 50px;
-    padding: 20px 100px;
-}
-
-.content
-{
-    background-color: @background_color2;
-    border: 1px @border_color1 solid;
-    padding: 20px;
-
-	ul#submenu
+	fieldset
 	{
-		list-style: none;
-		margin-top: -20px;
-		margin-left: -50px;
-		li
-		{
-			display: inline;
-			font-size: @font_size + .2;
-			line-height: 32px;
-			a
-			{
-				background-color: @background_color1;
-				border: 1px @border_color1 solid;
-				border-top: 1px @background_color1 solid;
-				padding: 8px;
-			}
+		background-color: @color2;
+		border: 5px solid @color2 + #222;
 
-			a.selected
-			{
-				background-color: @background_color2;
-				border: 1px @background_color2 solid;
-				border-top: 1px @border_color1 solid;
-			}
+		legend
+		{
+			background-color: @color2;
+			border: 5px solid @color2 + #222;
+		}
+
+		input[type="text"], input[type="password"]
+		{
+			border: 1px solid @color1;
 		}
 	}
-
-    fieldset
-    {
-        label
-        {
-            display: block;
-            font-size: @font_size * 2;
-        }
-
-        input[type="text"], input[type="password"]
-        {
-            width: 450px;
-            margin: 10px 0 30px 0;
-        }
-
-        a, a:visited, input[type="submit"]
-        {
-            background-color: @button_color2;
-            border: 1px @button_border_color2 solid;
-            color: @button_text_color2;
-            font-size: @font_size + 1;
-            margin: 0;
-            padding: 5px 15px;
-            text-decoration: none;
-        }
-
-        a:hover, input[type="submit"]:hover
-        {
-            background: @button_hover_color2;
-            border: 1px @button_border_hover_color2 solid;
-            color: @button_text_hover_color2;
-        }
-    }
-}
-
-.clear
-{
-    clear: both;
 }
 
 /**************************************/
-/* Login/Register */
+/* Login */
 /**************************************/
 
-#banner
+#login
 {
-    h1
-    {
-        font-size: @font_size * 4;
-        margin-top: 0;
-        margin-left: auto;
-        margin-right: auto;
-        width: 650px;
-    }
-}
-
-#login, #register
-{
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 490px;
-
-    fieldset #loginButton
-    {
-        margin-left: 140px;
-    }
+	margin: 0 auto;
+	width: 400px;
 }
 
 /**************************************/
-/* Dashboard */
+/* Register */
 /**************************************/
-#newsfeed
+
+#register
 {
-    float: left;
-    width: 600px;
-
-    ul 
-    {
-        padding-left: 10px;
-        li
-        {
-            border-bottom: 1px @border_color2 solid;
-            list-style: none;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-    }
-}
-
-#repositories
-{
-    float: right;
-    width: 350px;
-
-    .box
-    {
-        .rounded;
-        background-color: @background_color1;
-        border: 1px @border_color2 solid;
-        margin-bottom: 20px;
-
-        .caption
-        {
-            padding: 10px;
-            h2
-            {
-                display: inline;
-            }
-
-            a, a:visited
-            {
-                background-color: @button_color2;
-                border: 1px @button_border_color2 solid;
-                color: @button_text_color2;
-                text-decoration: none;
-                padding: 5px 10px;
-                float: right;
-            }
-
-            a:hover
-            {
-                background: @button_hover_color2;
-                border: 1px @button_border_hover_color2 solid;
-                color: @button_text_hover_color2;
-            }
-        }
-        
-
-        ul
-        {
-            background-color: @background_color2;
-            margin: 0px;
-            border-top: 1px @border_color2 solid;
-            padding-left: 0;
-
-            li
-            {
-                list-style: none;
-                border-bottom: 1px @border_color2 solid;
-                margin: 10px 0;
-                padding: 10px 10px;
-            }
-        }
-    }
-
-
+	margin: 0 auto;
+	width: 400px;
 }

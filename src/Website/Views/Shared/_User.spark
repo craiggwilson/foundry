@@ -1,13 +1,17 @@
 ﻿<if condition="Model != null && Model.User.IsAuthenticated">
   <li>
-    <span class="user">
-      Welcome ${Model.User.DisplayName}!
-    </span>
-    [${Html.ActionLink("logoff", MVC.Account.Logout())}]
+    <a href="#">${Model.User.DisplayName}</a>
   </li>
   <li>${Html.ActionLink("Profile", "Profile", "Account")}</li>
+  <li>
+    <a href="#">Help</a>
+  </li>
+  <li>${Html.ActionLink("Logoff", MVC.Account.Logout())}</li>
 </if>
 <else>
   <li>${Html.ActionLink("Login", MVC.Account.Login())}</li>
   <li>${Html.ActionLink("Register", MVC.Account.Register())}</li>
+  <li>
+    <a href="#">Help</a>
+  </li>
 </else>

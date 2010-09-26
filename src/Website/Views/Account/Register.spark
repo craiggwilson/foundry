@@ -1,12 +1,9 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.RegisterViewModel" />
 
-<content name="banner">
-  <h1>Register with Foundry.</h1>
-</content>
-
   <% using(Html.BeginForm()) { %>
   <div id="register" class="content">
     <fieldset>
+      <legend>Register</legend>
       <div>
         ${Html.LabelFor(x => x.Username)}
         ${Html.TextBoxFor(x => x.Username)}
