@@ -1,14 +1,6 @@
 @font_size: .9em;
 @content_width: 80%;
 
-/*
-@color-1: #20262b;
-@color-2: #fff2c1;
-@color-3: #80a894;
-@color-4: #52736b;
-@color-5: #093844;
-*/
-
 @color1: #20262b;
 @color2: #738C9E;
 @color3: #fff;
@@ -229,7 +221,7 @@ table
 
 #main
 {
-	padding: 10px 0 0 10px;
+	padding: 10px;
 	fieldset
 	{
 		border: 0;
@@ -298,27 +290,30 @@ table
 
 	table
 	{
-		width: 95%;
-		thead > tr
+		border: 1px solid @color4 - #222;
+		font-family: Courier;
+		width: 100%;
+
+		thead tr
 		{
 			background-color: @color4;
 		}
 
-		th:first-child
+		tr
 		{
-			text-align: left;
+			border-bottom: 1px solid @color4 - #222;
 		}
 
-		td
+		th, td
 		{
 			text-align: center;
+			padding: 5px;
 		}
 
-		td:first-child
+		th:first-child, td:first-child
 		{
 			text-align: left;
 		}
-
 	}
 }
 
