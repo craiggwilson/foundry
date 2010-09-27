@@ -1,10 +1,10 @@
 @font_size: .9em;
 @content_width: 80%;
 
-@darkblue: #20262b;
-@lightblue: #738C9E;
-@white: #fff;
-@grey: #ccc;
+@color_darkest: #20262b;
+@color_dark: #ccc;
+@color_light: #738c9e;
+@color_lightest: #fff;
 
 .rounded(@radius: 6px) 
 {
@@ -27,8 +27,8 @@
 
 html, body
 {
-    background-color: @grey;
-    color: @darkblue;
+    background-color: @color_dark;
+    color: @color_darkest;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
     margin: 0;
@@ -48,7 +48,7 @@ img
 
 a, a:visited
 {
-    color: @lightblue;
+    color: @color_light;
 	text-decoration: none;
 }
 
@@ -68,8 +68,8 @@ table
 
 #header
 {
-	.background-gradient(@darkblue, @darkblue + #222);
-	color: @white;
+	.background-gradient(@color_darkest, @color_darkest + #222);
+	color: @color_lightest;
 	height: 60px;
 	padding: 20px 100px 50px 100px;
 
@@ -86,16 +86,16 @@ table
 
 		ul
 		{
-			.background-gradient(@darkblue + #111, @darkblue);
+			.background-gradient(@color_darkest + #111, @color_darkest);
 			.rounded(2em);
 
-			border-top: 1px solid @darkblue - #111;
+			border-top: 1px solid @color_darkest - #111;
 			margin: 0;
 			padding: 12px 5px;
 
 			a
 			{
-				color: @lightblue + #222;
+				color: @color_light + #222;
 				font-weight: bold;
 				padding: 8px 20px;
 			}
@@ -110,10 +110,10 @@ table
 			li:hover a 
 			{
 				.rounded(1.6em);
-				.background-gradient(@lightblue, @lightblue - #333);
+				.background-gradient(@color_light, @color_light - #333);
 
-				border-top: 1px solid @lightblue + #333;
-				color: @white;
+				border-top: 1px solid @color_light + #333;
+				color: @color_lightest;
 			}
 		}
 	}
@@ -121,7 +121,7 @@ table
 
 #locationContainer
 {
-	background-color: @darkblue + #333;
+	background-color: @color_darkest + #333;
 	height: 30px;
 	margin: -30px auto 0 auto;
 	width: @content_width;
@@ -141,7 +141,7 @@ table
 
 			a
 			{
-				color: @grey;
+				color: @color_dark;
 				float: left;
 				font-size: @font_size + .1;
 				font-weight: bold;
@@ -151,14 +151,14 @@ table
 
 		li.current a, li:hover a
 		{
-			background-color: @white;
+			background-color: @color_lightest;
 		}
 	}
 }
 
 #mainContainer
 {
-	background-color: @white;
+	background-color: @color_lightest;
 	margin: 0 auto;
 	width: @content_width;
 }
@@ -171,13 +171,13 @@ table
 		border: 0;
 		label
 		{
-			color: @lightblue;
+			color: @color_light;
 			display: block;
 		}
 
 		input[type="text"], input[type="password"]
 		{
-			border: 1px solid @grey;
+			border: 1px solid @color_dark;
 			margin-bottom: 10px;
 			width: 200px;
 		}
@@ -190,20 +190,20 @@ table
 
 		h3
 		{
-			color: @lightblue;
+			color: @color_light;
 			margin: 0;
 			padding: 5px;
 		}
 
 		ul
 		{
-			border-bottom: 1px solid @grey - #111;
+			border-bottom: 1px solid @color_dark - #111;
 			margin: 0;
 			padding: 0;
 
 			li
 			{
-				border-top: 1px solid @grey - #111;
+				border-top: 1px solid @color_dark - #111;
 				list-style: none;
 
 				a
@@ -215,12 +215,12 @@ table
 
 			li:first-child
 			{
-				background-color: @lightblue;
+				background-color: @color_light;
 				text-align: right;
 
 				a
 				{
-					color: @white;
+					color: @color_lightest;
 				}
 			}
 		}
@@ -228,18 +228,18 @@ table
 
 	table
 	{
-		border: 1px solid @grey - #222;
+		border: 1px solid @color_dark - #222;
 		font-family: Courier;
 		width: 100%;
 
 		thead tr
 		{
-			background-color: @grey;
+			background-color: @color_dark;
 		}
 
 		tr
 		{
-			border-bottom: 1px solid @grey - #222;
+			border-bottom: 1px solid @color_dark - #222;
 		}
 
 		th, td
@@ -266,7 +266,7 @@ table
 		padding: 0;
 		li
 		{
-			border-bottom: 1px solid @grey;
+			border-bottom: 1px solid @color_dark;
 			list-style: none;
 			margin-bottom: 10px;
 			padding-bottom: 10px;
