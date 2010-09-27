@@ -18,10 +18,13 @@
 </div>
 <div id="repositories">
   <div class="box">
-    <h2>
+    <h3>
       Your Projects
-    </h2>
+    </h3>
     <ul>
+      <li>
+        ${Html.ActionLink("Create Project", MVC.Project.Create())}
+      </li>
       <li each="var project in Model.WritableProjects">
         ${Html.ActionLink(project.Name, MVC.Project.Index(project.AccountName, project.RepositoryName))}
       </li>

@@ -1,9 +1,9 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.IndexViewModel" />
 
 <content name="location">
-  <li class="current">${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
-  <li>${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
-  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li class="current">${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
+  <li if="!Model.IsEmpty">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li if="!Model.IsEmpty">${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
 </content>
 
 <Project />

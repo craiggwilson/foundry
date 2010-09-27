@@ -12,6 +12,8 @@ namespace Foundry.Website.Models.Project
 
         public IBranch DefaultBranch { get; set; }
 
+        public bool IsEmpty { get; set; }
+
         public bool CommitsHaveParents { get; set; }
 
         public Domain.Project Project { get; set; }

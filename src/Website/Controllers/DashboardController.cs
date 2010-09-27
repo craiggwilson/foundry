@@ -30,7 +30,7 @@ namespace Foundry.Website.Controllers
 
             var model = new IndexViewModel
             {
-                NewsItems = userNewsItems.OfType<NewsItem>().Take(20).OrderByDescending(x => x.DateTime).ToList(),
+                NewsItems = userNewsItems.Take(20).OrderByDescending(x => x.DateTime).ToList(),
                 WritableProjects = projects.ToList()
             };
             return View(model);

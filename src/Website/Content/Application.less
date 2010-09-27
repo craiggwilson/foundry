@@ -1,4 +1,5 @@
 @font_size: .9em;
+@content_width: 80%;
 
 /*
 @color-1: #20262b;
@@ -34,7 +35,7 @@
 
 html, body
 {
-    background-color: @color1;
+    background-color: @color4;
     color: @color1;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
@@ -56,7 +57,7 @@ h2
 
 h3
 {
-	font-size: @font_size;
+	font-size: @font_size + .2;
 	font-weight: bold;
 	text-transform: uppercase;
 }
@@ -93,11 +94,11 @@ table
 
 #headerContainer
 {
-	border-bottom: 1px solod @color2;
 }
 
 #header
 {
+	border-bottom: 1px solod @color2 + #444;
 	.background-gradient(@color1, @color1 + #222);
 	height: 60px;
 	padding: 20px 100px 50px 100px;
@@ -159,7 +160,7 @@ table
 
 #locationContainer
 {
-
+	border-top: 1px solid @color1;
 }
 
 #location
@@ -168,7 +169,7 @@ table
 	color: @color4;
 	height: 30px;
 	margin: -30px auto 0 auto;
-	width: 800px;
+	width: @content_width;
 
 	h2
 	{
@@ -188,19 +189,19 @@ table
 			display: inline;
 			line-height: 30px;
 			padding: 8px 20px 8px 20px;
+
+			a
+			{
+				color: @color4;
+				display: block;
+				float: left;
+				font-size: @font_size + .1;
+				font-weight: bold;
+				padding: 0 20px;
+			}
 		}
 
-		li > a
-		{
-			color: @color4;
-			display: block;
-			float: left;
-			font-size: @font_size + .1;
-			font-weight: bold;
-			padding: 0 20px;
-		}
-
-		li:hover > a
+		li:hover a
 		{
 			background-color: @color3;
 		}
@@ -210,11 +211,11 @@ table
 			background-color: @color3;
 			font-size: @font_size + .1;
 			font-weight: bold;
-		}
 
-		li.current > a
-		{
-			background-color: @color3;
+			a
+			{
+				background-color: @color3;
+			}
 		}
 	}
 }
@@ -223,7 +224,7 @@ table
 {
 	background-color: @color3;
 	margin: 0 auto;
-	width: 800px;
+	width: @content_width;
 }
 
 #main
@@ -257,7 +258,6 @@ table
 
 		h3
 		{
-			border-bottom: 1px solid @color4 - #111;
 			color: @color2;
 			margin: 0;
 			padding: 5px;
@@ -272,14 +272,26 @@ table
 
 			li
 			{
+				border-top: 1px solid @color4 - #111;
 				list-style: none;
+
+				a
+				{
+					color: @color2;
+					display: block;
+					padding: 3px 10px;
+				}
 			}
 
-			li > a
+			li:first-child
 			{
-				color: @color2;
-				display: block;
-				padding: 3px 10px;
+				background-color: @color2;
+				text-align: right;
+
+				a
+				{
+					color: @color3;
+				}
 			}
 		}
 	}

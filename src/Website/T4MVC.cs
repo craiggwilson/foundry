@@ -553,6 +553,7 @@ namespace T4MVC {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string _global = "~/Views/Shared/_global.spark";
+            public readonly string _Project = "~/Views/Shared/_Project.spark";
             public readonly string _User = "~/Views/Shared/_User.spark";
             public readonly string _ViewMessage = "~/Views/Shared/_ViewMessage.spark";
         }
