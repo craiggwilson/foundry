@@ -6,28 +6,30 @@
   <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
 </content>
 
-<div id="repository">
-  <h2>${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
-</div>
+<Project />
   
 <table>
-  <tr>
-    <th>Time</th>
-    <th>Author</th>
-    <th>Message</th>
-    <th>Commit</th>
-    <th if="Model.CommitsHaveParents">Parent</th>
-  </tr>
-  <tr if="!Model.Commits.Any()">
-    <td colspan="3">
-      This is an empty repository.
-    </td>
-  </tr>
-  <tr each="var commit in Model.Commits">
-    <td>${commit.DateTime}</td>
-    <td>${commit.Username}</td>
-    <td>${commit.Message}</td>
-    <td>${commit.Version}</td>
-    <td if="Model.CommitsHaveParents">${((IHasParents)commit).ParentVersions.FirstOrDefault()}</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Author</th>
+      <th>Message</th>
+      <th>Commit</th>
+      <th if="Model.CommitsHaveParents">Parent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr if="!Model.Commits.Any()">
+      <td colspan="3">
+        This is an empty repository.
+      </td>
+    </tr>
+    <tr each="var commit in Model.Commits">
+      <td>${commit.DateTime}</td>
+      <td>${commit.Username}</td>
+      <td>${commit.Message}</td>
+      <td>${commit.Version}</td>
+      <td if="Model.CommitsHaveParents">${((IHasParents)commit).ParentVersions.FirstOrDefault()}</td>
+    </tr>
+  </tbody>
 </table>

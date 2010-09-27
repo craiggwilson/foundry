@@ -34,7 +34,7 @@
 
 html, body
 {
-    background-color: #ccc;
+    background-color: @color1;
     color: @color1;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
@@ -45,6 +45,20 @@ html, body
 h1
 {
     font-size: @font_size + 1;
+	font-weight: bold;
+}
+
+h2
+{
+	font-size: @font_size + .3;
+	font-weight: bold;
+}
+
+h3
+{
+	font-size: @font_size;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 img
@@ -54,13 +68,18 @@ img
 
 a, a:visited
 {
-    color: @color3;
+    color: @color2;
 	text-decoration: none;
 }
 
 span.user
 {
     font-weight: bold;
+}
+
+table
+{
+	border-collapse: collapse;
 }
 
 #clear
@@ -74,7 +93,7 @@ span.user
 
 #headerContainer
 {
-
+	border-bottom: 1px solod @color2;
 }
 
 #header
@@ -231,17 +250,15 @@ span.user
 
 	.box
 	{
-		.rounded(1em);
-		background-color: @color4 + #111;
-		border: 1px solid @color4 - #111;
 		margin: 5px 0 10px 0;
 		padding: 0 0 10px 0;
 
 		width: 250px;
 
-		h2
+		h3
 		{
 			border-bottom: 1px solid @color4 - #111;
+			color: @color2;
 			margin: 0;
 			padding: 5px;
 		}
@@ -266,9 +283,34 @@ span.user
 			}
 		}
 	}
+
+	table
+	{
+		width: 95%;
+		thead > tr
+		{
+			background-color: @color4;
+		}
+
+		th:first-child
+		{
+			text-align: left;
+		}
+
+		td
+		{
+			text-align: center;
+		}
+
+		td:first-child
+		{
+			text-align: left;
+		}
+
+	}
 }
 
-#main:after
+#mainContainer:after
 {
 	clear: both;
 }
@@ -302,4 +344,3 @@ span.user
 	float: right;
 	margin-right: 5px;
 }
-

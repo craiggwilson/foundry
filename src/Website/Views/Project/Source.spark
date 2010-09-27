@@ -15,22 +15,25 @@
   <if condition="Model.Source.IsTree">
     <var tree="(ISourceTree)Model.Source" />
     <table>
-      <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Message</th>
-      </tr>
-
-      <tr if="!tree.Children.Any()">
-        <td colspan="3">
-          This is an empty directory.
-        </td>
-      </tr>
-      <tr each="var child in tree.Children">
-        <td>${child.Name}</td>
-        <td>${child.LastModified}</td>
-        <td>${child.Message}</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Last Modified</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr if="!tree.Children.Any()">
+          <td colspan="3">
+            This is an empty directory.
+          </td>
+        </tr>
+        <tr each="var child in tree.Children">
+          <td>${child.Name}</td>
+          <td>${child.LastModified}</td>
+          <td>${child.Message}</td>
+        </tr>
+      </tbody>
     </table>
   </if>
   <else>

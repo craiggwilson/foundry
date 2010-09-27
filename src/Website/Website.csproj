@@ -148,6 +148,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Project\Create.spark" />
+    <None Include="Views\Shared\_Project.spark" />
     <None Include="Views\Shared\_ViewMessage.spark" />
     <None Include="Views\Shared\_User.spark" />
     <None Include="Views\Shared\_global.spark" />
