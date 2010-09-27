@@ -1,7 +1,7 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.RegisterViewModel" />
 
 <content name="location">
-  <li class="current">Register</li>
+  <li class="current">${Html.ActionLink("Register", MVC.Account.Register())}</li>
 </content>
 
 <% using(Html.BeginForm()) { %>

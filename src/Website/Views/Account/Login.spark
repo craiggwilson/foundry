@@ -1,7 +1,7 @@
 ﻿<viewdata model="Foundry.Website.Models.Account.LoginViewModel" />
 
 <content name="location">
-  <li class="current">Login</li>
+  <li class="current">${Html.ActionLink("Login", MVC.Account.Login())}</li>
 </content>
 
 <% using(Html.BeginForm()) { %>

@@ -1,10 +1,10 @@
 @font_size: .9em;
 @content_width: 80%;
 
-@color1: #20262b;
-@color2: #738C9E;
-@color3: #fff;
-@color4: #ccc;
+@darkblue: #20262b;
+@lightblue: #738C9E;
+@white: #fff;
+@grey: #ccc;
 
 .rounded(@radius: 6px) 
 {
@@ -27,27 +27,14 @@
 
 html, body
 {
-    background-color: @color4;
-    color: @color1;
+    background-color: @grey;
+    color: @darkblue;
     font-family: Helvetica, Arial, Verdana, Sans-Serif;
     font-size: @font_size;
     margin: 0;
-    padding: 0;
 }
 
-h1
-{
-    font-size: @font_size + 1;
-	font-weight: bold;
-}
-
-h2
-{
-	font-size: @font_size + .3;
-	font-weight: bold;
-}
-
-h3
+label, h3
 {
 	font-size: @font_size + .2;
 	font-weight: bold;
@@ -61,13 +48,8 @@ img
 
 a, a:visited
 {
-    color: @color2;
+    color: @lightblue;
 	text-decoration: none;
-}
-
-span.user
-{
-    font-weight: bold;
 }
 
 table
@@ -75,7 +57,7 @@ table
 	border-collapse: collapse;
 }
 
-#clear
+.clear
 {
 	clear: both;
 }
@@ -84,20 +66,15 @@ table
 /* Application */
 /**************************************/
 
-#headerContainer
-{
-}
-
 #header
 {
-	border-bottom: 1px solod @color2 + #444;
-	.background-gradient(@color1, @color1 + #222);
+	.background-gradient(@darkblue, @darkblue + #222);
+	color: @white;
 	height: 60px;
 	padding: 20px 100px 50px 100px;
 
 	#logo
 	{
-		color: @color3;
 		font-size: @font_size + 1.6;
 		font-weight: bold;
 		float: left;
@@ -106,26 +83,21 @@ table
 	#account
 	{
 		float: right;
-		font-size: @font_size + .1;
 
 		ul
 		{
-			.background-gradient(@color1 + #111, @color1);
+			.background-gradient(@darkblue + #111, @darkblue);
 			.rounded(2em);
 
-			line-height: 100%;
-
-			border-top: 1px solid @color1 - #111;
+			border-top: 1px solid @darkblue - #111;
 			margin: 0;
 			padding: 12px 5px;
 
 			a
 			{
-				color: @color2 + #222;
+				color: @lightblue + #222;
 				font-weight: bold;
-				margin: 0;
 				padding: 8px 20px;
-				text-decoration: none;
 			}
 
 			li
@@ -133,18 +105,15 @@ table
 				display: inline;
 				list-style: none;
 				margin: 0 5px;
-				padding: 0 0 8px;
-				position: relative;
 			}
 
-			li:hover > a 
+			li:hover a 
 			{
 				.rounded(1.6em);
-				.background-gradient(@color2, @color2 - #333);
+				.background-gradient(@lightblue, @lightblue - #333);
 
-				border-top: 1px solid @color2 + #333;
-				color: @color3;
-
+				border-top: 1px solid @lightblue + #333;
+				color: @white;
 			}
 		}
 	}
@@ -152,24 +121,14 @@ table
 
 #locationContainer
 {
-	border-top: 1px solid @color1;
+	background-color: @darkblue + #333;
+	height: 30px;
+	margin: -30px auto 0 auto;
+	width: @content_width;
 }
 
 #location
 {
-	background-color: @color1 + #333;
-	color: @color4;
-	height: 30px;
-	margin: -30px auto 0 auto;
-	width: @content_width;
-
-	h2
-	{
-		background-color: @color3;
-		margin: 0;
-		padding: 8px 0;
-	}
-
 	ul
 	{
 		margin: 0;
@@ -177,15 +136,12 @@ table
 
 		li
 		{
-			color: @color4;
 			display: inline;
 			line-height: 30px;
-			padding: 8px 20px 8px 20px;
 
 			a
 			{
-				color: @color4;
-				display: block;
+				color: @grey;
 				float: left;
 				font-size: @font_size + .1;
 				font-weight: bold;
@@ -193,28 +149,16 @@ table
 			}
 		}
 
-		li:hover a
+		li.current a, li:hover a
 		{
-			background-color: @color3;
-		}
-
-		li.current
-		{
-			background-color: @color3;
-			font-size: @font_size + .1;
-			font-weight: bold;
-
-			a
-			{
-				background-color: @color3;
-			}
+			background-color: @white;
 		}
 	}
 }
 
 #mainContainer
 {
-	background-color: @color3;
+	background-color: @white;
 	margin: 0 auto;
 	width: @content_width;
 }
@@ -227,15 +171,13 @@ table
 		border: 0;
 		label
 		{
-			color: @color2;
+			color: @lightblue;
 			display: block;
-			font-weight: bold;
-			margin-bottom: 5px;
 		}
 
 		input[type="text"], input[type="password"]
 		{
-			border: 1px solid @color4;
+			border: 1px solid @grey;
 			margin-bottom: 10px;
 			width: 200px;
 		}
@@ -243,33 +185,29 @@ table
 
 	.box
 	{
-		margin: 5px 0 10px 0;
 		padding: 0 0 10px 0;
-
 		width: 250px;
 
 		h3
 		{
-			color: @color2;
+			color: @lightblue;
 			margin: 0;
 			padding: 5px;
 		}
 
 		ul
 		{
-			background-color: @color3;
-			border-bottom: 1px solid @color4 - #111;
+			border-bottom: 1px solid @grey - #111;
 			margin: 0;
 			padding: 0;
 
 			li
 			{
-				border-top: 1px solid @color4 - #111;
+				border-top: 1px solid @grey - #111;
 				list-style: none;
 
 				a
 				{
-					color: @color2;
 					display: block;
 					padding: 3px 10px;
 				}
@@ -277,12 +215,12 @@ table
 
 			li:first-child
 			{
-				background-color: @color2;
+				background-color: @lightblue;
 				text-align: right;
 
 				a
 				{
-					color: @color3;
+					color: @white;
 				}
 			}
 		}
@@ -290,18 +228,18 @@ table
 
 	table
 	{
-		border: 1px solid @color4 - #222;
+		border: 1px solid @grey - #222;
 		font-family: Courier;
 		width: 100%;
 
 		thead tr
 		{
-			background-color: @color4;
+			background-color: @grey;
 		}
 
 		tr
 		{
-			border-bottom: 1px solid @color4 - #222;
+			border-bottom: 1px solid @grey - #222;
 		}
 
 		th, td
@@ -317,16 +255,6 @@ table
 	}
 }
 
-#mainContainer:after
-{
-	clear: both;
-}
-
-#footer
-{
-	clear: both;
-}
-
 /**************************************/
 /* Dashboard */
 /**************************************/
@@ -338,7 +266,7 @@ table
 		padding: 0;
 		li
 		{
-			border-bottom: 1px solid @color4;
+			border-bottom: 1px solid @grey;
 			list-style: none;
 			margin-bottom: 10px;
 			padding-bottom: 10px;
@@ -349,5 +277,4 @@ table
 #repositories
 {
 	float: right;
-	margin-right: 5px;
 }

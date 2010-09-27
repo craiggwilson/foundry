@@ -32,7 +32,7 @@
 			<div id="main">
 				<use content="view" />
 			</div>
-			<div id="clear"></div>
+			<div class="clear"></div>
 		</div>
 		<div id="footerContainer">
 			<div id="footer">
