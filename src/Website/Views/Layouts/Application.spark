@@ -21,6 +21,7 @@
 					</ul>
 				</div>
 			</div>
+            <div class="clear"></div>
 		</div>
 		<div id="locationContainer">
 			<div id="location">
@@ -28,7 +29,9 @@
 					<use content="location" />
 				</ul>
 			</div>
+            <div class="clear"></div>
 		</div>
+
 		<div id="mainContainer">
 			<div id="main">
 				<use content="view" />

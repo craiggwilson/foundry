@@ -1,4 +1,39 @@
-﻿<div id="project">
-  <h2>${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
-  <p>Description</p>
+﻿<div id="sublocationContainer">
+    <div id="sublocation">
+        <ul>
+            <li><a href="#">branches >></a></li>
+            <li><a href="#">tags >></a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div id="project">
+        <h2>
+            ${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName,
+            MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
+        <p class="description">
+            Description
+        </p>
+
+        <div class="checkout">
+            $ git clone http://something
+        </div>
+</div>
+
+<div if="Model.LastCommit != null" id="projectLastCommit">
+    <div class="info">
+        <div class="message">
+            ${Model.LastCommit.Message}
+        </div>
+        <div class="author">
+            ${Model.LastCommit.Username}
+        </div>
+    </div>
+    <div class="versions">
+        <div>
+            commit ${Model.LastCommit.Version}
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>

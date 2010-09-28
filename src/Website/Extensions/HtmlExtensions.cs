@@ -68,21 +68,29 @@ namespace Foundry.Website.Extensions
 
         public static string SplitSourcePath(this HtmlHelper helper, Domain.Project project, string path)
         {
+            if (string.IsNullOrWhiteSpace(path))
+                return "";
+
             var parts = path.Split('/');
             
-            var currentPath = string.Empty;
-
+            var currentPath = "";
             var sb = new StringBuilder();
-            foreach (var part in parts.Where(p => !string.IsNullOrWhiteSpace(p)))
+            for (int i = 0; i < parts.Length - 1; i++)
             {
-                if (!string.IsNullOrEmpty(currentPath))
+                if (i > 0)
                 {
                     currentPath += "/";
                     sb.Append("/");
                 }
-                currentPath += part;
-                sb.Append(helper.ActionLink(part, "Source", "Project", new { account = project.AccountName, repository = project.RepositoryName, path = currentPath }, null));
+
+                currentPath += parts[i];
+                sb.Append(helper.ActionLink(parts[i], "Source", "Project", new { account = project.AccountName, repository = project.RepositoryName, path = currentPath }, null));
             }
+
+            if(parts.Length > 1)
+                sb.Append("/");
+            
+            sb.Append(parts[parts.Length - 1]);
 
             return sb.ToString();
         }

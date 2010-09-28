@@ -101,6 +101,11 @@ pre
 	}
 }
 
+.path
+{
+	font-family: Courier;
+}
+
 /**************************************/
 /* Application */
 /**************************************/
@@ -189,6 +194,36 @@ pre
 		li.current a, li:hover a
 		{
 			background-color: @color_lightest;
+		}
+	}
+}
+
+#sublocationContainer
+{
+	border-bottom: 1px solid @color_dark - #222;
+	margin: -10px -10px 10px -10px;
+}
+
+#sublocation
+{
+	margin: 0 0;
+
+	ul
+	{
+		margin: 0;
+		padding: 0;
+
+		li
+		{
+			line-height: 30px;
+			list-style: none;
+
+			a
+			{
+				display: block;
+				float: left;
+				padding: 5px 10px;
+			}
 		}
 	}
 }
@@ -296,6 +331,11 @@ pre
 			text-align: left;
 		}
 	}
+
+	#content
+	{
+		clear: both;
+	}
 }
 
 /**************************************/
@@ -328,6 +368,33 @@ pre
 
 #project
 {
-	border-bottom: 1px solid @color_dark;
+	border-bottom: 1px solid @color_dark - #222;
 	margin-bottom: 20px;
+
+	.checkout
+	{
+		font-family: Courier;
+		font-size: @font_size;
+		margin: 10px;
+	}
+}
+
+
+#projectLastCommit
+{
+	.background-gradient(@color_light + #333, @color_lightest);
+	border: 1px solid @color_dark - #222;
+	margin-bottom: 10px;
+	padding: 10px;
+
+	.info
+	{
+		float: left;
+		width: 75%;
+	}
+
+	.versions
+	{
+		float: right;
+	}
 }

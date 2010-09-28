@@ -108,7 +108,7 @@ namespace Foundry.SourceControl.GitIntegration
                     {
                         Name = tree.Name,
                         IsTree = false,
-                        Path = branchName + "/" + tree.Path,
+                        Path = GetPath(branchName, node.Path),
                         LastModified = tree.GetLastCommit().CommitDate.DateTime,
                         Message = tree.GetLastCommit().Message,
                         Content = ((Leaf)node).RawData
@@ -122,7 +122,7 @@ namespace Foundry.SourceControl.GitIntegration
             {
                 Name = tree.Name,
                 IsTree = true,
-                Path = branchName + "/" + tree.Path,
+                Path = GetPath(branchName, tree.Path),
                 LastModified = tree.GetLastCommit().CommitDate.DateTime,
                 Message = tree.GetLastCommit().Message,
                 Children = tree.Trees.Select(x => CreateGitSourceObject(branchName, x))
@@ -132,7 +132,12 @@ namespace Foundry.SourceControl.GitIntegration
 
         private static GitSourceObject CreateGitSourceObject(string branchName, AbstractTreeNode node)
         {
-            return new GitSourceObject { Name = node.Name, Path = branchName + "/" + node.Path, IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
+            return new GitSourceObject { Name = node.Name, Path = GetPath(branchName, node.Path), IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
+        }
+
+        private static string GetPath(string branchName, string path)
+        {
+            return string.IsNullOrWhiteSpace(path) ? branchName : branchName + "/" + path;
         }
 
         private static Repository GetRepository(Project project)

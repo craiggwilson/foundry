@@ -82,6 +82,7 @@ namespace Foundry.Website.Controllers
             model.Branches = _sourceControlManager.GetBranches(model.Project);
             model.DefaultBranch = model.Branches.FirstOrDefault(b => b.IsCurrent);
             model.CommitsHaveParents = providerMetadata.CommitsHaveParents;
+            model.LastCommit = _sourceControlManager.GetHistory(model.Project, model.DefaultBranch.Name).Take(1).SingleOrDefault();
             model.IsEmpty = model.DefaultBranch == null;
         }
     }

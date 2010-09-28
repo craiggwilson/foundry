@@ -1,19 +1,22 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.SourceViewModel" />
 
+<content name="head">
+</content>
+
 <content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
   <li class="current">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
   <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
 </content>
 
-<div class="content">
+<Project />
 
-  <Project />
+<div id="content">
   
   <if condition="Model.Source.IsTree">
     <var tree="(ISourceTree)Model.Source" />
+    <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
     <table>
-      <caption>${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</caption>
       <thead>
         <tr>
           <th>Name</th>
@@ -38,7 +41,9 @@
   <else>
     <var file="(ISourceFile)Model.Source" />
     
-    <pre>${Html.SplitSourcePath(Model.Project, Model.Source.Path)}
-    <code id="codefile" class="chili-lang-csharp">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code></pre>
+    <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
+    <pre>
+        <code class="syntax csharp">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code>
+    </pre>
   </else>
 </div>

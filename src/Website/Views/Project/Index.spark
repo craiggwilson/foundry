@@ -7,27 +7,29 @@
 </content>
 
 <Project />
-  
-<table>
-  <thead>
-    <tr>
-      <th>Age</th>
-      <th>Author</th>
-      <th>Message</th>
-      <th>Commit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr if="!Model.Commits.Any()">
-      <td colspan="3">
-        This is an empty repository.
-      </td>
-    </tr>
-    <tr each="var commit in Model.Commits">
-      <td>${Html.ToEnglish(commit.DateTime)}</td>
-      <td>${commit.Username}</td>
-      <td>${commit.Message}</td>
-      <td>${commit.Version}</td>
-    </tr>
-  </tbody>
-</table>
+
+<div id="content">
+    <table>
+      <thead>
+        <tr>
+          <th>Age</th>
+          <th>Author</th>
+          <th>Message</th>
+          <th>Commit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr if="!Model.Commits.Any()">
+          <td colspan="3">
+            This is an empty repository.
+          </td>
+        </tr>
+        <tr each="var commit in Model.Commits">
+          <td>${Html.ToEnglish(commit.DateTime)}</td>
+          <td>${commit.Username}</td>
+          <td>${commit.Message}</td>
+          <td>${commit.Version}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
