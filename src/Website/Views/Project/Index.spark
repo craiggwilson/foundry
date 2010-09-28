@@ -11,7 +11,7 @@
 <table>
   <thead>
     <tr>
-      <th>Time</th>
+      <th>Age</th>
       <th>Author</th>
       <th>Message</th>
       <th>Commit</th>
@@ -24,7 +24,7 @@
       </td>
     </tr>
     <tr each="var commit in Model.Commits">
-      <td>${commit.DateTime}</td>
+      <td>${Html.ToEnglish(commit.DateTime)}</td>
       <td>${commit.Username}</td>
       <td>${commit.Message}</td>
       <td>${commit.Version}</td>

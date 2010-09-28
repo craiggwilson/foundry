@@ -34,10 +34,25 @@ html, body
     margin: 0;
 }
 
+h1
+{
+	font-size: @font_size + 1.6;
+	font-weight: bold;
+	margin: 0;
+}
+
+h2
+{
+	font-size: @font_size + 1;
+	font-weight: bold;
+	margin: 0;
+}
+
 label, h3
 {
 	font-size: @font_size + .2;
 	font-weight: bold;
+	margin: 0;
 	text-transform: uppercase;
 }
 
@@ -55,6 +70,11 @@ a, a:visited
 table
 {
 	border-collapse: collapse;
+}
+
+p
+{
+	margin: 0;
 }
 
 .clear
@@ -75,8 +95,6 @@ table
 
 	#logo
 	{
-		font-size: @font_size + 1.6;
-		font-weight: bold;
 		float: left;
 	}
 
@@ -232,6 +250,12 @@ table
 		font-family: Courier;
 		width: 100%;
 
+		caption
+		{
+			margin-bottom: 5px;
+			text-align: left;
+		}
+
 		thead tr
 		{
 			background-color: @color_dark;
@@ -277,4 +301,14 @@ table
 #repositories
 {
 	float: right;
+}
+
+/**************************************/
+/* Project */
+/**************************************/
+
+#project
+{
+	border-bottom: 1px solid @color_dark;
+	margin-bottom: 20px;
 }

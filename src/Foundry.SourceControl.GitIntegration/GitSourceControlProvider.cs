@@ -73,7 +73,7 @@ namespace Foundry.SourceControl.GitIntegration
             if (!TryGetTreeNode(repo, parts[0], out node))
                 return null;
 
-            return GetSourceObject(repo, node, parts.Skip(1));
+            return GetSourceObject(repo, parts[0], node, parts.Skip(1));
         }
 
         public static bool TryGetTreeNode(Repository repo, string id, out AbstractTreeNode node)
@@ -85,25 +85,35 @@ namespace Foundry.SourceControl.GitIntegration
             return node != null;
         }
 
-        private static ISourceObject GetSourceObject(Repository repo, AbstractTreeNode node, IEnumerable<string> path)
+        private static ISourceObject GetSourceObject(Repository repo, string branchName, AbstractTreeNode node, IEnumerable<string> path)
         {
             if (node.IsTree)
-                return GetSourceObjectFromTree(repo, (Tree)node, path);
+                return GetSourceObjectFromTree(repo, branchName, (Tree)node, path);
 
             return null;
         }
 
-        private static ISourceObject GetSourceObjectFromTree(Repository repo, Tree tree, IEnumerable<string> path)
+        private static ISourceObject GetSourceObjectFromTree(Repository repo, string branchName, Tree tree, IEnumerable<string> path)
         {
             if (path.Any())
             {
                 AbstractTreeNode node = tree.Trees.SingleOrDefault(x => x.Name == path.ElementAt(0));
                 if (node != null)
-                    return GetSourceObjectFromTree(repo, (Tree)node, path.Skip(1));
+                    return GetSourceObjectFromTree(repo, branchName, (Tree)node, path.Skip(1));
 
                 node = tree.Leaves.SingleOrDefault(x => x.Name == path.ElementAt(0));
-                if(node != null)
-                    return CreateGitSourceObject(node);
+                if (node != null)
+                {
+                    return new GitSourceFile
+                    {
+                        Name = tree.Name,
+                        IsTree = false,
+                        Path = branchName + "/" + tree.Path,
+                        LastModified = tree.GetLastCommit().CommitDate.DateTime,
+                        Message = tree.GetLastCommit().Message,
+                        Content = ((Leaf)node).Data
+                    };
+                }
 
                 return null;
             }
@@ -112,17 +122,17 @@ namespace Foundry.SourceControl.GitIntegration
             {
                 Name = tree.Name,
                 IsTree = true,
-                Path = tree.Path,
+                Path = branchName + "/" + tree.Path,
                 LastModified = tree.GetLastCommit().CommitDate.DateTime,
                 Message = tree.GetLastCommit().Message,
-                Children = tree.Trees.Select(x => CreateGitSourceObject(x))
-                    .Union(tree.Leaves.Select(x => CreateGitSourceObject(x)))
+                Children = tree.Trees.Select(x => CreateGitSourceObject(branchName, x))
+                    .Union(tree.Leaves.Select(x => CreateGitSourceObject(branchName, x)))
             };
         }
 
-        private static GitSourceObject CreateGitSourceObject(AbstractTreeNode node)
+        private static GitSourceObject CreateGitSourceObject(string branchName, AbstractTreeNode node)
         {
-            return new GitSourceObject { Name = node.Name, Path = node.Path, IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
+            return new GitSourceObject { Name = node.Name, Path = branchName + "/" + node.Path, IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
         }
 
         private static Repository GetRepository(Project project)

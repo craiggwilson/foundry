@@ -8,17 +8,16 @@
 
 <div class="content">
 
-  <div>
-    <h2>${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
-  </div>
-
+  <Project />
+  
   <if condition="Model.Source.IsTree">
     <var tree="(ISourceTree)Model.Source" />
     <table>
+      <caption>${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</caption>
       <thead>
         <tr>
           <th>Name</th>
-          <th>Last Modified</th>
+          <th>Age</th>
           <th>Message</th>
         </tr>
       </thead>
@@ -29,15 +28,15 @@
           </td>
         </tr>
         <tr each="var child in tree.Children">
-          <td>${child.Name}</td>
-          <td>${child.LastModified}</td>
+          <td>${Html.ActionLink(child.Name, MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, child.Path))}</td>
+          <td>${Html.ToEnglish(child.LastModified)}</td>
           <td>${child.Message}</td>
         </tr>
       </tbody>
     </table>
   </if>
   <else>
-
+    
   </else>
 
 

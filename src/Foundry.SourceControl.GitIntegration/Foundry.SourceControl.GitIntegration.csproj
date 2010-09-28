@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitSourceFile.cs" />
     <Compile Include="GitSourceTree.cs" />
     <Compile Include="GitBranch.cs" />
     <Compile Include="GitCommit.cs" />

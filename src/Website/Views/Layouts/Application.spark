@@ -12,7 +12,7 @@
 		<div id="headerContainer">
 			<div id="header">
 				<div id="logo">
-					Foundry
+					<h1>Foundry</h1>
 				</div>
 				<div id="account">
 					<ul class="menu">
