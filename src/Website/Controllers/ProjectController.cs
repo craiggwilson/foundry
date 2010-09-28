@@ -30,7 +30,6 @@ namespace Foundry.Website.Controllers
             {
                 ProviderNames = _sourceControlManager.ProviderNames.Select(x => new SelectListItem { Text = x, Value = x })
             };
-
             return View(model);
         }
 

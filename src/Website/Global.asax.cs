@@ -41,7 +41,7 @@ namespace Foundry.Website
             routes.Add("GitProject", new Route(
                 "{account}/{repository}/{*pathInfo}",
                 new RouteValueDictionary(),
-                new RouteValueDictionary(new { project = @".+\.git" }),
+                new RouteValueDictionary(new { repository = @".+\.git" }),
                 new GitRouteHandler()));
 
             routes.MapRoute(

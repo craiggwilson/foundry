@@ -111,7 +111,7 @@ namespace Foundry.SourceControl.GitIntegration
                         Path = branchName + "/" + tree.Path,
                         LastModified = tree.GetLastCommit().CommitDate.DateTime,
                         Message = tree.GetLastCommit().Message,
-                        Content = ((Leaf)node).Data
+                        Content = ((Leaf)node).RawData
                     };
                 }
 

@@ -5,6 +5,7 @@
         <use content="title">Foundry</use>
     </title>
     <link rel="stylesheet" href="${Links.Content.Application_less}" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <use content="head" />
 </head>
 <body>

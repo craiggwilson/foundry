@@ -36,8 +36,9 @@
     </table>
   </if>
   <else>
+    <var file="(ISourceFile)Model.Source" />
     
+    <pre>${Html.SplitSourcePath(Model.Project, Model.Source.Path)}
+    <code id="codefile" class="chili-lang-csharp">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code></pre>
   </else>
-
-
 </div>

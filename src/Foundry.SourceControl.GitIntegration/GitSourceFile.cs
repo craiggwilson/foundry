@@ -7,6 +7,6 @@ namespace Foundry.SourceControl.GitIntegration
 {
     public class GitSourceFile : GitSourceObject, ISourceFile
     {
-        public string Content { get; set; }
+        public byte[] Content { get; set; }
     }
 }
