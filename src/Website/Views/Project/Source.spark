@@ -1,6 +1,13 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.SourceViewModel" />
 
 <content name="head">
+  <link type="text/css" rel="stylesheet" href="${Links.Content.prettify_css}" />
+  <script type="text/javascript" src="${Links.Scripts.prettify_js}"></script>
+  <script type="text/javascript">
+    $(function() {
+      prettyPrint();
+    });
+  </script>
 </content>
 
 <content name="location">
@@ -12,7 +19,7 @@
 <Project />
 
 <div id="content">
-  
+
   <if condition="Model.Source.IsTree">
     <var tree="(ISourceTree)Model.Source" />
     <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
@@ -40,10 +47,10 @@
   </if>
   <else>
     <var file="(ISourceFile)Model.Source" />
-    
+
     <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
     <pre>
-        <code class="syntax csharp">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code>
+      <code class="prettyprint lang-${file.Extension}">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code>
     </pre>
   </else>
 </div>

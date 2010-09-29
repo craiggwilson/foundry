@@ -106,11 +106,11 @@ namespace Foundry.SourceControl.GitIntegration
                 {
                     return new GitSourceFile
                     {
-                        Name = tree.Name,
+                        Name = node.Name,
                         IsTree = false,
                         Path = GetPath(branchName, node.Path),
-                        LastModified = tree.GetLastCommit().CommitDate.DateTime,
-                        Message = tree.GetLastCommit().Message,
+                        LastModified = node.GetLastCommit().CommitDate.DateTime,
+                        Message = node.GetLastCommit().Message,
                         Content = ((Leaf)node).RawData
                     };
                 }

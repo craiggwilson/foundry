@@ -126,19 +126,19 @@
     <None Include="Views\Account\Login.spark" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\prettify.css" />
     <Content Include="Global.asax" />
     <None Include="Content\Application.less" />
     <None Include="Views\Dashboard\Index.spark">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\prettify.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
     <None Include="Views\Project\Source.spark">

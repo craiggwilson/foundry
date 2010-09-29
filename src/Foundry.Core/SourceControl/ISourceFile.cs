@@ -7,6 +7,8 @@ namespace Foundry.SourceControl
 {
     public interface ISourceFile
     {
+        string Extension { get; }
+
         byte[] Content { get; }
     }
 }
