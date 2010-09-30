@@ -36,14 +36,34 @@ namespace Foundry.SourceControl.GitIntegration
             });
         }
 
-        public IEnumerable<ICommit> GetHistory(Project project, string path)
+        public ICommit GetCommit(Project project, string path)
+        {
+            var repo = GetRepository(project);
+
+            AbstractObject obj;
+            if (!TryGetObject(repo, path, out obj) || obj.IsCommit)
+                return null;
+
+            var commit = (Commit)obj;
+
+            return new GitCommit
+            {
+                Username = commit.Committer.Name,
+                DateTime = commit.CommitDate.DateTime,
+                Message = commit.Message,
+                Version = commit.ShortHash,
+                ParentVersions = commit.HasParents ? commit.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
+            };
+        }
+
+        public IEnumerable<ICommitInfo> GetHistory(Project project, string path)
         {
             var repo = GetRepository(project);
 
             var branch = repo.Branches[path];
-            yield return new GitCommit
+            yield return new GitCommitInfo
             {
-                Username = branch.CurrentCommit.Author.Name,
+                Username = branch.CurrentCommit.Committer.Name,
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,
                 Message = branch.CurrentCommit.Message,
                 Version = branch.CurrentCommit.ShortHash,
@@ -52,9 +72,9 @@ namespace Foundry.SourceControl.GitIntegration
 
             foreach (var ancestor in branch.CurrentCommit.Ancestors)
             {
-                yield return new GitCommit
+                yield return new GitCommitInfo
                 {
-                    Username = ancestor.Author.Name,
+                    Username = ancestor.Committer.Name,
                     DateTime = ancestor.CommitDate.DateTime,
                     Message = ancestor.Message,
                     Version = ancestor.Tree.ShortHash,
@@ -69,70 +89,76 @@ namespace Foundry.SourceControl.GitIntegration
 
             var parts = path.Split('/');
 
-            AbstractTreeNode node;
-            if (!TryGetTreeNode(repo, parts[0], out node))
+            AbstractObject obj;
+            if (!TryGetObject(repo, parts[0], out obj) || !obj.IsTree)
                 return null;
 
-            return GetSourceObject(repo, parts[0], node, parts.Skip(1));
+            var node = GetNode((AbstractTreeNode)obj, parts.Skip(1));
+            return CreateGitSourceObject(parts[0], node);
         }
 
-        public static bool TryGetTreeNode(Repository repo, string id, out AbstractTreeNode node)
+        public static bool TryGetObject(Repository repo, string id, out AbstractObject obj)
         {
-            node = null;
+            obj = null;
             if (repo.Branches.ContainsKey(id))
-                node = repo.Branches[id].CurrentCommit.Tree;
+                obj = repo.Branches[id].CurrentCommit.Tree;
 
-            return node != null;
+            return obj != null;
         }
 
-        private static ISourceObject GetSourceObject(Repository repo, string branchName, AbstractTreeNode node, IEnumerable<string> path)
-        {
-            if (node.IsTree)
-                return GetSourceObjectFromTree(repo, branchName, (Tree)node, path);
-
-            return null;
-        }
-
-        private static ISourceObject GetSourceObjectFromTree(Repository repo, string branchName, Tree tree, IEnumerable<string> path)
+        private static AbstractTreeNode GetNode(AbstractTreeNode parentNode, IEnumerable<string> path)
         {
             if (path.Any())
             {
-                AbstractTreeNode node = tree.Trees.SingleOrDefault(x => x.Name == path.ElementAt(0));
-                if (node != null)
-                    return GetSourceObjectFromTree(repo, branchName, (Tree)node, path.Skip(1));
-
-                node = tree.Leaves.SingleOrDefault(x => x.Name == path.ElementAt(0));
-                if (node != null)
+                if (parentNode.IsTree)
                 {
-                    return new GitSourceFile
-                    {
-                        Name = node.Name,
-                        IsTree = false,
-                        Path = GetPath(branchName, node.Path),
-                        LastModified = node.GetLastCommit().CommitDate.DateTime,
-                        Message = node.GetLastCommit().Message,
-                        Content = ((Leaf)node).RawData
-                    };
-                }
+                    var name = path.First();
+                    var tree = (Tree)parentNode;
+                    parentNode = tree.Trees.SingleOrDefault(x => x.Name == name);
+                    if(parentNode == null)
+                        parentNode = tree.Leaves.SingleOrDefault(x => x.Name == name);
+                    if(parentNode == null)
+                        throw new InvalidOperationException("Unable to determine path.");
 
-                return null;
+                    return GetNode(parentNode, path.Skip(1));
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unable to determine path.");
+                }
             }
 
-            return new GitSourceTree
-            {
-                Name = tree.Name,
-                IsTree = true,
-                Path = GetPath(branchName, tree.Path),
-                LastModified = tree.GetLastCommit().CommitDate.DateTime,
-                Message = tree.GetLastCommit().Message,
-                Children = tree.Trees.Select(x => CreateGitSourceObject(branchName, x))
-                    .Union(tree.Leaves.Select(x => CreateGitSourceObject(branchName, x)))
-            };
+            return parentNode;
         }
 
-        private static GitSourceObject CreateGitSourceObject(string branchName, AbstractTreeNode node)
+        private static GitSourceObject CreateGitSourceObject(string prefix, AbstractTreeNode node)
         {
-            return new GitSourceObject { Name = node.Name, Path = GetPath(branchName, node.Path), IsTree = node.IsTree, LastModified = node.GetLastCommit().CommitDate.DateTime, Message = node.GetLastCommit().Message };
+            if (node.IsTree)
+            {
+                var tree = (Tree)node;
+                return new GitSourceTree
+                {
+                    Name = tree.Name,
+                    IsTree = true,
+                    Path = GetPath(prefix, tree.Path),
+                    LastModified = tree.GetLastCommit().CommitDate.DateTime,
+                    Message = tree.GetLastCommit().Message,
+                    Children = tree.Trees.Select(x => CreateGitSourceObject(prefix, x))
+                        .Union(tree.Leaves.Select(x => CreateGitSourceObject(prefix, x)))
+                };
+            }
+            else
+            {
+                return new GitSourceFile
+                {
+                    Name = node.Name,
+                    IsTree = false,
+                    Path = GetPath(prefix, node.Path),
+                    LastModified = node.GetLastCommit().CommitDate.DateTime,
+                    Message = node.GetLastCommit().Message,
+                    Content = ((Leaf)node).RawData
+                };
+            }
         }
 
         private static string GetPath(string branchName, string path)

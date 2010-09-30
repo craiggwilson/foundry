@@ -57,6 +57,7 @@
     <Compile Include="Security\UserAuthorization.cs" />
     <Compile Include="SourceControl\IBranch.cs" />
     <Compile Include="SourceControl\ICommit.cs" />
+    <Compile Include="SourceControl\ICommitInfo.cs" />
     <Compile Include="SourceControl\IHasParents.cs" />
     <Compile Include="SourceControl\ISourceFile.cs" />
     <Compile Include="SourceControl\ISourceObject.cs" />

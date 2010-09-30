@@ -5,16 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommit : ICommit, IHasParents
+    public class GitCommit : GitCommitInfo, ICommit
     {
-        public string Username { get; set; }
-
-        public string Message { get; set; }
-
-        public DateTime DateTime { get; set; }
-
-        public string Version { get; set; }
-
-        public IEnumerable<string> ParentVersions { get; set; }
+        public IEnumerable<ISourceFile> Files { get; set; }
     }
 }

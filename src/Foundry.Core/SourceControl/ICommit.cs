@@ -5,14 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ICommit
+    public interface ICommit : ICommitInfo
     {
-        string Username { get; }
-
-        string Message { get; }
-
-        DateTime DateTime { get; }
-
-        string Version { get; }
+        IEnumerable<ISourceFile> Files { get; }
     }
 }

@@ -55,10 +55,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitCommit.cs" />
     <Compile Include="GitSourceFile.cs" />
     <Compile Include="GitSourceTree.cs" />
     <Compile Include="GitBranch.cs" />
-    <Compile Include="GitCommit.cs" />
+    <Compile Include="GitCommitInfo.cs" />
     <Compile Include="GitRouteHandler.cs" />
     <Compile Include="GitHttpHandler.cs" />
     <Compile Include="GitSettings.cs" />

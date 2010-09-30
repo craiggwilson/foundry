@@ -9,6 +9,6 @@ namespace Foundry.Website.Models.Project
 {
     public class IndexViewModel : ProjectViewModel
     {
-        public IEnumerable<ICommit> Commits { get; set; }
+        public IEnumerable<ICommitInfo> Commits { get; set; }
     }
 }
