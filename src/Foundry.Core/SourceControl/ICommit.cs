@@ -7,6 +7,6 @@ namespace Foundry.SourceControl
 {
     public interface ICommit : IHistoricalItem
     {
-        IEnumerable<ISourceFile> Files { get; }
+        IEnumerable<IChange> Changes { get; }
     }
 }

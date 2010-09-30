@@ -5,8 +5,10 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommit : GitHistoricalItem, ICommit
+    public class GitChange : IChange
     {
-        public IEnumerable<IChange> Changes { get; set; }
+        public ChangeType Type { get; set; }
+
+
     }
 }

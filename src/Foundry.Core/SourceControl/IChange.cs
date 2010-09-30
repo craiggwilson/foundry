@@ -8,5 +8,7 @@ namespace Foundry.SourceControl
     public interface IChange
     {
         ChangeType Type { get; }
+
+        ISourceFile File { get; }
     }
 }

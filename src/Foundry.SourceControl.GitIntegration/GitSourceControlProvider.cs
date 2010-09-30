@@ -52,7 +52,7 @@ namespace Foundry.SourceControl.GitIntegration
                 DateTime = commit.CommitDate.DateTime,
                 Message = commit.Message,
                 Version = commit.ShortHash,
-                ParentVersions = commit.HasParents ? commit.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
+                ParentVersions = commit.HasParents ? commit.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>(),
             };
         }
 
@@ -131,7 +131,7 @@ namespace Foundry.SourceControl.GitIntegration
             return parentNode;
         }
 
-        private static GitSourceObject CreateGitSourceObject(string prefix, AbstractTreeNode node)
+        private static GitSourceObject CreateGitSourceObject(string prefix, Ab)
         {
             if (node.IsTree)
             {
