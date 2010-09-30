@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommit : GitCommitInfo, ICommit
+    public class GitCommit : GitHistoricalItem, ICommit
     {
         public IEnumerable<ISourceFile> Files { get; set; }
     }

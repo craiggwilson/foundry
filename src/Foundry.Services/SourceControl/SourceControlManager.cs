@@ -49,7 +49,7 @@ namespace Foundry.Services.SourceControl
             return provider.Value.GetCommit(project, path);
         }
 
-        public IEnumerable<ICommitInfo> GetHistory(Project project, string path)
+        public IEnumerable<IHistoricalItem> GetHistory(Project project, string path)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
             return provider.Value.GetHistory(project, path);

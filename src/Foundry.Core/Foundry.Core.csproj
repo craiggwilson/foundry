@@ -55,9 +55,11 @@
     <Compile Include="Security\IMembershipService.cs" />
     <Compile Include="Security\Operation.cs" />
     <Compile Include="Security\UserAuthorization.cs" />
+    <Compile Include="SourceControl\ChangeType.cs" />
     <Compile Include="SourceControl\IBranch.cs" />
+    <Compile Include="SourceControl\IChange.cs" />
     <Compile Include="SourceControl\ICommit.cs" />
-    <Compile Include="SourceControl\ICommitInfo.cs" />
+    <Compile Include="SourceControl\IHistoricalItem.cs" />
     <Compile Include="SourceControl\IHasParents.cs" />
     <Compile Include="SourceControl\ISourceFile.cs" />
     <Compile Include="SourceControl\ISourceObject.cs" />

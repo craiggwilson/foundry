@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ICommit : IHistoricalItem
+    public interface IChange
     {
-        IEnumerable<ISourceFile> Files { get; }
+        ChangeType Type { get; }
     }
 }

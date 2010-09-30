@@ -12,7 +12,7 @@ namespace Foundry.Website.Models.Project
 
         public IBranch DefaultBranch { get; set; }
 
-        public ICommitInfo LastCommit { get; set; }
+        public IHistoricalItem LastCommit { get; set; }
 
         public bool IsEmpty { get; set; }
 

@@ -55,7 +55,7 @@ namespace Foundry.Website.Controllers
             PopulateCommon(model, account, repository);
 
             if (model.DefaultBranch == null)
-                model.Commits = Enumerable.Empty<ICommitInfo>();
+                model.Commits = Enumerable.Empty<IHistoricalItem>();
             else
                 model.Commits = _sourceControlManager.GetHistory(model.Project, model.DefaultBranch.Name).Take(20);
 

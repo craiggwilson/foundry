@@ -16,7 +16,7 @@ namespace Foundry.SourceControl
 
         ICommit GetCommit(Project project, string path);
 
-        IEnumerable<ICommitInfo> GetHistory(Project project, string path);
+        IEnumerable<IHistoricalItem> GetHistory(Project project, string path);
 
         ISourceControlProviderMetadata GetProviderMetadata(Project project);
 

@@ -59,7 +59,7 @@
     <Compile Include="GitSourceFile.cs" />
     <Compile Include="GitSourceTree.cs" />
     <Compile Include="GitBranch.cs" />
-    <Compile Include="GitCommitInfo.cs" />
+    <Compile Include="GitHistoricalItem.cs" />
     <Compile Include="GitRouteHandler.cs" />
     <Compile Include="GitHttpHandler.cs" />
     <Compile Include="GitSettings.cs" />

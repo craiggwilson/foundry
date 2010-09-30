@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ICommitInfo
+    public interface IHistoricalItem
     {
         string Username { get; }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl.GitIntegration
 {
-    public class GitCommitInfo : ICommitInfo, IHasParents
+    public class GitHistoricalItem : IHistoricalItem, IHasParents
     {
         public string Username { get; set; }
 

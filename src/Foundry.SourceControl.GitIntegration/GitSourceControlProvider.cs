@@ -56,12 +56,12 @@ namespace Foundry.SourceControl.GitIntegration
             };
         }
 
-        public IEnumerable<ICommitInfo> GetHistory(Project project, string path)
+        public IEnumerable<IHistoricalItem> GetHistory(Project project, string path)
         {
             var repo = GetRepository(project);
 
             var branch = repo.Branches[path];
-            yield return new GitCommitInfo
+            yield return new GitHistoricalItem
             {
                 Username = branch.CurrentCommit.Committer.Name,
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,
@@ -72,7 +72,7 @@ namespace Foundry.SourceControl.GitIntegration
 
             foreach (var ancestor in branch.CurrentCommit.Ancestors)
             {
-                yield return new GitCommitInfo
+                yield return new GitHistoricalItem
                 {
                     Username = ancestor.Committer.Name,
                     DateTime = ancestor.CommitDate.DateTime,
