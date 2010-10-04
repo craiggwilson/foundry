@@ -1,5 +1,31 @@
 ﻿<viewdata model="Foundry.Website.Models.Project.CommitViewModel" />
 
+<content name="head">
+    <script type="text/javascript" src="${Links.Scripts.difflib_js}"></script>
+    <script type="text/javascript" src="${Links.Scripts.diffview_js}" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".codeDiff").each(function () {
+                var basetxt = difflib.stringAsLines($(".code:first", this).text());
+                var newtxt = difflib.stringAsLines($(".code:last", this).text());
+
+                var sm = new difflib.SequenceMatcher(basetxt, newtxt);
+                var output = diffview.buildView({
+                    baseTextLines: basetxt,
+                    newTextLines: newtxt,
+                    opcodes: sm.get_opcodes(),
+                    contextSize: 3,
+                    viewType: true
+                });
+
+                $(this).append(output);
+            });
+        });
+    
+    </script>
+</content>
+
 <content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
   <li if="!Model.IsEmpty">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
@@ -11,7 +37,15 @@
 <div id="content">
   <ul>
     <li each="var change in Model.Commit.Changes">
-      <a href="#">${change.File.Path}</a>
+      <a href="#diff${changeIndex}">${change.File.Path}</a>
     </li>
   </ul>
+  
+  <div each="var change in Model.Commit.Changes" class="codeDiff" id="diff${changeIndex}">
+    <div class="meta">
+        ${change.File.Path}
+    </div>
+    <div class="code"><if condition="change.OldFile != null">${Html.Encode(System.Text.Encoding.UTF8.GetString(change.OldFile.Content)).Replace(" ","&nbsp;")}</if></div>
+    <div class="code"><if condition="change.File != null">${Html.Encode(System.Text.Encoding.UTF8.GetString(change.File.Content)).Replace(" ","&nbsp;")}</if></div>
+  </div>
 </div>

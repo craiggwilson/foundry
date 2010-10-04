@@ -159,8 +159,21 @@ namespace Foundry.SourceControl.GitIntegration
         {
             foreach (var change in commit.Changes.Where(c => c.ChangedObject.IsBlob))
             {
-                var blob = (Blob)change.ComparedObject;
-                var oldBlob = (Blob)change.ReferenceObject;
+                Blob blob = null;
+                Blob oldBlob = null;
+                switch (change.ChangeType)
+                {
+                    case GitSharp.ChangeType.Added:
+                        blob = (Blob)change.ComparedObject;
+                        break;
+                    case GitSharp.ChangeType.Deleted:
+                        oldBlob = (Blob)change.ComparedObject;
+                        break;
+                    case GitSharp.ChangeType.Modified:
+                        blob = (Blob)change.ReferenceObject;
+                        oldBlob = (Blob)change.ComparedObject;
+                        break;
+                }
                 var gitChange = new GitChange { Type = (ChangeType)(int)change.ChangeType };
                 if (blob != null)
                 {

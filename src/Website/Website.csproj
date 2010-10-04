@@ -133,6 +133,8 @@
     <None Include="Views\Dashboard\Index.spark">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\difflib.js" />
+    <Content Include="Scripts\diffview.js" />
     <Content Include="Scripts\prettify.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

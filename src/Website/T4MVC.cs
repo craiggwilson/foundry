@@ -262,6 +262,10 @@ namespace Links {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string difflib_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/difflib.min.js") ? Url("difflib.min.js") : Url("difflib.js");
+                      
+        public static readonly string diffview_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/diffview.min.js") ? Url("diffview.min.js") : Url("diffview.js");
+                      
         public static readonly string prettify_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/prettify.min.js") ? Url("prettify.min.js") : Url("prettify.js");
                       
     }
