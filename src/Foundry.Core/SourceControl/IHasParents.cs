@@ -7,6 +7,6 @@ namespace Foundry.SourceControl
 {
     public interface IHasParents
     {
-        IEnumerable<string> ParentVersions { get; }
+        IEnumerable<string> ParentIds { get; }
     }
 }

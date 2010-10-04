@@ -12,10 +12,10 @@ namespace Foundry.SourceControl
 
         IEnumerable<IBranch> GetBranches(Project project);
 
-        IEnumerable<IHistoricalItem> GetHistory(Project project, string path);
+        IEnumerable<IHistoricalItem> GetHistory(Project project, string id);
 
-        ICommit GetCommit(Project project, string path);
+        ICommit GetCommit(Project project, string id);
 
-        ISourceObject GetSourceObject(Project project, string path);
+        ISourceObject GetSourceObject(Project project, string treeId, string path);
     }
 }

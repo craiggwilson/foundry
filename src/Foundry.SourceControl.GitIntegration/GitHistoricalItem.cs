@@ -7,14 +7,14 @@ namespace Foundry.SourceControl.GitIntegration
 {
     public class GitHistoricalItem : IHistoricalItem, IHasParents
     {
+        public string Id { get; set; }
+
         public string Username { get; set; }
 
         public string Message { get; set; }
 
         public DateTime DateTime { get; set; }
 
-        public string Version { get; set; }
-
-        public IEnumerable<string> ParentVersions { get; set; }
+        public IEnumerable<string> ParentIds { get; set; }
     }
 }

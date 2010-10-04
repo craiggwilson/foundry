@@ -104,6 +104,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Dashboard\IndexViewModel.cs" />
+    <Compile Include="Models\Project\CommitViewModel.cs" />
     <Compile Include="Models\Project\CreateViewModel.cs" />
     <Compile Include="Models\Project\IndexViewModel.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
@@ -141,6 +142,9 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Project\Commit.spark">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Project\Source.spark">
       <SubType>Designer</SubType>
     </None>

@@ -7,12 +7,12 @@ namespace Foundry.SourceControl
 {
     public interface IHistoricalItem
     {
+        string Id { get; }
+     
         string Username { get; }
 
         string Message { get; }
 
         DateTime DateTime { get; }
-
-        string Version { get; }
     }
 }

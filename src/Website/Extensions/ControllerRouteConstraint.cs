@@ -13,7 +13,7 @@ namespace Foundry.Website.Extensions
         {
             "Dashboard",
             "Account",
-            "Project",
+            //"Project",
         };
 
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)

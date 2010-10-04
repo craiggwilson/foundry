@@ -55,9 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitChange.cs" />
     <Compile Include="GitCommit.cs" />
     <Compile Include="GitSourceFile.cs" />
-    <Compile Include="GitSourceTree.cs" />
+    <Compile Include="GitSourceDirectory.cs" />
     <Compile Include="GitBranch.cs" />
     <Compile Include="GitHistoricalItem.cs" />
     <Compile Include="GitRouteHandler.cs" />

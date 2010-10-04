@@ -7,13 +7,15 @@ namespace Foundry.SourceControl.GitIntegration
 {
     public class GitSourceObject : ISourceObject
     {
-        public string Name { get; set; }
+        public string TreeId { get; set; }
 
         public string Path { get; set; }
 
-        public bool IsTree { get; set; }
+        public string Name { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public bool IsDirectory { get; set; }
+
+        public DateTime DateTime { get; set; }
 
         public string Message { get; set; }
     }

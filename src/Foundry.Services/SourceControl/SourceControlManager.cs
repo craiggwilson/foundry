@@ -43,22 +43,22 @@ namespace Foundry.Services.SourceControl
             return provider.Value.GetBranches(project);
         }
 
-        public ICommit GetCommit(Project project, string path)
+        public ICommit GetCommit(Project project, string id)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetCommit(project, path);
+            return provider.Value.GetCommit(project, id);
         }
 
-        public IEnumerable<IHistoricalItem> GetHistory(Project project, string path)
+        public IEnumerable<IHistoricalItem> GetHistory(Project project, string id)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetHistory(project, path);
+            return provider.Value.GetHistory(project, id);
         }
 
-        public ISourceObject GetSourceObject(Project project, string path)
+        public ISourceObject GetSourceObject(Project project, string treeId, string path)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetSourceObject(project, path);
+            return provider.Value.GetSourceObject(project, treeId, path);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Foundry.SourceControl.GitIntegration
     {
         public ChangeType Type { get; set; }
 
+        public ISourceFile File { get; set; }
 
+        public ISourceFile OldFile { get; set; }
     }
 }

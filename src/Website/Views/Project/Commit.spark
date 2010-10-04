@@ -1,0 +1,17 @@
+﻿<viewdata model="Foundry.Website.Models.Project.CommitViewModel" />
+
+<content name="location">
+  <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
+  <li if="!Model.IsEmpty">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
+  <li class="current" if="!Model.IsEmpty">${Html.ActionLink("Commits", MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
+</content>
+
+<Project />
+
+<div id="content">
+  <ul>
+    <li each="var change in Model.Commit.Changes">
+      <a href="#">${change.File.Path}</a>
+    </li>
+  </ul>
+</div>

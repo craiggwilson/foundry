@@ -52,12 +52,22 @@ namespace Foundry.Website
             );
 
             routes.MapRoute(
-                "Account",
+                "Account-Index",
                 "{account}",
                 new { controller = "Account", action = "Index" });
 
             routes.MapRoute(
-                "Project",
+                "Project-Create",
+                "Project/Create",
+                new { controller = "Project", action = "Create" });
+
+            routes.MapRoute(
+                "Project-Source",
+                "{account}/{repository}/Source/{tree}/{*path}",
+                new { controller = "Project", action = "Source" });
+
+            routes.MapRoute(
+                "Project-Default",
                 "{account}/{repository}/{action}/{*path}",
                 new { controller = "Project", action = "Index" });
         }

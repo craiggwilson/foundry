@@ -21,18 +21,18 @@
         </div>
 </div>
 
-<div if="Model.LastCommit != null" id="projectLastCommit">
+<div if="Model.HistoricalItem != null" id="projectHistoricalItem">
     <div class="info">
         <div class="message">
-            ${Model.LastCommit.Message}
+          ${Model.HistoricalItem.Message}
         </div>
         <div class="author">
-            ${Model.LastCommit.Username}
+          ${Model.HistoricalItem.Username}
         </div>
     </div>
     <div class="versions">
         <div>
-            commit ${Model.LastCommit.Version}
+          commit ${Html.ActionLink(Model.HistoricalItem.Id, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, Model.HistoricalItem.Id))}
         </div>
     </div>
     <div class="clear"></div>

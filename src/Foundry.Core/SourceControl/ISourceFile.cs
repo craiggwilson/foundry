@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ISourceFile
+    public interface ISourceFile : ISourceObject
     {
         string Extension { get; }
 

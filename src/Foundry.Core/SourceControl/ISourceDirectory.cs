@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foundry.SourceControl
 {
-    public interface ISourceTree : ISourceObject
+    public interface ISourceDirectory : ISourceObject
     {
         IEnumerable<ISourceObject> Children { get; }
     }

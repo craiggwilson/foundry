@@ -10,5 +10,7 @@ namespace Foundry.SourceControl
         ChangeType Type { get; }
 
         ISourceFile File { get; }
+
+        ISourceFile OldFile { get; }
     }
 }

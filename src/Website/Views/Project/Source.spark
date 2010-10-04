@@ -12,17 +12,17 @@
 
 <content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
-  <li class="current">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
-  <li>${Html.ActionLink("Commits", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name))}</li>
+  <li class="current">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
 </content>
 
 <Project />
 
 <div id="content">
 
-  <if condition="Model.Source.IsTree">
-    <var tree="(ISourceTree)Model.Source" />
-    <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
+  <if condition="Model.Source.IsDirectory">
+    <var dir="(ISourceDirectory)Model.Source" />
+    <div class="path">${dir.TreeId}/${dir.Path}</div>
     <table>
       <thead>
         <tr>
@@ -32,14 +32,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr if="!tree.Children.Any()">
+        <tr if="!dir.Children.Any()">
           <td colspan="3">
             This is an empty directory.
           </td>
         </tr>
-        <tr each="var child in tree.Children">
-          <td>${Html.ActionLink(child.Name, MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, child.Path))}</td>
-          <td>${Html.ToEnglish(child.LastModified)}</td>
+        <tr each="var child in dir.Children">
+          <td>${Html.ActionLink(child.Name, MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, child.TreeId, child.Path))}</td>
+          <td>${Html.ToEnglish(child.DateTime)}</td>
           <td>${child.Message}</td>
         </tr>
       </tbody>
@@ -48,7 +48,7 @@
   <else>
     <var file="(ISourceFile)Model.Source" />
 
-    <div class="path">${Html.SplitSourcePath(Model.Project, Model.Source.Path)}</div>
+    <div class="path">${file.TreeId}/${file.Path}</div>
     <pre>
       <code class="prettyprint lang-${file.Extension}">${Html.Encode(System.Text.Encoding.UTF8.GetString(file.Content))}</code>
     </pre>
