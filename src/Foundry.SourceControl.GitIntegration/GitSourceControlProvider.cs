@@ -36,11 +36,11 @@ namespace Foundry.SourceControl.GitIntegration
             });
         }
 
-        public ICommit GetCommit(Project project, string id)
+        public ICommit GetCommit(Project project, string commitId)
         {
             var repo = GetRepository(project);
 
-            var commit = repo.Get<Commit>(id);
+            var commit = repo.Get<Commit>(commitId);
             if (commit == null)
                 return null;
 
@@ -50,34 +50,39 @@ namespace Foundry.SourceControl.GitIntegration
                 DateTime = commit.CommitDate.DateTime,
                 Message = commit.Message,
                 Id = commit.Hash,
+                TreeId = commit.Tree.Hash,
                 ParentIds = commit.HasParents ? commit.Parents.Select(p => p.Hash) : Enumerable.Empty<string>(),
                 Changes = GetChanges(commit)
             };
         }
 
-        public IEnumerable<IHistoricalItem> GetHistory(Project project, string id)
+        public IEnumerable<ICommit> GetHistory(Project project, string id)
         {
             var repo = GetRepository(project);
 
             var branch = repo.Branches[id];
-            yield return new GitHistoricalItem
+            yield return new GitCommit
             {
                 Username = branch.CurrentCommit.Committer.Name,
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,
                 Message = branch.CurrentCommit.Message,
                 Id = branch.CurrentCommit.Hash,
-                ParentIds = branch.CurrentCommit.HasParents ? branch.CurrentCommit.Parents.Select(p => p.Hash) : Enumerable.Empty<string>()
+                TreeId = branch.CurrentCommit.Tree.Hash,
+                ParentIds = branch.CurrentCommit.HasParents ? branch.CurrentCommit.Parents.Select(p => p.Hash) : Enumerable.Empty<string>(),
+                Changes = GetChanges(branch.CurrentCommit)
             };
 
             foreach (var ancestor in branch.CurrentCommit.Ancestors)
             {
-                yield return new GitHistoricalItem
+                yield return new GitCommit
                 {
                     Username = ancestor.Committer.Name,
                     DateTime = ancestor.CommitDate.DateTime,
                     Message = ancestor.Message,
                     Id = ancestor.Hash,
-                    ParentIds = ancestor.HasParents ? ancestor.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
+                    TreeId = ancestor.Tree.Hash,
+                    ParentIds = ancestor.HasParents ? ancestor.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>(),
+                    Changes = GetChanges(ancestor)
                 };
             }
         }
@@ -90,7 +95,10 @@ namespace Foundry.SourceControl.GitIntegration
             if (repo.Branches.ContainsKey(treeId))
                 node = repo.Branches[treeId].CurrentCommit.Tree;
             else
-                node = repo.Get<Tree>(treeId);
+                node = repo.Get<AbstractObject>(treeId) as AbstractTreeNode;
+
+            if (node == null)
+                throw new NotSupportedException();
 
             if(!string.IsNullOrEmpty(path))
                 node = GetNode(node, path.Split('/'));
@@ -132,6 +140,7 @@ namespace Foundry.SourceControl.GitIntegration
                 {
                     Name = treeNode.Name,
                     IsDirectory = true,
+                    CommitId = treeNode.GetLastCommit().Hash,
                     TreeId = tree,
                     Path = node.Path,
                     DateTime = treeNode.GetLastCommit().CommitDate.DateTime,
@@ -142,15 +151,17 @@ namespace Foundry.SourceControl.GitIntegration
             }
             else
             {
+                var leafNode = (Leaf)node;
                 return new GitSourceFile
                 {
                     Name = node.Name,
                     IsDirectory = false,
+                    CommitId = leafNode.GetLastCommit().Hash,
                     TreeId = tree,
                     Path = node.Path,
                     DateTime = node.GetLastCommit().CommitDate.DateTime,
                     Message = node.GetLastCommit().Message,
-                    Content = ((Leaf)node).RawData
+                    Content = leafNode.RawData
                 };
             }
         }
@@ -184,6 +195,7 @@ namespace Foundry.SourceControl.GitIntegration
                         IsDirectory = false,
                         DateTime = commit.CommitDate.DateTime,
                         Message = commit.Message,
+                        CommitId = commit.Hash,
                         TreeId = commit.Tree.Hash,
                         Path = change.Path
                     };
@@ -198,6 +210,7 @@ namespace Foundry.SourceControl.GitIntegration
                         IsDirectory = false,
                         DateTime = change.ReferenceCommit.CommitDate.DateTime,
                         Message = change.ReferenceCommit.Message,
+                        CommitId = change.ReferenceCommit.Hash,
                         TreeId = change.ReferenceCommit.Tree.Hash,
                         Path = change.Path
                     };

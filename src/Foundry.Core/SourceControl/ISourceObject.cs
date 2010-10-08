@@ -7,6 +7,8 @@ namespace Foundry.SourceControl
 {
     public interface ISourceObject
     {
+        string CommitId { get; }
+
         string TreeId { get; }
 
         string Path { get; }

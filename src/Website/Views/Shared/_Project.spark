@@ -10,8 +10,7 @@
 
 <div id="project">
         <h2>
-            ${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName,
-            MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
+            ${Html.ActionLink(Model.Project.AccountName, MVC.Account.Index())} / ${Html.ActionLink(Model.Project.RepositoryName, MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</h2>
         <p class="description">
             Description
         </p>
@@ -21,24 +20,25 @@
         </div>
 </div>
 
-<div if="Model.HistoricalItem != null" id="projectHistoricalItem">
+<div if="Model.Commit != null" class="commit">
     <div class="info">
         <div class="message">
-          ${Model.HistoricalItem.Message}
+          ${Model.Commit.Message}
         </div>
         <div class="author">
-          ${Model.HistoricalItem.Username}
+          ${Model.Commit.Username}
         </div>
     </div>
     <div class="versions">
         <div>
-          commit ${Html.ActionLink(Model.HistoricalItem.Id, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, Model.HistoricalItem.Id))}
+          commit ${Html.ActionLink(Model.Commit.Id, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, Model.Commit.Id))}
         </div>
-      <if condition="Model.HistoricalItem is IHasParents">
-        <div each="var parentId in ((IHasParents)Model.HistoricalItem).ParentIds">
+      <div>
+        tree ${Html.ActionLink(Model.Commit.TreeId, MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.Commit.TreeId, null))}
+      </div>
+        <div each="var parentId in Model.Commit.ParentIds">
           parent ${Html.ActionLink(parentId, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, parentId))}
         </div>
-      </if>
     </div>
     <div class="clear"></div>
 </div>

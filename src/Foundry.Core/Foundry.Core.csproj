@@ -59,8 +59,6 @@
     <Compile Include="SourceControl\IBranch.cs" />
     <Compile Include="SourceControl\IChange.cs" />
     <Compile Include="SourceControl\ICommit.cs" />
-    <Compile Include="SourceControl\IHistoricalItem.cs" />
-    <Compile Include="SourceControl\IHasParents.cs" />
     <Compile Include="SourceControl\ISourceFile.cs" />
     <Compile Include="SourceControl\ISourceObject.cs" />
     <Compile Include="SourceControl\ISourceControlManager.cs" />

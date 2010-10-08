@@ -9,6 +9,6 @@ namespace Foundry.Website.Models.Project
 {
     public class CommitViewModel : ProjectViewModel
     {
-        public ICommit Commit { get; set; }
+
     }
 }

@@ -43,13 +43,13 @@ namespace Foundry.Services.SourceControl
             return provider.Value.GetBranches(project);
         }
 
-        public ICommit GetCommit(Project project, string id)
+        public ICommit GetCommit(Project project, string commitId)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
-            return provider.Value.GetCommit(project, id);
+            return provider.Value.GetCommit(project, commitId);
         }
 
-        public IEnumerable<IHistoricalItem> GetHistory(Project project, string id)
+        public IEnumerable<ICommit> GetHistory(Project project, string id)
         {
             var provider = _sourceControlProviders.Single(x => x.Metadata.Name == project.SourceControlProvider);
             return provider.Value.GetHistory(project, id);

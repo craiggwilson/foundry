@@ -27,10 +27,10 @@ namespace Foundry.Website.Controllers
         public virtual ActionResult Commit(string account, string repository, string path)
         {
             var model = new CommitViewModel();
-            PopulateCommon(model, account, repository, false);
+            PopulateCommon(model, account, repository);
 
             model.Commit = _sourceControlManager.GetCommit(model.Project, path);
-            model.HistoricalItem = model.Commit;
+            model.Commit = model.Commit;
 
             return View(model);
         }
@@ -64,12 +64,14 @@ namespace Foundry.Website.Controllers
         public virtual ActionResult Index(string account, string repository)
         {
             var model = new IndexViewModel();
-            PopulateCommon(model, account, repository, true);
+            PopulateCommon(model, account, repository);
 
             if (model.DefaultBranch == null)
-                model.Commits = Enumerable.Empty<IHistoricalItem>();
+                model.Commits = Enumerable.Empty<ICommit>();
             else
                 model.Commits = _sourceControlManager.GetHistory(model.Project, model.DefaultBranch.Name).Take(20);
+
+            model.Commit = model.Commits.FirstOrDefault();
 
             return View(model);
         }
@@ -78,14 +80,14 @@ namespace Foundry.Website.Controllers
         public virtual ActionResult Source(string account, string repository, string tree, string path)
         {
             var model = new SourceViewModel();
-            PopulateCommon(model, account, repository, true);
+            PopulateCommon(model, account, repository);
 
             model.Source = _sourceControlManager.GetSourceObject(model.Project, tree, path);
-
+            model.Commit = _sourceControlManager.GetCommit(model.Project, model.Source.CommitId);
             return View(model);
         }
 
-        private void PopulateCommon(ProjectViewModel model, string account, string repository, bool getLastCommit)
+        private void PopulateCommon(ProjectViewModel model, string account, string repository)
         {
             model.Project = _projectRepository.Single(r => r.AccountName == account && r.RepositoryName == repository);
 
@@ -93,10 +95,7 @@ namespace Foundry.Website.Controllers
 
             model.Branches = _sourceControlManager.GetBranches(model.Project);
             model.DefaultBranch = model.Branches.FirstOrDefault(b => b.IsCurrent);
-            model.CommitsHaveParents = providerMetadata.CommitsHaveParents;
             model.IsEmpty = model.DefaultBranch == null;
-            if(getLastCommit)
-                model.HistoricalItem = _sourceControlManager.GetHistory(model.Project, model.DefaultBranch.Name).Take(1).SingleOrDefault();
         }
     }
 }

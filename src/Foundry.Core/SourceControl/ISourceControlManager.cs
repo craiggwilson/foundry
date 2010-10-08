@@ -14,9 +14,9 @@ namespace Foundry.SourceControl
 
         IEnumerable<IBranch> GetBranches(Project project);
 
-        ICommit GetCommit(Project project, string id);
+        ICommit GetCommit(Project project, string commitId);
 
-        IEnumerable<IHistoricalItem> GetHistory(Project project, string id);
+        IEnumerable<ICommit> GetHistory(Project project, string id);
 
         ISourceControlProviderMetadata GetProviderMetadata(Project project);
 
