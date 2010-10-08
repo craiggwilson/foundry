@@ -66,7 +66,7 @@ namespace Foundry.SourceControl.GitIntegration
                 DateTime = branch.CurrentCommit.CommitDate.DateTime,
                 Message = branch.CurrentCommit.Message,
                 Id = branch.CurrentCommit.Hash,
-                ParentIds = branch.CurrentCommit.HasParents ? branch.CurrentCommit.Parents.Select(p => p.ShortHash) : Enumerable.Empty<string>()
+                ParentIds = branch.CurrentCommit.HasParents ? branch.CurrentCommit.Parents.Select(p => p.Hash) : Enumerable.Empty<string>()
             };
 
             foreach (var ancestor in branch.CurrentCommit.Ancestors)

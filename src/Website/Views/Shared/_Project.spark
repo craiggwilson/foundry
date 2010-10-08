@@ -34,6 +34,11 @@
         <div>
           commit ${Html.ActionLink(Model.HistoricalItem.Id, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, Model.HistoricalItem.Id))}
         </div>
+      <if condition="Model.HistoricalItem is IHasParents">
+        <div each="var parentId in ((IHasParents)Model.HistoricalItem).ParentIds">
+          parent ${Html.ActionLink(parentId, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, parentId))}
+        </div>
+      </if>
     </div>
     <div class="clear"></div>
 </div>
