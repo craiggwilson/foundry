@@ -24,13 +24,27 @@ namespace Foundry.Website.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult Commit(string account, string repository, string path)
+        public virtual ActionResult Commit(string account, string repository, string commit)
         {
             var model = new CommitViewModel();
             PopulateCommon(model, account, repository);
 
-            model.Commit = _sourceControlManager.GetCommit(model.Project, path);
+            model.Commit = _sourceControlManager.GetCommit(model.Project, commit);
             model.Commit = model.Commit;
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public virtual ActionResult Commits(string account, string repository, string path)
+        {
+            var model = new CommitsViewModel();
+            PopulateCommon(model, account, repository);
+
+            if (string.IsNullOrWhiteSpace(path))
+                path = model.DefaultBranch.Name;
+
+            model.Commits = _sourceControlManager.GetHistory(model.Project, path);
 
             return View(model);
         }

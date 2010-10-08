@@ -1,0 +1,22 @@
+﻿<div if="commit != null" class="commit">
+    <div class="info">
+        <div class="message">
+          ${commit.Message}
+        </div>
+        <div class="author">
+          ${commit.Username}
+        </div>
+    </div>
+    <div class="versions">
+        <div>
+          commit ${Html.ActionLink(commit.Id, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, commit.Id))}
+        </div>
+      <div>
+        tree ${Html.ActionLink(commit.TreeId, MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, commit.TreeId, null))}
+      </div>
+        <div each="var parentId in commit.ParentIds">
+          parent ${Html.ActionLink(parentId, MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, parentId))}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

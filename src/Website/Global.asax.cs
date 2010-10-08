@@ -57,6 +57,16 @@ namespace Foundry.Website
                 new { controller = "Account", action = "Index" });
 
             routes.MapRoute(
+                "Project-Commits",
+                "{account}/{repository}/Commits/{*path}",
+                new { controller = "Project", action = "Commits" });
+
+            routes.MapRoute(
+                "Project-Commit",
+                "{account}/{repository}/Commit/{commit}",
+                new { controller = "Project", action = "Commit"});
+
+            routes.MapRoute(
                 "Project-Create",
                 "Project/Create",
                 new { controller = "Project", action = "Create" });

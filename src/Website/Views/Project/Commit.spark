@@ -29,7 +29,7 @@
 <content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName))}</li>
   <li if="!Model.IsEmpty">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
-  <li class="current" if="!Model.IsEmpty">${Html.ActionLink("Commits", MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
+  <li class="current" if="!Model.IsEmpty">${Html.ActionLink("Commits", MVC.Project.Commits(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
 </content>
 
 <Project />

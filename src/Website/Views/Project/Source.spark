@@ -13,7 +13,7 @@
 <content name="location">
   <li>${Html.ActionLink("Overview", MVC.Project.Index(Model.Project.AccountName, Model.Project.RepositoryName), new { class="selected" })}</li>
   <li class="current">${Html.ActionLink("Source", MVC.Project.Source(Model.Project.AccountName, Model.Project.RepositoryName, Model.DefaultBranch.Name, null))}</li>
-  <li>${Html.ActionLink("Commits", MVC.Project.Commit(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
+  <li>${Html.ActionLink("Commits", MVC.Project.Commits(Model.Project.AccountName, Model.Project.RepositoryName, null))}</li>
 </content>
 
 <Project />

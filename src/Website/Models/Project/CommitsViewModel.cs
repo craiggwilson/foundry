@@ -7,7 +7,8 @@ using Foundry.SourceControl;
 
 namespace Foundry.Website.Models.Project
 {
-    public class CommitViewModel : ProjectViewModel
+    public class CommitsViewModel : ProjectViewModel
     {
+        public IEnumerable<ICommit> Commits { get; set; }
     }
 }
